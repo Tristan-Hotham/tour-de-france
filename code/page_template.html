@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Every Tour de France</title>
+<meta name="description" content="An interactive map of all {{source.men_stages|int}} stages of the Tour de France from {{source.first_year|raw}} to {{source.last_year|raw}}, and the Tour de France Femmes since {{source.women_first|raw}}, drawn from start to finish: the giant loop round the edge of France, {{abroad.gd_abroad|int}} Grand Départs abroad, the most visited towns, and a race that got shorter and faster.">
+<meta property="og:title" content="Every Tour de France, mapped">
+<meta property="og:description" content="{{source.men_stages|int}} stages, {{source.men_years|int}} Tours, {{towns.n|int}} stage towns. The longest Tour was {{dist.longest_km|int}} km in {{dist.longest_year|raw}}; the fastest winner averaged {{dist.speed_max|f1}} km/h in {{dist.speed_max_year|raw}}.">
+<meta property="og:image" content="https://maps.tristanhotham.com/tour-de-france/header.png">
+<meta property="og:url" content="https://maps.tristanhotham.com/tour-de-france/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800;9..144,900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<style>
+/* Maillot jaune: pale road-map paper, jersey yellow, polka-dot red, ink black, and a ramp of decades from navy to wine. */
+:root{
+  --bg:#F7F5EF; --panel:#ECE8DE; --fg:#1C1E22; --muted:#626870; --rule:#DDD7CA; --card:#FFFEF9; --border:#CBC4B5;
+  --yellow:#F5C400; --yellowd:#9A7A00; --red:#C8322B; --green:#2E8A57; --ink:#1B2A4A; --land:#ECE6D8; --sea:#E6EDF0; --women:#8E44AD;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13151A; --panel:#1C1F27; --fg:#ECEDEF; --muted:#A3A8AF; --rule:#30343D; --card:#181B21; --border:#454B56;
+  --yellow:#FFD23A; --yellowd:#FFD23A; --red:#FF6A5C; --green:#5CC28A; --ink:#AFC0E0; --land:#262A31; --sea:#171B21; --women:#C08BE0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13151A; --panel:#1C1F27; --fg:#ECEDEF; --muted:#A3A8AF; --rule:#30343D; --card:#181B21; --border:#454B56;
+  --yellow:#FFD23A; --yellowd:#FFD23A; --red:#FF6A5C; --green:#5CC28A; --ink:#AFC0E0; --land:#262A31; --sea:#171B21; --women:#C08BE0; color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 18px/1.62 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
+.wrap{max-width:700px;margin:0 auto;padding-block:28px 64px}
+.wrap .bleed{width:min(1180px,calc(100vw - 32px));margin-left:calc((100% - min(1180px,100vw - 32px))/2);margin-right:0}
+a{color:inherit;text-decoration-color:var(--red);text-underline-offset:3px}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.kicker b{background:var(--fg);color:var(--bg);padding:5px 8px;font-weight:500}
+header.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 24px;align-items:end;border-bottom:6px double var(--fg);padding-bottom:22px;margin-top:18px}
+h1{font:900 clamp(42px,10vw,88px)/.92 var(--display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1 .y{background:linear-gradient(transparent 58%,var(--yellow) 58%,var(--yellow) 92%,transparent 92%);padding:0 .06em}
+h1 .m{color:var(--red)}
+.mark{width:clamp(78px,16vw,128px);height:auto;display:block;color:var(--fg)}
+.dek{grid-column:1/-1;font-size:21px;line-height:1.42;margin:8px 0 0;max-width:58ch}
+.byline{font:400 13px/1.4 var(--mono);color:var(--muted);margin-top:14px}
+h2{font:800 34px/1.04 var(--display);letter-spacing:-.01em;margin:54px 0 10px;text-wrap:balance}
+h2 .n{font:500 13px/1 var(--mono);color:var(--red);display:block;letter-spacing:.1em;margin-bottom:10px}
+h3{font:600 20px/1.25 var(--display);margin:28px 0 6px}
+p{margin:0 0 16px}
+.lede::first-letter{font:900 72px/.8 var(--display);float:left;margin:6px 10px 0 0;color:var(--fg);background:var(--yellow);padding:4px 6px 2px}
+:root[data-theme="dark"] .lede::first-letter{color:#13151A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lede::first-letter{color:#13151A}}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:26px 0 8px}
+.stats div{background:var(--card);padding:14px 12px}
+.stats b{display:block;font:900 clamp(22px,4.4vw,32px)/1 var(--display);letter-spacing:-.01em}
+.stats b.y{color:var(--yellowd)} .stats b.r{color:var(--red)} .stats b.g{color:var(--green)} .stats b.k{color:var(--ink)}
+.stats span{font:400 12px/1.35 var(--mono);color:var(--muted);display:block;margin-top:6px}
+@media (max-width:600px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.figure{margin:26px 0 30px}
+.fig-h{font:600 19px/1.25 var(--display);margin:0 0 4px}
+.fig-sub{font:400 13px/1.45 var(--mono);color:var(--muted);margin:0 0 12px}
+.src{font:400 12px/1.45 var(--mono);color:var(--muted);margin-top:10px}
+.chart{width:100%;position:relative}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:var(--mono);fill:var(--fg)}
+.lab{font-size:12px}.lab.m{fill:var(--muted)}.lab.b{font-weight:500}.lab.s{font-size:11px}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font:400 12px/1.45 var(--mono);padding:8px 10px;border-radius:3px;max-width:300px;z-index:100001;transform:translate(-50%,calc(-100% - 12px));display:none}
+.tip b{font-weight:500}
+.controls{display:flex;gap:8px;align-items:center;margin:0 0 10px;flex-wrap:wrap}
+.scrollrow{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;padding-bottom:2px;max-width:100%}
+.scrollrow .btn{flex:0 0 auto;white-space:nowrap}
+.ctl-l{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:2px;flex:0 0 auto;align-self:center}
+.btn{font:500 12px/1 var(--mono);background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:8px 10px;cursor:pointer;min-height:36px}
+.btn[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.btn i{display:inline-block;width:12px;height:4px;border-radius:2px;margin-right:6px;vertical-align:2px}
+.btn.dec[aria-pressed="true"]{background:var(--card);color:var(--fg);border-color:var(--fg)}
+.btn.dec[aria-pressed="false"]{opacity:.4;text-decoration:line-through}
+.btn:focus-visible,input:focus-visible,summary:focus-visible,select:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.searchbox{position:relative;flex:1 1 260px;min-width:0}
+input[type=search]{font:400 15px/1 var(--mono);background:var(--card);color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:10px 11px;min-height:40px;width:100%}
+.suggest{position:absolute;left:0;right:0;top:100%;margin:2px 0 0;padding:0;list-style:none;background:var(--card);border:1px solid var(--border);z-index:1001;font:400 13px/1.3 var(--mono);display:none;max-height:340px;overflow:auto}
+.suggest li{padding:8px 10px;cursor:pointer;border-bottom:1px solid var(--rule)}
+.suggest li span{color:var(--muted)}
+.suggest li[aria-selected="true"],.suggest li:hover{background:var(--panel)}
+.timebox{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:10px;align-items:center;margin:0 0 10px;font:500 13px/1 var(--mono)}
+.timebox .yv{font:900 30px/1 var(--display);min-width:3.2ch;text-align:center}
+.timebox .yv span{background:linear-gradient(transparent 55%,var(--yellow) 55%)}
+.timebox input[type=range]{width:100%;accent-color:var(--fg);height:28px}
+.play{width:42px;height:38px;border-radius:3px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);font:600 15px/1 var(--mono);cursor:pointer}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+@media (max-width:900px){.mapgrid{grid-template-columns:1fr}}
+.side{background:var(--card);border:1px solid var(--border);padding:12px 12px 10px;font:400 13px/1.45 var(--mono);max-height:640px;overflow:auto}
+@media (max-width:900px){.side{max-height:420px}}
+.side h4{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 8px}
+.side h4:first-child{margin-top:2px}
+.side .big{font:800 26px/1.1 var(--display);margin:2px 0 4px}
+.side .sub{color:var(--muted);font-size:12px;margin:0 0 8px}
+.side ol{margin:4px 0 8px;padding-left:24px}
+.side li{margin:3px 0}
+.side li small{color:var(--muted)}
+.side li.on{background:color-mix(in srgb,var(--yellow) 35%,transparent)}
+.go{cursor:pointer;text-decoration:underline;text-decoration-color:var(--border);text-underline-offset:3px}
+.mapbox{position:relative}
+.lmap{height:640px;border:1px solid var(--border);background:var(--sea);border-radius:2px}
+@media (max-width:600px){.lmap{height:min(66vh,480px)}}
+.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:500 13px var(--mono);color:var(--muted);pointer-events:none;z-index:1;text-align:center;padding:20px}
+.fallback{position:absolute;inset:0;display:none;background:var(--sea);overflow:hidden}
+.fallback img{width:100%;height:100%;object-fit:contain}
+.fallback p{position:absolute;left:10px;bottom:6px;margin:0;font:400 12px/1.4 var(--mono);color:var(--muted);background:var(--card);padding:4px 8px;border:1px solid var(--border)}
+.maplibregl-map{font:400 12px/1.4 var(--mono)}
+.maplibregl-popup-content{background:var(--card);color:var(--fg);font:400 12px/1.45 var(--mono);padding:10px 12px;border-radius:3px;box-shadow:0 2px 10px rgba(0,0,0,.2);max-width:320px}
+.maplibregl-popup-content b.t{font:700 16px/1.2 var(--display);display:block;margin-bottom:2px}
+.maplibregl-popup-content small{color:var(--muted)}
+.maplibregl-popup-content .list{max-height:230px;overflow:auto;margin-top:6px;border-top:1px solid var(--rule);padding-top:4px}
+.maplibregl-popup-content .list div{padding:2px 0;border-bottom:1px solid var(--rule)}
+.maplibregl-popup-content .list div.w{color:var(--women)}
+.maplibregl-popup-tip{border-top-color:var(--card)!important;border-bottom-color:var(--card)!important}
+.maplibregl-popup-close-button{color:var(--fg);font-size:18px;padding:0 6px}
+.maplibregl-ctrl-attrib{background:color-mix(in srgb,var(--card) 85%,transparent)!important;color:var(--muted)}
+.maplibregl-ctrl-attrib a{color:var(--fg)}
+.maplibregl-ctrl-group{background:var(--card)}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.maplibregl-popup{z-index:4}
+.tl{position:absolute;font:500 11px/1 var(--mono);color:var(--fg);white-space:nowrap;text-shadow:0 0 3px var(--bg),0 0 3px var(--bg),0 0 2px var(--bg)}
+.tl.s{font-size:10px;font-weight:400}
+.tl small{color:var(--muted);font-weight:400}
+.lyrWrap{position:absolute;top:10px;left:10px;z-index:3}
+.lyrBtn{background:var(--card,var(--bg));color:var(--fg);border:1px solid var(--border);border-radius:3px;font:600 12px/1 var(--mono);padding:8px 10px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.lyrBtn[aria-expanded="true"]{background:var(--fg);color:var(--bg)}
+.lyrPanel{background:var(--card,var(--bg));color:var(--fg);border:1px solid var(--border);border-radius:3px;padding:10px 12px 8px;margin-top:6px;width:260px;box-shadow:0 2px 10px rgba(0,0,0,.15);font:400 12px/1.3 var(--mono);max-height:min(70vh,520px);overflow:auto}
+.lyrPanel[hidden]{display:none}
+.lyrPanel .row{margin:0 0 9px}
+.lyrPanel label{display:flex;gap:6px;align-items:center;cursor:pointer;font-weight:600}
+.lyrPanel input[type=range]{width:100%;accent-color:var(--fg)}
+.lyrPanel select{font:400 12px var(--mono);background:var(--bg);color:var(--fg);border:1px solid var(--border);border-radius:2px;padding:2px 4px;width:100%;min-height:0}
+.lyrPanel .sub{display:flex;gap:6px;align-items:center;color:var(--muted);font-size:11px;margin-top:3px}
+.lyrPanel .sub span{flex:0 0 58px}
+.lyrPanel .hd{font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:10px 0 7px;border-top:1px solid var(--rule);padding-top:9px}
+.lyrPanel .reset{font:400 11px var(--mono);color:var(--muted);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+.mapnote{position:absolute;left:10px;bottom:28px;z-index:3;background:color-mix(in srgb,var(--card) 92%,transparent);border:1px solid var(--border);border-radius:3px;padding:6px 9px;font:400 12px/1.35 var(--mono);max-width:min(300px,62vw);box-shadow:0 1px 4px rgba(0,0,0,.12);pointer-events:none}
+.mapnote b{font-weight:600}
+.mapnote:empty{display:none}
+.legend{display:flex;gap:6px 14px;flex-wrap:wrap;font:400 12px/1.3 var(--mono);color:var(--muted);margin-top:8px;align-items:center}
+.legend span{display:inline-flex;align-items:center}
+.legend i{display:inline-block;width:13px;height:13px;margin-right:6px;border-radius:2px;border:1px solid rgba(0,0,0,.15)}
+.legend i.ln{height:4px;border:0}
+.pull{font:600 26px/1.25 var(--display);border-left:6px solid var(--yellow);padding:4px 0 4px 18px;margin:30px 0}
+.note{background:var(--panel);border:1px solid var(--rule);padding:14px 16px;font-size:16px;margin:22px 0}
+.note h3{margin-top:0}
+table.tbl{width:100%;border-collapse:collapse;font:400 13px/1.4 var(--mono)}
+table.tbl th{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 6px 6px 0;border-bottom:2px solid var(--fg);position:sticky;top:0;background:var(--card)}
+table.tbl td{padding:6px 6px 6px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+table.tbl td.r,table.tbl th.r{text-align:right;white-space:nowrap}
+table.tbl tr[data-i]{cursor:pointer}
+table.tbl tr[data-i]:hover td{background:var(--panel)}
+.tablebox{max-height:460px;overflow:auto;border:1px solid var(--border);background:var(--card);padding:0 10px}
+details{margin:14px 0}
+summary{font:500 13px/1.4 var(--mono);cursor:pointer;color:var(--fg);padding:8px 0}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.cta a{font:500 13px/1 var(--mono);text-decoration:none;border:1px solid var(--fg);padding:11px 14px;border-radius:3px}
+.cta a.p{background:var(--yellow);border-color:var(--fg);color:#1C1E22}
+footer{border-top:6px double var(--fg);margin-top:56px;padding-top:16px;font:400 13px/1.55 var(--mono);color:var(--muted)}
+footer p{margin:0 0 10px}
+.theme{position:fixed;right:12px;bottom:12px;z-index:1002}
+ul.plain{padding-left:20px}
+@media print{.theme,.controls{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="kicker"><b>Data study</b><span>Cycling</span><span>France and its neighbours, {{source.first_year|raw}} to {{source.last_year|raw}}</span></div>
+<header class="hero">
+  <h1>Every <span class="y">Tour</span> de France, <span class="m">mapped</span></h1>
+  <svg class="mark" viewBox="0 0 120 120" aria-hidden="true"><g id="heroMark"></g></svg>
+  <p class="dek">All {{source.men_stages|int}} stages of the men's Tour from {{source.first_year|raw}} to {{source.last_year|raw}}, and all {{source.women_stages|int}} of the Tour de France Femmes since {{source.women_first|raw}}, drawn as lines from start to finish. How the race wandered: from a giant loop round the edge of France to Grand Départs in Dublin, Florence and Copenhagen. The towns it keeps coming back to, how far it strays abroad, and how it got shorter and faster.</p>
+</header>
+<div class="byline">Dr Tristan Hotham · Independent researcher · 2026 · Data: LeTourDataSet (Thomas Camminady, from letour.fr), MIT; GeoNames (CC BY 4.0); Natural Earth</div>
+
+<div class="stats">
+  <div><b class="k">{{source.men_stages|int}}</b><span>stages in {{source.men_years|int}} Tours, {{source.first_year|raw}} to {{source.last_year|raw}}</span></div>
+  <div><b class="y">{{towns.n|int}}</b><span>stage towns, from Paris ({{towns.paris.visits|int}} starts and finishes) to {{towns.once|int}} that hosted just once</span></div>
+  <div><b class="r">{{abroad.gd_abroad|int}}</b><span>Grand Départs abroad since Amsterdam in {{abroad.gd_first_abroad|raw}}</span></div>
+  <div><b class="g">{{dist.speed_max|f1}}</b><span>km/h, the winner's average in {{dist.speed_max_year|raw}}, over {{dist.y2026|int}} km. In {{dist.longest_year|raw}}: {{dist.speed_1926|f1}} km/h over {{dist.longest_km|int}} km</span></div>
+</div>
+
+<p class="lede">The first Tour de France, in July 1903, had six stages. Riders left Paris for Lyon, then rode on to Marseille, Toulouse, Bordeaux and Nantes, and back to Paris: {{dist.y1903|int}} km in all, an average of {{dist.avg_stage_max|int}} km a stage. The race has been held {{source.men_years|int}} times, with breaks only for the two world wars, and every stage is recorded on the official Tour website. Thomas Camminady has gathered those pages into LeTourDataSet, a free table of every stage and every rider, and it is the source for everything here.</p>
+<p>The table gives each stage's start and finish town, but not where they are. So I matched every name against GeoNames, a free gazetteer of the world's towns, and drew each stage as a straight line from start to finish. The result, below, is a portrait of more than a century of the race. Press play to watch each Tour drawn stage by stage in yellow, or click any town to see every stage it has hosted.</p>
+
+<h2><span class="n">01 · The map</span>{{source.men_stages|int}} stages, {{towns.n|int}} towns</h2>
+<div class="bleed" id="atlas">
+<div class="timebox"><button class="play" id="play" aria-label="Play through the Tours">&#9654;</button><span class="yv" id="yv"><span>All</span></span><input type="range" id="yr" min="0" max="{{source.men_years|int}}" step="1" value="{{source.men_years|int}}" aria-label="Year"><span id="ylab" style="color:var(--muted);font-size:12px">all Tours</span></div>
+<div class="controls">
+  <div class="scrollrow" id="showRow"><span class="ctl-l">Show</span><button class="btn" data-k="men" aria-pressed="true">Men's Tour</button><button class="btn" data-k="women" aria-pressed="false"><i style="background:#8E44AD"></i>Tour de France Femmes</button><button class="btn" data-k="heat" aria-pressed="false">Heat of stage towns</button><button class="btn" data-k="transfers" aria-pressed="false">Transfers</button></div>
+</div>
+<div class="controls"><div class="scrollrow" id="decRow"><span class="ctl-l">Decades</span></div></div>
+<div class="controls">
+  <div class="searchbox"><input type="search" id="q" placeholder="Search a town (Pau, Alpe d'Huez, London...) or a year" aria-label="Search a stage town or a year" autocomplete="off"><ul class="suggest" id="sug" role="listbox"></ul></div>
+</div>
+<div class="controls"><div class="scrollrow" id="focusRow"><span class="ctl-l">Zoom to</span></div></div>
+<div class="mapgrid">
+  <div><div class="mapbox" id="mapbox"><div id="map" class="lmap" role="application" aria-label="Map of every Tour de France stage as a line from start to finish"></div>
+    <div class="loading" id="loading">Loading {{source.men_stages|int}} stages...</div>
+    <div class="fallback" id="fallback"><img src="img/map_static.png" alt="Static map of every Tour de France stage as a line from start to finish, coloured by decade" loading="lazy"><p>The interactive map could not start in this browser, so this is a static version.</p></div>
+    <div class="mapnote" id="mapnote"></div></div>
+    <div class="legend" id="legend"></div></div>
+  <div class="side" id="side" aria-live="polite"></div>
+</div>
+<p class="src">Lines: each stage, straight from its start town to its finish town (the source has no routes), coloured by decade; the chosen Tour in yellow. Dashed lines (Transfers): the gap between one stage's finish and the next stage's start. Circles: stage towns, sized by starts and finishes. Stage towns are GeoNames places; {{geo.rate|f1}}% of the {{geo.ends|int}} starts and finishes are located, and summit finishes with no village in their name, such as the Puy de Dôme and Mont Ventoux, are left off. Source: LeTourDataSet by Thomas Camminady (MIT), from letour.fr. Places: GeoNames (CC BY 4.0). Outlines: Natural Earth. Relief tiles © Esri.</p>
+</div>
+
+<h2><span class="n">02 · The giant loop</span>Round the edge, then across the middle</h2>
+<p>For its first half century the Tour was a tour in the literal sense: a lap of France. It ran round the coasts and frontiers, from the Channel to the Atlantic, over the Pyrenees, along the Mediterranean, up the Alps and across the north. In the 1920s, {{shape.edge50_1920s|int}}% of the French stage towns it used lay within 50 km of the coast or a land border, although that strip makes up only {{shape.area_edge50_pct|int}}% of the country. In the 2020s the figure is {{shape.edge50_2020s|int}}%.</p>
+<p>The early loop was also unbroken. Through the 1910s, 1920s and 1930s every stage began in the town where the last one had finished, so the route could be drawn without lifting the pen. That changed slowly after the war, then quickly. In the 1960s, {{shape.transfer_pct_1960s|int}}% of stages began somewhere else; in the 2020s, {{shape.transfer_pct_2020s|int}}% do, and the riders and their convoy are moved by bus, train or plane. Summed as straight lines, the gaps between finishes and next starts now add up to about {{shape.transfer_km_2020s|int}} km a Tour. The longest single jump in the data is {{shape.transfer_top.0.km|int}} km, from {{shape.transfer_top.0.from|raw}} in the Basque Country to {{shape.transfer_top.0.to|raw}} near Paris in {{shape.transfer_top.0.year|raw}}.</p>
+<div class="figure"><p class="fig-h">The loop, by decade</p><p class="fig-sub">Bars: share of French stage towns (each start and finish counted) within 50 km of the coast or a land border; the dashed line is that strip's share of France's area. Line: share of stages that start in a different town from the previous finish. Hover or tap a decade.</p><div class="chart" id="loopChart"></div><div class="legend" id="loopLegend"></div></div>
+
+<h2><span class="n">03 · Shorter and faster</span>From {{dist.longest_km|int}} km to {{dist.y2026|int}}</h2>
+<p>The longest Tour was the {{dist.longest_year|raw}} edition: {{dist.longest_km|int}} km, in a decade when the race averaged {{dist.dist_1920s|int}} km and its stages {{dist.avg_stage_1920s|int}} km. The winner, Lucien Buysse, was on his bike for {{dist.time_1926_h|int}} hours. The {{source.last_year|raw}} Tour covered {{dist.y2026|int}} km in {{dist.y2026_n|int}} stages, {{dist.dist_drop_pct|int}}% less, with stages averaging {{dist.avg_stage_2026|int}} km, and its winner needed {{dist.time_2026_h|int}} hours.</p>
+<div class="figure"><p class="fig-h">Total distance and the winner's speed, every Tour</p><p class="fig-sub">Bars: the official total distance of each Tour, coloured by decade. Dots: the overall winner's average speed (distance divided by time), only for Tours decided on time; from 1905 to 1912 the Tour was decided on points, and there is no winner in the official record for 1999 to 2005. Hover or tap a year.</p><div class="chart" id="distChart"></div><div class="legend" id="distLegend"></div></div>
+<p>The riders also got much faster. Maurice Garin won the first Tour at {{dist.speed_1903|f1}} km/h. The winners of the 1950s averaged {{dist.speed_1950s|f1}} km/h, and those of the 2020s {{dist.speed_2020s|f1}} km/h; the fastest of all was Tadej Pogačar in {{dist.speed_max_year|raw}}, at {{dist.speed_max|f2}} km/h. The data cannot say why. What it does show is a gap: the official record has no winner at all for 1999 to 2005, because those seven titles were stripped and never given to anyone else.</p>
+<p>The source has no length for single stages, only each Tour's total. As the crow flies, the longest stages were the opening legs of 1903 and 1904, Paris to Lyon, {{dist.crow_top.0.km|int}} km in a straight line; the road was longer still. Across all stages with two located towns, the straight line from start to finish averages {{dist.crow_mean|int}} km, and {{dist.loops|int}} stages, mostly time trials and circuits, started and finished in the same town.</p>
+
+<h2><span class="n">04 · Stage towns</span>Paris, Bordeaux, Pau</h2>
+<p>The {{source.men_stages|int}} stages of the men's Tour used {{towns.men_n|int}} different towns, {{towns.once|int}} of them ({{towns.once_pct|int}}%) only once. Paris is in a class of its own: {{towns.paris.visits|int}} starts and finishes in {{towns.paris.tours|int}} Tours. Every Tour has ended in Paris except {{towns.final_elsewhere.0.0|raw}}, when the Olympic Games were in the capital and the race finished in {{towns.final_elsewhere.0.1|raw}}, and {{towns.paris_gd|int}} began there, including every Tour until the first Grand Départ elsewhere, in Évian in {{towns.gd_not_paris_first|raw}}. The next two are the gateways to the Pyrenees: Bordeaux, with {{towns.top_visits.1.n|int}} starts and finishes, and Pau, with {{towns.top_visits.2.n|int}}, the most common start of all ({{towns.top_starts.0.n|int}}). Luchon, at the foot of the passes in the central Pyrenees, is fourth.</p>
+<div class="figure"><p class="fig-h">The most visited stage towns</p><p class="fig-sub">Starts and finishes in the men's Tour, {{source.first_year|raw}} to {{source.last_year|raw}}. Click a row to see the town on the map.</p><div class="tablebox"><table class="tbl" id="townTable"></table></div></div>
+
+<h2><span class="n">05 · Abroad</span>{{abroad.gd_abroad|int}} Grand Départs outside France</h2>
+<p>The Tour first crossed a border in {{abroad.first_abroad.year|raw}}, with a stage from {{abroad.first_abroad.start|raw}} to {{abroad.first_abroad.end|raw}}. The first Grand Départ abroad came in {{abroad.gd_first_abroad|raw}}, in {{abroad.gd_first_abroad_town|raw}}, and since then the race has started in {{abroad.gd_by_country.Netherlands|int}} Dutch towns, {{abroad.gd_by_country.Belgium|int}} Belgian, {{abroad.gd_by_country.Germany|int}} German and {{abroad.gd_by_country.Spain|int}} Spanish, as well as in Luxembourg, Switzerland, Monaco, Ireland, Denmark, Italy and, twice, England. Starting abroad has become the norm: {{abroad.gd_since2000|int}} of the {{abroad.tours_since2000|int}} Tours since 2000 began outside France.</p>
+<div class="figure"><p class="fig-h">Stages abroad, every Tour</p><p class="fig-sub">Stages that started or finished outside France, by the foreign country they touched (the start's, if both ends are abroad). Triangles mark Grand Départs abroad. Hover or tap a year.</p><div class="chart" id="abroadChart"></div><div class="legend" id="abroadLegend"></div></div>
+<p>In all, {{abroad.stages_abroad|int}} stages ({{abroad.stages_abroad_pct|f1}}%) started or finished in one of {{abroad.n_countries|int}} other countries, and {{abroad.cross|int}} ({{abroad.cross_pct|f1}}% of those with both ends located) crossed a border. Belgium is the Tour's second home, with {{abroad.stages_by_country.Belgium|int}} stages touching it, ahead of Switzerland ({{abroad.stages_by_country.Switzerland|int}}), Spain ({{abroad.stages_by_country.Spain|int}}) and Italy ({{abroad.stages_by_country.Italy|int}}). Brussels and Liège are the most visited towns outside France, with {{towns.top_abroad.0.n|int}} and {{towns.top_abroad.1.n|int}} starts and finishes. {{abroad.tours_all_france|int}} of the {{source.men_years|int}} Tours never left France at all, at least at their located starts and finishes.</p>
+<div class="figure"><p class="fig-h">Every Grand Départ abroad</p><p class="fig-sub">The start town of the first stage or prologue. Click a row to see that Tour on the map.</p><div class="tablebox"><table class="tbl" id="gdTable"></table></div></div>
+
+<h2><span class="n">06 · Départements</span>Every one, at least once</h2>
+<p>Has the Tour been everywhere? Using the département GeoNames gives each French stage town, every one of the {{deps.n|int}} départements of metropolitan France has hosted at least one start or finish. The busiest is Pyrénées-Atlantiques, home to Pau, Bayonne and the Aubisque, with {{deps.top.0.2|int}} starts and finishes in {{deps.top.0.3|int}} Tours, ahead of Haute-Garonne, which holds Luchon ({{deps.top.1.2|int}}). The least visited are Deux-Sèvres, where only Niort (in 1950) appears among the located towns, and the two départements of Corsica, which waited until the 100th Tour in 2013. Turn on "Départements" in Map layers to shade them by visits. The data has no record of the towns a stage merely passed through, so this counts only starts and finishes.</p>
+
+<h2><span class="n">07 · Winners</span>France {{winners.france|int}}, Belgium {{winners.belgium|int}}, Spain {{winners.spain|int}}</h2>
+<p>LeTourDataSet's rider file lists the final classification of every Tour. It has no nationality column, so I added the nationality of each of the {{winners.n_riders|int}} overall winners by hand, and checked it against the national team that the file names for the {{winners.checked_by_team|int}} winners of the years when the Tour was raced by national teams. French riders won {{winners.france|int}} Tours, the last in {{winners.france_last|raw}}, by Bernard Hinault. Belgium has {{winners.belgium|int}}, Spain {{winners.spain|int}}, Italy {{winners.italy|int}}, Britain {{winners.uk|int}}, and Luxembourg and Slovenia {{winners.lux|int}} each. The first winner from outside France was François Faber of Luxembourg in {{winners.first_non_fr|raw}}, and the first from outside Europe Greg LeMond of the United States in {{winners.first_outside_europe|raw}}. Five men have won five times: Jacques Anquetil, Eddy Merckx, Bernard Hinault, Miguel Indurain and Tadej Pogačar.</p>
+<div class="figure"><p class="fig-h">Who won, year by year</p><p class="fig-sub">One cell per year, coloured by the winner's nation; blank cells are years without a Tour, hatched cells the seven years with no winner in the official record. Below: titles by nation. Hover or tap a cell.</p><div class="chart" id="winChart"></div></div>
+<div class="note"><h3>The doping years</h3><p>This page follows the official record as LeTourDataSet gives it. For {{winners.no_winner.0|raw}} to {{winners.no_winner.6|raw}} the rider file has no winner: Lance Armstrong's seven titles were stripped in 2012 and not reawarded, and his stage wins from those years are gone too. For 2006 and 2010 the record lists Óscar Pereiro and Andy Schleck, who were awarded the titles after the original winners were disqualified. Other winners of the era kept their titles. I make no judgement here beyond what the record shows.</p></div>
+
+<h2><span class="n">08 · The Tour de France Femmes</span>Five editions since {{source.women_first|raw}}</h2>
+<p>A women's Tour de France was relaunched in {{source.women_first|raw}} as the Tour de France Femmes. Its {{women.stages|int}} stages so far, {{women.dist_total|int}} km in all, are on the map as a separate purple layer (turn on "Tour de France Femmes" above). Each edition has had eight or nine stages. The first started at the Eiffel Tower in {{women.years.0.year|raw}}; {{women.years.2.year|raw}} began in {{women.years.2.start|raw}} and {{women.years.4.year|raw}} in {{women.years.4.start|raw}}. The race has used {{women.towns|int}} towns in {{women.deps|int}} départements, {{women.shared_towns|int}} of them shared with the men's Tour. The winners were Annemiek van Vleuten ({{women.years.0.year|raw}}), Demi Vollering ({{women.years.1.year|raw}} and {{women.years.4.year|raw}}), Katarzyna Niewiadoma ({{women.years.2.year|raw}}) and Pauline Ferrand-Prévot ({{women.years.3.year|raw}}), the first French winner.</p>
+<div class="figure"><p class="fig-h">The Tour de France Femmes, edition by edition</p><p class="fig-sub">Click a row to draw that edition on the map.</p><div class="tablebox"><table class="tbl" id="womenTable"></table></div></div>
+
+<h2><span class="n">09 · How I did this</span>Methods and caveats</h2>
+<p><b>Data.</b> LeTourDataSet (commit {{source.commit|raw}}) holds {{source.men_rows|int}} stage rows for the men's Tour and {{source.women_rows|int}} for the women's. I merged {{source.joint|int}} stages listed twice because two riders shared the win, and dropped {{source.dropped_2022|int}} rows from 2022: a repeat of the opening time trial and two rows for the transfer from Denmark. That leaves {{source.men_stages|int}} men's stages (including {{source.prologues|int}} prologues and {{source.half_stages|int}} half stages, when a day was split in two) and {{source.women_stages|int}} women's. Distances are each Tour's official total; the winner's speed is that total divided by the winner's time.</p>
+<p><b>Places.</b> Every start and finish name was matched to GeoNames cities1000, a list of {{source.gazetteer_rows|int}} places with at least 1,000 people, searching only the {{source.gazetteer_searched|int}} in the thirteen countries the Tour has visited. Names were compared without accents, hyphens or case, with St spelt out. A hand-made table of {{geo.alias_n|int}} names covers French names of foreign towns (Londres, Gand, Bâle), short and old names (Luchon, Les Sables), districts and venues inside a town (Paris Champs-Élysées, Futuroscope), and ski stations named after their village (Alpe d'Huez to Huez). Where a name fits several places, I used the one nearest the stage's other end, preferring France. In all {{geo.matched|int}} of {{geo.ends|int}} starts and finishes ({{geo.rate|f1}}%) are located, and {{geo.names_matched|int}} of {{geo.names|int}} distinct names. The {{geo.unmatched_names|int}} names left unmatched are mostly summit finishes and ski stations with no village in their name (the Puy de Dôme {{geo.unmatched_top.0.2|int}} times, Mont Ventoux {{geo.unmatched_top.1.2|int}}, Hautacam, the Plateau de Beille), lakes and venues spread across several villages, and villages too small for the gazetteer. They are listed in the data files. Mountain finishes are therefore under-drawn, especially since the 1970s.</p>
+<p><b>What the lines are.</b> Each stage is a straight line between two towns. It shows where a stage went, not the road it took, so it understates distance and smooths every climb. Transfers are measured the same way. "Abroad" means a stage town outside France, including Monaco and Andorra. Départements come from the GeoNames code of each French stage town; a stage that only passed through a département does not count.</p>
+<details><summary>Sources and licences</summary>
+<ul class="plain">
+<li>Thomas Camminady, LeTourDataSet, https://github.com/thomascamminady/LeTourDataSet (commit {{source.commit|raw}}), MIT licence, compiled from the official letour.fr and letourfemmes.fr historical pages.</li>
+<li>GeoNames cities1000 (https://www.geonames.org/), CC BY 4.0, as packaged by lutangar/cities.json (commit {{source.gn_commit|raw}}).</li>
+<li>Natural Earth countries and French départements (public domain).</li>
+<li>Relief and hill shading tiles © Esri; optional map labels © OpenFreeMap, OpenMapTiles and OpenStreetMap contributors.</li>
+</ul></details>
+
+<div class="cta"><a class="p" href="https://doi.org/10.5281/zenodo.23873013">Read the paper</a><a href="https://github.com/Tristan-Hotham/tour-de-france">Data and code</a><a href="https://blog.tristanhotham.com/2026/10/31/tour-de-france/">Blog post</a></div>
+
+<footer>
+<p>Dr Tristan Hotham, Independent researcher. ORCID <a href="https://orcid.org/0000-0003-4931-9349">0000-0003-4931-9349</a>.</p>
+<p>Cite as: Hotham, T. (2026) The shape of the Tour: every stage of the Tour de France, 1903 to 2026, mapped from start to finish. Zenodo. <a href="https://doi.org/10.5281/zenodo.23873013">https://doi.org/10.5281/zenodo.23873013</a></p>
+<p>Data: LeTourDataSet by Thomas Camminady (MIT), from letour.fr; GeoNames (CC BY 4.0). Licence: derived data and text CC BY 4.0, code MIT.</p>
+<p>I wrote the text, with drafting and editing assistance from Claude (Anthropic), which also helped prepare the analysis code. I reviewed and checked all text and results.</p>
+</footer>
+</div>
+<div class="tip" id="tip"></div>
+<button class="btn theme" id="theme" aria-label="Toggle dark mode">◐</button>
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script>
+const R = /*RESULTS*/;
+const SITE = /*SITE*/;
+const EUROPE = /*EUROPE*/;
+const DEPS = /*DEPS*/;
+const fmt = n => n == null || n === "" ? "n/a" : Math.round(n).toLocaleString("en-GB");
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const tip = document.getElementById("tip");
+function showTip(h, x, y) { tip.innerHTML = h; tip.style.display = "block"; const w = tip.offsetWidth; x = Math.max(w / 2 + 8, Math.min(innerWidth - w / 2 - 8, x)); tip.style.left = x + scrollX + "px"; tip.style.top = y + scrollY + "px"; }
+function hideTip() { tip.style.display = "none"; }
+document.addEventListener("click", e => { if (!e.target.closest("svg")) hideTip(); });
+const NS = "http://www.w3.org/2000/svg";
+const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+const lbl = (svg, x, y, s, cls = "lab", anchor = "start") => { const t = el("text", { x, y, class: cls, "text-anchor": anchor }, svg); t.textContent = s; return t; };
+const redraws = [];
+function resp(box, render) { let last = 0; const go = force => { const w = Math.max(280, Math.round(box.clientWidth)); if (!force && Math.abs(w - last) < 4) return; last = w; box.innerHTML = ""; render(w, w < 560); }; new ResizeObserver(() => go()).observe(box); go(); redraws.push(() => go(true)); }
+const isDark = () => { const r = document.documentElement; return r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; };
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const small = () => innerWidth < 900;
+const tap = (node, html) => { node.addEventListener("mousemove", ev => showTip(html(), ev.clientX, ev.clientY)); node.addEventListener("mouseleave", hideTip); node.addEventListener("click", ev => { ev.stopPropagation(); showTip(html(), ev.clientX, ev.clientY); }); };
+
+/* ---------- data ---------- */
+const DEC = SITE.decades, DCOL = SITE.dcol, YEL = SITE.yellow, WCOL = SITE.women_col;
+const PL = SITE.places;   // [name, cc, lat, lon, dep, men visits, women visits]
+const ST = SITE.stages.map((r, i) => ({ i, race: r[0], y: r[1], st: r[2], sp: r[3], ep: r[4], s: r[5], e: r[6], w: r[7] }));
+const CN = SITE.countries;
+const YEARS = [...new Set(ST.filter(s => s.race === 0).map(s => s.y))].sort((a, b) => a - b);
+const WYEARS = [...new Set(ST.filter(s => s.race === 1).map(s => s.y))].sort((a, b) => a - b);
+const BYTOUR = {}; ST.forEach(s => { const k = s.race + ":" + s.y; (BYTOUR[k] = BYTOUR[k] || []).push(s); });
+const YR = {}; R.years.forEach(y => YR[y.y] = y);
+const dIdx = y => Math.min(DEC.length - 1, Math.floor((y - 1900) / 10));
+const pname = i => i >= 0 ? PL[i][0] : null;
+const stName = (s, e) => { const i = e ? s.ep : s.sp; return i >= 0 ? PL[i][0] : (e ? s.e : s.s); };
+const stLabel = s => s.st === "0" ? "prologue" : "stage " + s.st;
+const visits = PL.map(() => ({ men: [], women: [] }));
+ST.forEach(s => { [s.sp, s.ep].forEach((p, k) => { if (p >= 0 && !(k === 1 && s.ep === s.sp)) visits[p][s.race ? "women" : "men"].push(s.i); }); });
+
+/* hero mark: a jersey-yellow route loop round a hexagon with a red polka dot */
+(function () {
+  const g = document.getElementById("heroMark");
+  el("path", { d: "M60 10 L100 32 L104 78 L66 110 L22 96 L14 48 Z", fill: "none", stroke: "currentColor", "stroke-width": 3, "stroke-linejoin": "round" }, g);
+  el("path", { d: "M58 20 L92 38 L95 76 L64 100 L28 88 L22 52 Z", fill: "none", stroke: "#F5C400", "stroke-width": 7, "stroke-linejoin": "round", "stroke-dasharray": "14 5" }, g);
+  el("circle", { cx: 58, cy: 20, r: 6, fill: "#1C1E22", stroke: "#F5C400", "stroke-width": 2 }, g);
+  el("circle", { cx: 60, cy: 58, r: 9, fill: "#C8322B" }, g);
+  el("circle", { cx: 60, cy: 58, r: 3.2, fill: "#FFFEF9" }, g);
+})();
+
+/* ---------- map ---------- */
+const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/";
+const OFM = "https://tiles.openfreemap.org";
+const LYDEF = { base: "plain", hills: true, hillK: 35, names: true, nameLvl: 1, olabels: false, borders: true, deps: false, towns: true, lineK: 55, size: 3 };
+const LY = { ...LYDEF };
+try { Object.assign(LY, JSON.parse(localStorage.getItem("tdf_layers") || "{}")); } catch (e) {}
+const saveLY = () => { try { localStorage.setItem("tdf_layers", JSON.stringify(LY)); } catch (e) {} };
+const S = { men: true, women: false, heat: false, transfers: false, hide: new Set(), year: null, race: 0, k: null, play: null, anim: null };
+const HOME = () => small() ? { center: [3.2, 46.6], zoom: 4.1 } : { center: [3.6, 47.0], zoom: 4.85 };
+let map = null, ready = false, popup = null;
+function colours() { return { sea: css("--sea"), land: css("--land"), border: css("--border"), fg: css("--fg"), bg: css("--bg"), muted: css("--muted") }; }
+function line(a, b) { return [[PL[a][3], PL[a][2]], [PL[b][3], PL[b][2]]]; }
+function stageFeats(race) {
+  const f = [];
+  ST.forEach(s => { if (s.race !== race || s.sp < 0 || s.ep < 0 || s.sp === s.ep) return;
+    f.push({ type: "Feature", geometry: { type: "LineString", coordinates: line(s.sp, s.ep) }, properties: { i: s.i, y: s.y, d: dIdx(s.y) } }); });
+  return { type: "FeatureCollection", features: f };
+}
+function transferFeats(race, year) {
+  const f = [];
+  Object.entries(BYTOUR).forEach(([k, list]) => { const [rc, y] = k.split(":").map(Number); if (rc !== race || (year != null && y !== year)) return;
+    for (let j = 1; j < list.length; j++) { const a = list[j - 1].ep, b = list[j].sp; if (a >= 0 && b >= 0 && a !== b) f.push({ type: "Feature", geometry: { type: "LineString", coordinates: line(a, b) }, properties: { y, d: dIdx(y) } }); } });
+  return { type: "FeatureCollection", features: f };
+}
+function townFeats() {
+  return { type: "FeatureCollection", features: PL.map((p, i) => ({ type: "Feature", id: i, geometry: { type: "Point", coordinates: [p[3], p[2]] }, properties: { i, m: p[5], w: p[6], v: p[5] + p[6] } })) };
+}
+const decColor = () => { const e = ["match", ["get", "d"]]; DCOL.forEach((c, i) => e.push(i, c)); e.push("#888"); return e; };
+const decFilter = () => S.hide.size ? ["!", ["in", ["get", "d"], ["literal", [...S.hide]]]] : true;
+function depFill() {
+  const e = ["match", ["get", "code"]]; const mx = Math.max(...Object.values(SITE.dep_visits));
+  Object.entries(SITE.dep_visits).forEach(([c, v]) => e.push(c, v));
+  e.push(0);
+  return ["interpolate", ["linear"], e, 0, isDark() ? "#2a2d33" : "#fffef9", 10, isDark() ? "#4b4630" : "#f8ecb4", mx, isDark() ? "#bf9a10" : "#e0a800"];
+}
+function baseStyle() {
+  const c = colours();
+  return {
+    version: 8,
+    sources: {
+      europe: { type: "geojson", data: EUROPE },
+      deps: { type: "geojson", data: DEPS },
+      hills: { type: "raster", tiles: [ESRI + "Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}"], tileSize: 256, maxzoom: 16, attribution: "Hillshade: Esri, USGS, NASA, CGIAR" },
+      relief: { type: "raster", tiles: [ESRI + "World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}"], tileSize: 256, maxzoom: 13, attribution: "Relief: Esri" },
+      sat: { type: "raster", tiles: [ESRI + "World_Imagery/MapServer/tile/{z}/{y}/{x}"], tileSize: 256, maxzoom: 18, attribution: "Imagery: Esri, Maxar, Earthstar Geographics" },
+      men: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+      women: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+      tr: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+      towns: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+      sel: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+      seltr: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+      selpt: { type: "geojson", data: { type: "FeatureCollection", features: [] } }
+    },
+    layers: [
+      { id: "bg", type: "background", paint: { "background-color": c.sea } },
+      { id: "land", type: "fill", source: "europe", paint: { "fill-color": c.land } },
+      { id: "relief", type: "raster", source: "relief", layout: { visibility: "none" }, paint: { "raster-opacity": .85 } },
+      { id: "sat", type: "raster", source: "sat", layout: { visibility: "none" } },
+      { id: "depfill", type: "fill", source: "deps", layout: { visibility: "none" }, paint: { "fill-color": depFill(), "fill-opacity": .8 } },
+      { id: "hills", type: "raster", source: "hills", paint: { "raster-opacity": .35 } },
+      { id: "borders", type: "line", source: "europe", paint: { "line-color": c.border, "line-width": .8 } },
+      { id: "deplines", type: "line", source: "deps", layout: { visibility: "none" }, paint: { "line-color": c.border, "line-width": .5 } },
+      { id: "heat", type: "heatmap", source: "towns", layout: { visibility: "none" }, paint: { "heatmap-weight": ["interpolate", ["linear"], ["get", "m"], 0, 0, 1, .15, 40, 1], "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 3, .7, 8, 2], "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 3, 16, 6, 30, 9, 46], "heatmap-opacity": .9,
+        "heatmap-color": ["interpolate", ["linear"], ["heatmap-density"], 0, "rgba(0,0,0,0)", .15, "rgba(47,95,167,.45)", .4, "#2E9A8C", .65, "#F5C400", .85, "#DE8A2C", 1, "#C8322B"] } },
+      { id: "tr", type: "line", source: "tr", layout: { visibility: "none" }, paint: { "line-color": c.muted, "line-width": .8, "line-dasharray": [3, 3], "line-opacity": .5 } },
+      { id: "men", type: "line", source: "men", layout: { "line-cap": "round" }, paint: { "line-color": decColor(), "line-width": ["interpolate", ["linear"], ["zoom"], 3, .7, 7, 1.6], "line-opacity": .55 } },
+      { id: "women", type: "line", source: "women", layout: { visibility: "none", "line-cap": "round" }, paint: { "line-color": WCOL, "line-width": ["interpolate", ["linear"], ["zoom"], 3, 1.6, 7, 3], "line-opacity": .9 } },
+      { id: "towns", type: "circle", source: "towns", paint: { "circle-radius": 2, "circle-color": c.fg, "circle-opacity": .55, "circle-stroke-color": c.bg, "circle-stroke-width": .6 } },
+      { id: "seltr", type: "line", source: "seltr", paint: { "line-color": isDark() ? "#FFD23A" : "#8A6D00", "line-width": 1.4, "line-dasharray": [2, 2], "line-opacity": .9 } },
+      { id: "selcase", type: "line", source: "sel", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": "#1C1E22", "line-width": 6.5, "line-opacity": .85 } },
+      { id: "sel", type: "line", source: "sel", layout: { "line-cap": "round", "line-join": "round" }, paint: { "line-color": YEL, "line-width": 3.6 } },
+      { id: "selpt", type: "circle", source: "selpt", paint: { "circle-radius": ["case", ["==", ["get", "head"], 1], 7, 4], "circle-color": ["case", ["==", ["get", "head"], 1], "#C8322B", YEL], "circle-stroke-color": "#1C1E22", "circle-stroke-width": 1.6 } }
+    ]
+  };
+}
+function radiusExpr() { const k = LY.size / 3; const v = S.women && !S.men ? ["get", "w"] : S.men && !S.women ? ["get", "m"] : ["get", "v"];
+  return ["interpolate", ["linear"], ["zoom"], 3, ["*", k * .55, ["+", 1.2, ["sqrt", v]]], 7, ["*", k * 1.1, ["+", 1.2, ["sqrt", v]]]]; }
+function applyLayers() {
+  if (!ready) return;
+  const c = colours(), vis = (id, on) => map.setLayoutProperty(id, "visibility", on ? "visible" : "none"), has = id => !!map.getLayer(id);
+  vis("relief", LY.base === "relief"); vis("sat", LY.base === "satellite"); /* land stays on under the tiles, so the map still reads if they cannot load */
+  vis("hills", LY.hills && LY.base !== "satellite"); map.setPaintProperty("hills", "raster-opacity", Math.min(1, LY.hillK / 100));
+  vis("borders", LY.borders); vis("depfill", LY.deps); vis("deplines", LY.deps || LY.borders);
+  if (has("olab")) vis("olab", LY.olabels);
+  map.setPaintProperty("bg", "background-color", c.sea); map.setPaintProperty("land", "fill-color", c.land); map.setPaintProperty("borders", "line-color", LY.base === "satellite" ? "rgba(255,255,255,.6)" : c.border);
+  map.setPaintProperty("depfill", "fill-color", depFill()); map.setPaintProperty("deplines", "line-color", c.border);
+  map.setPaintProperty("tr", "line-color", LY.base === "satellite" ? "#fff" : c.muted);
+  map.setPaintProperty("towns", "circle-color", LY.base === "satellite" ? "#fff" : c.fg); map.setPaintProperty("towns", "circle-stroke-color", LY.base === "satellite" ? "#000" : c.bg);
+  map.setPaintProperty("seltr", "line-color", isDark() || LY.base === "satellite" ? "#FFD23A" : "#8A6D00");
+  vis("towns", LY.towns); map.setPaintProperty("towns", "circle-radius", radiusExpr());
+  applyFilters();
+}
+function applyFilters() {
+  if (!ready) return;
+  const vis = (id, on) => map.setLayoutProperty(id, "visibility", on ? "visible" : "none");
+  const sel = S.year != null, k = LY.lineK / 100;
+  vis("men", S.men); vis("women", S.women); vis("heat", S.heat); vis("tr", S.transfers && !sel);
+  map.setFilter("men", decFilter()); map.setFilter("tr", decFilter());
+  map.setPaintProperty("men", "line-opacity", sel ? .1 : S.heat ? k * .3 : k); map.setPaintProperty("women", "line-opacity", sel ? .15 : Math.min(1, k + .3));
+  map.setFilter("towns", S.women && !S.men ? [">", ["get", "w"], 0] : S.men && !S.women ? [">", ["get", "m"], 0] : true);
+  map.setPaintProperty("towns", "circle-opacity", sel ? .3 : .6);
+  placeNames();
+}
+/* town names: drawn as HTML so they need no font server; biggest first, no overlaps */
+const LBOX = document.createElement("div"); LBOX.className = "labels";
+let lblRaf = 0;
+function placeNames() { if (lblRaf) return; lblRaf = requestAnimationFrame(() => { lblRaf = 0; drawNames(); }); }
+function drawNames() {
+  LBOX.innerHTML = ""; if (!ready || !LY.names) return;
+  const z = map.getZoom(), W = map.getContainer().clientWidth, H = map.getContainer().clientHeight, bxs = [];
+  const key = S.women && !S.men ? 6 : 5;
+  let order;
+  if (S.year != null) { const list = BYTOUR[S.race + ":" + S.year] || [], upto = S.k == null ? list.length : S.k; const ids = new Set(); list.slice(0, upto).forEach(s => { if (s.sp >= 0) ids.add(s.sp); if (s.ep >= 0) ids.add(s.ep); }); order = [...ids].sort((a, b) => PL[b][5] - PL[a][5]); }
+  else order = PL.map((p, i) => i).filter(i => PL[i][key] > 0).sort((a, b) => PL[b][key] - PL[a][key]);
+  const cap = S.year != null ? 60 : [[4.5, 12], [5.5, 22], [6.5, 40], [99, 80]].find(([zz]) => z < zz + (LY.nameLvl === 2 ? 1 : LY.nameLvl === 0 ? -1 : 0))[1] * (LY.nameLvl === 0 ? .6 : 1);
+  let n = 0;
+  for (const i of order) {
+    const pt = map.project([PL[i][3], PL[i][2]]); if (pt.x < 0 || pt.y < 0 || pt.x > W || pt.y > H) continue;
+    const big = n < 8, w = 6.6 * PL[i][0].length + 8, bx = [pt.x + 5, pt.y - 7, pt.x + 5 + w, pt.y + 7];
+    if (bx[2] > W - 4) { bx[0] = pt.x - 5 - w; bx[2] = pt.x - 5; }
+    if (bxs.some(o => bx[0] < o[2] && bx[2] > o[0] && bx[1] < o[3] && bx[3] > o[1])) continue;
+    bxs.push(bx); const d = document.createElement("div"); d.className = "tl" + (big ? "" : " s"); d.textContent = PL[i][0];
+    d.style.left = bx[0] + "px"; d.style.top = (pt.y - 6) + "px"; LBOX.appendChild(d);
+    if (++n >= cap) break;
+  }
+}
+function popupHTML(i) {
+  const p = PL[i], v = visits[i], lines = [];
+  const add = (ids, w) => ids.forEach(si => { const s = ST[si]; lines.push(`<div class="${w ? "w" : ""}"><b>${s.y}</b> ${esc(stLabel(s))}${w ? " (Femmes)" : ""}: ${esc(stName(s, 0))} to ${esc(stName(s, 1))}${s.w ? `<br><small>${esc(s.w)}</small>` : ""}</div>`); });
+  add(v.men, 0); add(v.women, 1);
+  const ys = [...new Set(v.men.map(si => ST[si].y))];
+  return `<b class="t">${esc(p[0])}</b><small>${esc(CN[p[1]] || p[1])}${p[4] ? ", département " + esc(p[4]) + " " + esc(SITE.deps[p[4]] || "") : ""}</small><br>` +
+    `${fmt(p[5])} men's start${p[5] === 1 ? "" : "s"} and finishes in ${ys.length} Tour${ys.length === 1 ? "" : "s"}${ys.length ? ` (${Math.min(...ys)} to ${Math.max(...ys)})` : ""}` + (p[6] ? `; ${p[6]} in the Femmes` : "") +
+    `<div class="list">${lines.join("")}</div>`;
+}
+function openTown(i, fly) {
+  if (fly) map.flyTo({ center: [PL[i][3], PL[i][2]], zoom: Math.max(map.getZoom(), 6.2), speed: 1.6 });
+  if (popup) popup.remove();
+  popup = new maplibregl.Popup({ maxWidth: "330px", offset: 8, focusAfterOpen: false }).setLngLat([PL[i][3], PL[i][2]]).setHTML(popupHTML(i)).addTo(map);
+}
+/* the chosen Tour, drawn in order */
+function tourData(race, y, upto) {
+  const list = BYTOUR[race + ":" + y] || [], f = [], t = [], pts = new Map();
+  list.slice(0, upto).forEach((s, j) => {
+    if (s.sp >= 0 && s.ep >= 0 && s.sp !== s.ep) f.push({ type: "Feature", geometry: { type: "LineString", coordinates: line(s.sp, s.ep) }, properties: { j } });
+    if (j > 0) { const a = list[j - 1].ep; if (a >= 0 && s.sp >= 0 && a !== s.sp) t.push({ type: "Feature", geometry: { type: "LineString", coordinates: line(a, s.sp) }, properties: {} }); }
+    [s.sp, s.ep].forEach(p => { if (p >= 0) pts.set(p, 0); });
+  });
+  const last = list.slice(0, upto).reverse().find(s => s.ep >= 0); if (last) pts.set(last.ep, 1);
+  return { lines: { type: "FeatureCollection", features: f }, tr: { type: "FeatureCollection", features: t },
+    pts: { type: "FeatureCollection", features: [...pts].map(([p, h]) => ({ type: "Feature", geometry: { type: "Point", coordinates: [PL[p][3], PL[p][2]] }, properties: { head: h } })) } };
+}
+function drawTour() {
+  if (!ready) return;
+  if (S.year == null) { ["sel", "seltr", "selpt"].forEach(id => map.getSource(id).setData({ type: "FeatureCollection", features: [] })); return; }
+  const n = (BYTOUR[S.race + ":" + S.year] || []).length, d = tourData(S.race, S.year, S.k == null ? n : S.k);
+  map.getSource("sel").setData(d.lines); map.getSource("seltr").setData(d.tr); map.getSource("selpt").setData(d.pts);
+  map.setPaintProperty("sel", "line-color", S.race ? "#C77BEA" : YEL);
+}
+function animateTour(done) {
+  cancelAnim(); const n = (BYTOUR[S.race + ":" + S.year] || []).length; S.k = 0;
+  const step = () => { S.k++; drawTour(); side(); placeNames(); if (S.k >= n) { S.k = null; S.anim = null; side(); if (done) S.anim = setTimeout(done, 700); return; } S.anim = setTimeout(step, n > 20 ? 85 : 140); };
+  step();
+}
+function cancelAnim() { if (S.anim) { clearTimeout(S.anim); S.anim = null; } }
+function setYear(y, race = 0, animate = true) {
+  S.year = y; S.race = race; S.k = null;
+  const yv = document.getElementById("yv"), lab = document.getElementById("ylab"), r = document.getElementById("yr");
+  if (y == null) { yv.innerHTML = "<span>All</span>"; lab.textContent = "all Tours"; r.value = YEARS.length; cancelAnim(); }
+  else { yv.innerHTML = `<span>${y}</span>`; lab.textContent = race ? "Tour de France Femmes" : (YR[y] && YR[y].winner ? "winner: " + YR[y].winner : "no winner in the record"); if (!race) r.value = YEARS.indexOf(y); }
+  if (race && !S.women) { S.women = true; pressShow(); }
+  applyFilters(); if (y != null && animate) animateTour(); else drawTour(); side(); legend(); note();
+}
+function stopPlay() { if (S.play) { S.play = null; cancelAnim(); document.getElementById("play").innerHTML = "&#9654;"; } }
+function play() {
+  if (S.play) { stopPlay(); return; }
+  S.play = 1; document.getElementById("play").innerHTML = "&#10074;&#10074;";
+  let j = S.year == null || S.race ? 0 : YEARS.indexOf(S.year) + 1; if (j >= YEARS.length) j = 0;
+  const next = () => { if (!S.play) return; if (j >= YEARS.length) { stopPlay(); return; } setYear(YEARS[j], 0, false); j++; animateTour(next); };
+  next();
+}
+function side() {
+  const box = document.getElementById("side");
+  if (S.year == null) {
+    const top = R.towns.top_visits.slice(0, 10);
+    box.innerHTML = `<h4>Every Tour, ${R.source.first_year} to ${R.source.last_year}</h4><div class="big">${fmt(R.source.men_stages)} stages</div><p class="sub">${R.source.men_years} Tours, ${fmt(R.towns.n)} stage towns. Choose a year on the slider or press play to draw each Tour in order.</p>` +
+      `<h4>Most visited stage towns</h4><ol>${top.map(t => `<li><span class="go" data-t="${esc(t.name)}">${esc(t.name)}</span> <small>${fmt(t.n)} starts and finishes</small></li>`).join("")}</ol>` +
+      `<h4>Grand Départs abroad</h4><p class="sub">${R.abroad.gd_list.map(g => `<span class="go" data-y="${g.year}">${g.year} ${esc(g.town)}</span>`).join(", ")}</p>`;
+  } else {
+    const list = BYTOUR[S.race + ":" + S.year] || [], y = YR[S.year] || {}, wy = S.race ? R.women.years.find(x => x.year === S.year) : null;
+    const head = S.race ? `<h4>Tour de France Femmes</h4><div class="big">${S.year}</div><p class="sub">${list.length} stages, ${fmt(wy.dist)} km. Winner: ${esc(wy.winner)} (${esc(wy.nation)}), ${wy.speed.toFixed(1)} km/h.</p>`
+      : `<h4>Tour de France</h4><div class="big">${S.year}</div><p class="sub">${list.length} stages, ${fmt(y.dist)} km, ${y.avg.toFixed(0)} km a stage on average. ${y.winner ? `Winner: ${esc(y.winner)} (${esc(y.nation)})${y.speed ? ", " + y.speed.toFixed(1) + " km/h" : ""}.` : "No winner in the official record."}${y.abroad ? ` ${y.abroad} stage${y.abroad === 1 ? "" : "s"} abroad.` : ""}</p>`;
+    box.innerHTML = head + `<button class="btn" id="replay" style="min-height:30px;padding:6px 9px">Replay this Tour</button> <button class="btn" id="allT" style="min-height:30px;padding:6px 9px">All Tours</button><h4>Stages</h4><ol>` +
+      list.map((s, j) => `<li class="${S.k != null && j === S.k - 1 ? "on" : ""}">${esc(stName(s, 0))} to ${esc(stName(s, 1))}${s.sp < 0 || s.ep < 0 ? " <small>(not on map)</small>" : ""}${s.w ? `<br><small>${esc(stLabel(s))}: ${esc(s.w)}</small>` : ""}</li>`).join("") + "</ol>";
+    box.querySelector("#replay").onclick = () => { stopPlay(); animateTour(); }; box.querySelector("#allT").onclick = () => { stopPlay(); setYear(null); };
+  }
+  box.querySelectorAll("[data-t]").forEach(n => n.onclick = () => { const i = PL.findIndex(p => p[0] === n.dataset.t); if (i >= 0) { toMap(); openTown(i, true); } });
+  box.querySelectorAll("[data-y]").forEach(n => n.onclick = () => { stopPlay(); setYear(+n.dataset.y); });
+}
+function note() { const n = document.getElementById("mapnote"); n.innerHTML = S.year != null ? "" : S.hide.size ? `<b>${DEC.length - S.hide.size} of ${DEC.length} decades shown.</b> Click a decade button to change.` : ""; }
+function legend() {
+  const L = document.getElementById("legend");
+  L.innerHTML = (S.men ? DEC.map((d, i) => `<span><i class="ln" style="background:${DCOL[i]}"></i>${d}s</span>`).join("") : "") + (S.women ? `<span><i class="ln" style="background:${WCOL}"></i>Tour de France Femmes</span>` : "") +
+    `<span><i class="ln" style="background:${YEL};outline:1.5px solid #1C1E22"></i>chosen Tour</span>` + (S.transfers ? `<span><i class="ln" style="background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px 7px)"></i>transfer</span>` : "") +
+    `<span><i style="border-radius:50%;background:var(--fg);opacity:.6;width:9px;height:9px"></i>stage town</span>`;
+}
+function toMap() { if (small()) document.getElementById("mapbox").scrollIntoView({ behavior: "smooth", block: "start" }); }
+let syncLayers = () => {};
+function layerPanel() {
+  const box = document.createElement("div"); box.className = "lyrWrap";
+  box.innerHTML = `<button class="lyrBtn" aria-expanded="false">Map layers</button>
+<div class="lyrPanel" hidden>
+ <div class="row"><label style="font-weight:600">Base map</label><div class="sub"><select data-k="base" aria-label="Base map"><option value="plain">Plain paper</option><option value="relief">Shaded relief</option><option value="satellite">Satellite</option></select></div></div>
+ <div class="row"><label><input type="checkbox" data-k="hills"> Relief (hills and mountains)</label><div class="sub"><span>strength</span><input type="range" data-k="hillK" min="10" max="100" step="5" aria-label="Relief strength"></div></div>
+ <div class="row"><label><input type="checkbox" data-k="names"> Town names</label><div class="sub"><span>how many</span><select data-k="nameLvl" aria-label="How many town names"><option value="0">Biggest only</option><option value="1">Some</option><option value="2">Lots</option></select></div></div>
+ <div class="row"><label><input type="checkbox" data-k="olabels"> Map labels (OpenFreeMap)</label></div>
+ <div class="row"><label><input type="checkbox" data-k="borders"> Borders</label></div>
+ <div class="row"><label><input type="checkbox" data-k="deps"> Départements, shaded by visits</label></div>
+ <div class="hd">Stages</div>
+ <div class="row"><label style="font-weight:600">Stage lines</label><div class="sub"><span>strength</span><input type="range" data-k="lineK" min="15" max="100" step="5" aria-label="Stage line strength"></div></div>
+ <div class="row"><label><input type="checkbox" data-k="towns"> Stage towns</label><div class="sub"><span>size</span><input type="range" data-k="size" min="1" max="7" step=".5" aria-label="Town circle size"></div></div>
+ <button class="reset">Reset layers</button>
+</div>`;
+  ["click", "dblclick", "mousedown", "touchstart", "wheel"].forEach(t => box.addEventListener(t, e => e.stopPropagation(), { passive: t !== "click" }));
+  document.getElementById("map").appendChild(box);
+  const btn = box.querySelector(".lyrBtn"), pan = box.querySelector(".lyrPanel");
+  btn.onclick = () => { const o = pan.hidden; pan.hidden = !o; btn.setAttribute("aria-expanded", o); };
+  const sync = () => pan.querySelectorAll("[data-k]").forEach(i => { const k = i.dataset.k; if (i.type === "checkbox") i.checked = LY[k]; else i.value = LY[k]; });
+  pan.querySelectorAll("[data-k]").forEach(i => i.addEventListener(i.type === "range" ? "input" : "change", () => {
+    const k = i.dataset.k; LY[k] = i.type === "checkbox" ? i.checked : (k === "base" ? i.value : +i.value);
+    if (k === "hillK") LY.hills = true; if (k === "olabels" && LY.olabels) addLabels();
+    sync(); saveLY(); applyLayers();
+  }));
+  pan.querySelector(".reset").onclick = () => { Object.assign(LY, LYDEF); saveLY(); sync(); applyLayers(); };
+  sync(); syncLayers = sync;
+}
+/* optional labels from OpenFreeMap vector tiles, added only when asked for, so the map never depends on them */
+let olabAdded = false;
+function addLabels() {
+  if (olabAdded || !ready) return; olabAdded = true;
+  try {
+    map.setGlyphs(OFM + "/fonts/{fontstack}/{range}.pbf");
+    map.addSource("ofm", { type: "vector", url: OFM + "/planet", attribution: '<a href="https://openfreemap.org">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/">OpenMapTiles</a> © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' });
+    map.addLayer({ id: "olab", type: "symbol", source: "ofm", "source-layer": "place", minzoom: 4, filter: ["in", ["get", "class"], ["literal", ["city", "town", "country"]]],
+      layout: { "text-field": ["coalesce", ["get", "name:en"], ["get", "name"]], "text-font": ["Noto Sans Regular"], "text-size": ["interpolate", ["linear"], ["zoom"], 4, 9, 9, 12] },
+      paint: { "text-color": css("--muted"), "text-halo-color": css("--bg"), "text-halo-width": 1.2 } }, "tr");
+  } catch (e) { console.warn("labels unavailable", e); }
+}
+function pressShow() { document.querySelectorAll("#showRow .btn").forEach(b => b.setAttribute("aria-pressed", !!S[b.dataset.k])); }
+(function controls() {
+  document.querySelectorAll("#showRow .btn").forEach(b => b.onclick = () => { const k = b.dataset.k; S[k] = !S[k]; if (k === "women" && !S.women && S.race === 1) setYear(null); pressShow(); applyLayers(); legend(); });
+  const dr = document.getElementById("decRow");
+  DEC.forEach((d, i) => { const b = document.createElement("button"); b.className = "btn dec"; b.setAttribute("aria-pressed", "true"); b.innerHTML = `<i style="background:${DCOL[i]}"></i>${d}s`;
+    b.onclick = () => { const all = S.hide.size === 0; if (all) { DEC.forEach((_, j) => { if (j !== i) S.hide.add(j); }); } else if (S.hide.has(i)) S.hide.delete(i); else { S.hide.add(i); if (S.hide.size === DEC.length) S.hide.clear(); }
+      dr.querySelectorAll(".dec").forEach((x, j) => x.setAttribute("aria-pressed", !S.hide.has(j))); applyFilters(); note(); };
+    dr.appendChild(b); });
+  const all = document.createElement("button"); all.className = "btn"; all.textContent = "All"; all.onclick = () => { S.hide.clear(); dr.querySelectorAll(".dec").forEach(x => x.setAttribute("aria-pressed", "true")); applyFilters(); note(); }; dr.appendChild(all);
+  const fr = document.getElementById("focusRow");
+  [["France", [-5.2, 41.2], [9.8, 51.3]], ["Alps", [5.0, 44.0], [7.9, 46.6]], ["Pyrenees", [-1.9, 42.3], [3.3, 43.8]], ["Brittany and Normandy", [-5.0, 47.2], [0.5, 49.8]], ["Low Countries", [2.4, 49.4], [6.6, 53.0]], ["Everything", [-10.5, 41], [14, 56.2]]]
+    .forEach(([n, a, b]) => { const x = document.createElement("button"); x.className = "btn"; x.textContent = n; x.onclick = () => { if (map) { toMap(); map.fitBounds([a, b], { padding: 20, duration: 900 }); } }; fr.appendChild(x); });
+  const r = document.getElementById("yr");
+  r.addEventListener("input", () => { stopPlay(); const j = +r.value; setYear(j >= YEARS.length ? null : YEARS[j], 0, false); });
+  r.addEventListener("change", () => { const j = +r.value; if (j < YEARS.length) animateTour(); });
+  document.getElementById("play").onclick = play;
+})();
+(function search() {
+  const inp = document.getElementById("q"), sug = document.getElementById("sug"); let opts = [], k = -1;
+  const nrm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const alias = {}; ST.forEach(s => { [[s.s, s.sp], [s.e, s.ep]].forEach(([nm, p]) => { if (p >= 0) alias[nrm(nm)] = p; }); });
+  function build(q) {
+    q = nrm(q); if (!q) return [];
+    const out = [];
+    if (/^\d{4}$/.test(q)) { const y = +q; if (YEARS.includes(y)) out.push({ t: "y", y, race: 0, label: `${y} Tour de France`, sub: YR[y] && YR[y].winner ? YR[y].winner : "" }); if (WYEARS.includes(y)) out.push({ t: "y", y, race: 1, label: `${y} Tour de France Femmes`, sub: "" }); }
+    const seen = new Set();
+    PL.forEach((p, i) => { const n = nrm(p[0]); if (n.includes(q)) { out.push({ t: "p", i, label: p[0], sub: `${CN[p[1]] || p[1]}, ${p[5] + p[6]} starts and finishes`, s: n.startsWith(q) ? 0 : 1, v: p[5] + p[6] }); seen.add(i); } });
+    Object.entries(alias).forEach(([n, i]) => { if (!seen.has(i) && n.includes(q)) { out.push({ t: "p", i, label: PL[i][0], sub: "also listed as " + n, s: 2, v: PL[i][5] }); seen.add(i); } });
+    return out.sort((a, b) => (a.t === "y" ? -1 : 0) - (b.t === "y" ? -1 : 0) || (a.s || 0) - (b.s || 0) || (b.v || 0) - (a.v || 0)).slice(0, 12);
+  }
+  function show() { sug.innerHTML = opts.map((o, j) => `<li data-i="${j}" aria-selected="${j === k}">${esc(o.label)} <span>${esc(o.sub)}</span></li>`).join(""); sug.style.display = opts.length ? "block" : "none"; }
+  function choose(o) { sug.style.display = "none"; inp.value = o.label; stopPlay(); if (!map) return; toMap(); if (o.t === "y") setYear(o.y, o.race); else openTown(o.i, true); }
+  inp.addEventListener("input", () => { opts = build(inp.value); k = -1; show(); });
+  inp.addEventListener("keydown", e => { if (e.key === "ArrowDown") { k = Math.min(opts.length - 1, k + 1); show(); e.preventDefault(); } else if (e.key === "ArrowUp") { k = Math.max(0, k - 1); show(); e.preventDefault(); } else if (e.key === "Enter" && opts.length) { e.preventDefault(); choose(opts[Math.max(0, k)]); } else if (e.key === "Escape") { sug.style.display = "none"; } });
+  sug.addEventListener("click", e => { const li = e.target.closest("li"); if (li) choose(opts[+li.dataset.i]); });
+  document.addEventListener("click", e => { if (!e.target.closest(".searchbox")) sug.style.display = "none"; });
+})();
+function failMap(msg) { const l = document.getElementById("loading"); if (l) l.remove(); document.getElementById("fallback").style.display = "block"; if (msg) console.warn(msg); }
+function startMap() {
+  try {
+    map = new maplibregl.Map({ container: "map", style: baseStyle(), ...HOME(), minZoom: 3, maxZoom: 13, renderWorldCopies: false, attributionControl: { compact: true }, fadeDuration: 0, maxBounds: [[-30, 30], [40, 66]] });
+  } catch (e) { failMap(e); return; }
+  window.map = map;
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
+  map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
+  map.on("error", e => { const m = String(e && e.error && (e.error.message || e.error)); if (/Failed to fetch|NetworkError|AJAXError|404|Could not load|glyphs|tile/i.test(m)) return; console.warn(m); });
+  layerPanel(); map.getContainer().appendChild(LBOX);
+  /* the data sources are part of the style, so the map can be filled as soon as the style is parsed; waiting for
+     "load" alone would stall when relief tiles cannot be reached */
+  const init = () => {
+    if (ready || !map.isStyleLoaded()) return;
+    map.getSource("men").setData(stageFeats(0)); map.getSource("women").setData(stageFeats(1)); map.getSource("tr").setData(transferFeats(0, null));
+    map.getSource("towns").setData(townFeats());
+    ready = true; const l = document.getElementById("loading"); if (l) l.remove();
+    if (LY.olabels) addLabels();
+    applyLayers(); drawTour(); side(); map.triggerRepaint();
+  };
+  map.on("style.load", init); map.on("load", init);
+  const poll = setInterval(() => { init(); if (ready) clearInterval(poll); }, 250);
+  map.on("move", placeNames); map.on("resize", placeNames);
+  map.on("click", "towns", e => { const f = e.features && e.features[0]; if (f) openTown(f.properties.i, false); });
+  map.on("click", "men", e => { if (S.year != null) return; const f = e.features && e.features[0]; if (!f) return; const s = ST[f.properties.i]; if (popup) popup.remove();
+    popup = new maplibregl.Popup({ maxWidth: "300px", offset: 6, focusAfterOpen: false }).setLngLat(e.lngLat).setHTML(`<b class="t">${s.y}, ${esc(stLabel(s))}</b>${esc(stName(s, 0))} to ${esc(stName(s, 1))}${s.w ? `<br><small>Winner: ${esc(s.w)}</small>` : ""}<br><span class="go" style="cursor:pointer;text-decoration:underline" onclick="setYear(${s.y})">Draw the ${s.y} Tour</span>`).addTo(map); });
+  ["towns", "men"].forEach(id => { map.on("mouseenter", id, () => map.getCanvas().style.cursor = "pointer"); map.on("mouseleave", id, () => map.getCanvas().style.cursor = ""); });
+  setTimeout(() => { if (!ready) { const l = document.getElementById("loading"); if (l) l.textContent = "Still loading the map..."; } }, 6000);
+}
+
+/* ---------- charts ---------- */
+function axisY(svg, m, w, Y, max, step, f = fmt, right = false) {
+  for (let v = 0; v <= max + 1e-9; v += step) { const y = Y(v); if (!right) el("line", { x1: m.l, x2: w - m.r, y1: y, y2: y, stroke: css("--rule") }, svg); lbl(svg, right ? w - m.r + 6 : m.l - 6, y + 4, f(v), "lab s m", right ? "start" : "end"); }
+}
+function loopChart() {
+  const D = R.decades.map(d => ({ ...d, edge: (R.centre.find(c => c.dec === d.dec) || {}).edge50_pct }));
+  resp(document.getElementById("loopChart"), (w, sm) => {
+    const h = sm ? 250 : 290, m = { l: 40, r: 40, t: 14, b: 30 }, svg = el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img", "aria-label": "Bar and line chart by decade: share of stage towns near the edge of France, and share of stages starting away from the previous finish" }, document.getElementById("loopChart"));
+    const bw = (w - m.l - m.r) / D.length, Y = v => h - m.b - (h - m.t - m.b) * v / 100;
+    axisY(svg, m, w, Y, 100, 25, v => v + "%");
+    const ar = R.shape.area_edge50_pct;
+    D.forEach((d, i) => { const x = m.l + i * bw, r = el("rect", { x: x + bw * .15, y: Y(d.edge), width: bw * .7, height: Y(0) - Y(d.edge), fill: DCOL[i] }, svg);
+      tap(r, () => `<b>${d.dec}s</b><br>${d.edge.toFixed(0)}% of French stage towns within 50 km of the edge<br>${d.transfer_pct.toFixed(0)}% of stages started away from the previous finish<br>${d.tours} Tours`);
+      if (!sm || i % 2 === 0) lbl(svg, x + bw / 2, h - 10, sm ? "'" + String(d.dec).slice(2) : d.dec + "s", "lab s m", "middle"); });
+    el("line", { x1: m.l, x2: w - m.r, y1: Y(ar), y2: Y(ar), stroke: css("--fg"), "stroke-dasharray": "5 4", "stroke-width": 1.2 }, svg);
+    const pts = D.map((d, i) => [m.l + (i + .5) * bw, Y(d.transfer_pct)]);
+    el("path", { d: "M" + pts.map(p => p.join(",")).join("L"), fill: "none", stroke: css("--red"), "stroke-width": 2.4 }, svg);
+    pts.forEach((p, i) => el("circle", { cx: p[0], cy: p[1], r: 3.5, fill: css("--red"), stroke: css("--bg"), "stroke-width": 1.2 }, svg));
+  });
+  document.getElementById("loopLegend").innerHTML = `<span><i style="background:${DCOL[2]}"></i>stage towns within 50 km of the coast or a border (bars, by decade colour)</span><span><i class="ln" style="background:var(--red)"></i>stages starting away from the previous finish</span><span><i class="ln" style="background:repeating-linear-gradient(90deg,var(--fg) 0 5px,transparent 5px 9px)"></i>${Math.round(R.shape.area_edge50_pct)}% of France's area lies within 50 km of the edge</span>`;
+}
+function distChart() {
+  const D = R.years;
+  resp(document.getElementById("distChart"), (w, sm) => {
+    const h = sm ? 260 : 320, m = { l: 46, r: 46, t: 14, b: 30 }, svg = el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img", "aria-label": "Bar chart of the total distance of every Tour with the winner's average speed as dots" }, document.getElementById("distChart"));
+    const y0 = 1903, y1 = R.source.last_year, X = y => m.l + (w - m.l - m.r) * (y - y0 + .5) / (y1 - y0 + 1), bw = (w - m.l - m.r) / (y1 - y0 + 1);
+    const Y = v => h - m.b - (h - m.t - m.b) * v / 6500, Ys = v => h - m.b - (h - m.t - m.b) * (v - 20) / 30;
+    axisY(svg, m, w, Y, 6000, 1000, v => v ? (v / 1000) + ",000" : "0");
+    for (let v = 20; v <= 50; v += 10) lbl(svg, w - m.r + 6, Ys(v) + 4, v + "", "lab s m", "start");
+    lbl(svg, m.l - 6, m.t - 2, "km", "lab s m", "end"); lbl(svg, w - m.r + 6, m.t - 2, "km/h", "lab s m", "start");
+    D.forEach(d => { const r = el("rect", { x: X(d.y) - bw * .42, y: Y(d.dist), width: Math.max(1, bw * .84), height: Y(0) - Y(d.dist), fill: DCOL[dIdx(d.y)], opacity: .85 }, svg);
+      tap(r, () => `<b>${d.y}</b><br>${fmt(d.dist)} km in ${d.n} stages (${d.avg.toFixed(0)} km a stage)<br>${d.winner ? esc(d.winner) + (d.speed ? `, ${d.speed.toFixed(1)} km/h` : ", decided on points") : "no winner in the official record"}`); });
+    D.filter(d => d.speed).forEach(d => el("circle", { cx: X(d.y), cy: Ys(d.speed), r: sm ? 2.2 : 3, fill: css("--fg"), stroke: css("--bg"), "stroke-width": .8 }, svg));
+    for (let y = 1910; y <= 2020; y += sm ? 20 : 10) lbl(svg, X(y), h - 10, y, "lab s m", "middle");
+    const top = D.find(d => d.y === R.dist.longest_year); lbl(svg, X(top.y) - 4, Y(top.dist) - 6, `${top.y}: ${fmt(top.dist)} km`, "lab s b", "start");
+    const f = D.find(d => d.y === R.dist.speed_max_year); lbl(svg, X(f.y) - 6, Ys(f.speed) - 8, `${f.speed.toFixed(1)} km/h`, "lab s b", "end");
+  });
+  document.getElementById("distLegend").innerHTML = `<span><i style="background:${DCOL[2]}"></i><i style="background:${DCOL[8]}"></i>total distance, km (left scale, coloured by decade)</span><span><i style="border-radius:50%;background:var(--fg)"></i>winner's average speed, km/h (right scale)</span>`;
+}
+const CCOL = { Belgium: "#C8432B", Switzerland: "#B05A7A", Spain: "#DE8A2C", Italy: "#2E9A8C", Germany: "#1B2A4A", Netherlands: "#F2B701", Luxembourg: "#7FB2D9", "United Kingdom": "#2F5FA7", Ireland: "#4FA66A", Monaco: "#A79F94", Andorra: "#8C8478", Denmark: "#A4283A" };
+function abroadChart() {
+  const by = {}; R.abroad.by_year_country.forEach(([y, c, n]) => { (by[y] = by[y] || []).push([c, n]); });
+  const order = Object.keys(R.abroad.stages_by_country), gd = new Set(R.abroad.gd_list.map(g => g.year));
+  resp(document.getElementById("abroadChart"), (w, sm) => {
+    const h = sm ? 230 : 270, m = { l: 34, r: 10, t: 18, b: 30 }, svg = el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img", "aria-label": "Stacked bar chart of stages abroad per Tour, by country" }, document.getElementById("abroadChart"));
+    const y0 = 1903, y1 = R.source.last_year, X = y => m.l + (w - m.l - m.r) * (y - y0 + .5) / (y1 - y0 + 1), bw = (w - m.l - m.r) / (y1 - y0 + 1), mx = 12, Y = v => h - m.b - (h - m.t - m.b) * v / mx;
+    axisY(svg, m, w, Y, mx, 4);
+    Object.entries(by).forEach(([y, list]) => { y = +y; let b = 0; list.sort((a, c) => order.indexOf(a[0]) - order.indexOf(c[0]));
+      list.forEach(([c, n]) => { const r = el("rect", { x: X(y) - bw * .42, y: Y(b + n), width: Math.max(1, bw * .84), height: Y(b) - Y(b + n), fill: CCOL[c] || "#999" }, svg); b += n;
+        tap(r, () => `<b>${y}</b><br>${list.map(([cc, nn]) => `${esc(cc)}: ${nn} stage${nn === 1 ? "" : "s"}`).join("<br>")}${gd.has(y) ? "<br>Grand Départ abroad" : ""}`); }); });
+    gd.forEach(y => el("path", { d: `M${X(y) - 4},${m.t - 10} L${X(y) + 4},${m.t - 10} L${X(y)},${m.t - 3} Z`, fill: css("--fg") }, svg));
+    for (let y = 1910; y <= 2020; y += sm ? 20 : 10) lbl(svg, X(y), h - 10, y, "lab s m", "middle");
+  });
+  document.getElementById("abroadLegend").innerHTML = order.map(c => `<span><i style="background:${CCOL[c]}"></i>${esc(c)} ${R.abroad.stages_by_country[c]}</span>`).join("") + `<span>▼ Grand Départ abroad</span>`;
+}
+function winChart() {
+  const NC = { France: "#2F5FA7", Belgium: "#C8432B", Spain: "#DE8A2C", Italy: "#2E9A8C", Luxembourg: "#7FB2D9", "United Kingdom": "#1B2A4A", Netherlands: "#F2B701", Denmark: "#A4283A", Slovenia: "#4FA66A", Switzerland: "#B05A7A", "United States": "#6B6B9A", Ireland: "#8FAE45", Germany: "#555", Australia: "#8C564B", Colombia: "#17BECF" };
+  const W = {}; R.winners.years.forEach(([y, r, n]) => W[y] = [r, n]); const raced = new Set(YEARS), nw = new Set(R.winners.no_winner);
+  resp(document.getElementById("winChart"), (w, sm) => {
+    const rows = sm ? 4 : 2, y0 = 1903, y1 = R.source.last_year, per = Math.ceil((y1 - y0 + 1) / rows), cw = (w - 12) / per, ch = sm ? 22 : 26;
+    const nat = R.winners.by_nation, bh = 17, top = rows * (ch + 18) + 16, h = top + nat.length * (bh + 4) + 8;
+    const svg = el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img", "aria-label": "Strip of cells, one per year, coloured by the nationality of the Tour winner, and bars of titles by nation" }, document.getElementById("winChart"));
+    const defs = el("defs", {}, svg), pat = el("pattern", { id: "hatch", width: 5, height: 5, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+    el("rect", { width: 5, height: 5, fill: css("--panel") }, pat); el("line", { x1: 0, y1: 0, x2: 0, y2: 5, stroke: css("--muted"), "stroke-width": 1.6 }, pat);
+    for (let y = y0; y <= y1; y++) { const k = y - y0, row = Math.floor(k / per), col = k % per, x = 6 + col * cw, yy = row * (ch + 18) + 4;
+      const win = W[y], fill = win ? NC[win[1]] || "#999" : nw.has(y) ? "url(#hatch)" : "none";
+      const r = el("rect", { x: x + .5, y: yy, width: Math.max(1, cw - 1), height: ch, fill, stroke: raced.has(y) ? "none" : css("--rule") }, svg);
+      if (raced.has(y)) tap(r, () => `<b>${y}</b><br>${win ? esc(win[0]) + " (" + esc(win[1]) + ")" : "no winner in the official record"}`);
+      if (y % 10 === 0 || k % per === 0) lbl(svg, x, yy + ch + 13, y, "lab s m", "start"); }
+    const mx = nat[0][1], lw = sm ? 112 : 130;
+    nat.forEach(([n, v], i) => { const yy = top + i * (bh + 4); lbl(svg, 6, yy + bh - 4, n, "lab s", "start");
+      el("rect", { x: lw, y: yy, width: (w - lw - 40) * v / mx, height: bh, fill: NC[n] || "#999" }, svg); lbl(svg, lw + (w - lw - 40) * v / mx + 5, yy + bh - 4, v, "lab s b", "start"); });
+  });
+}
+function townTable() {
+  const rows = PL.map((p, i) => ({ i, n: p[0], c: CN[p[1]] || p[1], s: visits[i].men.filter(si => ST[si].sp === i).length, f: visits[i].men.filter(si => ST[si].ep === i).length, t: new Set(visits[i].men.map(si => ST[si].y)).size })).map(r => ({ ...r, v: r.s + r.f }))
+    .filter(r => r.v).sort((a, b) => b.v - a.v || b.t - a.t).slice(0, 40);
+  document.getElementById("townTable").innerHTML = `<thead><tr><th>#</th><th>Town</th><th>Country</th><th class="r">Starts</th><th class="r">Finishes</th><th class="r">Tours</th></tr></thead><tbody>` +
+    rows.map((r, k) => `<tr data-i="${r.i}"><td>${k + 1}</td><td>${esc(r.n)}</td><td>${esc(r.c)}</td><td class="r">${r.s}</td><td class="r">${r.f}</td><td class="r">${r.t}</td></tr>`).join("") + "</tbody>";
+  document.querySelectorAll("#townTable tr[data-i]").forEach(tr => tr.onclick = () => { if (!map) return; document.getElementById("atlas").scrollIntoView({ behavior: "smooth" }); setTimeout(() => openTown(+tr.dataset.i, true), 400); });
+}
+function gdTable() {
+  document.getElementById("gdTable").innerHTML = `<thead><tr><th>Year</th><th>Town</th><th>Country</th></tr></thead><tbody>` + R.abroad.gd_list.map(g => `<tr data-i="${g.year}"><td>${g.year}</td><td>${esc(g.town)}</td><td>${esc(g.cc)}</td></tr>`).join("") + "</tbody>";
+  document.querySelectorAll("#gdTable tr[data-i]").forEach(tr => tr.onclick = () => { if (!map) return; stopPlay(); document.getElementById("atlas").scrollIntoView({ behavior: "smooth" }); setYear(+tr.dataset.i); });
+}
+function womenTable() {
+  document.getElementById("womenTable").innerHTML = `<thead><tr><th>Year</th><th>Start</th><th>Finish</th><th class="r">Stages</th><th class="r">km</th><th>Winner</th></tr></thead><tbody>` +
+    R.women.years.map(y => `<tr data-i="${y.year}"><td>${y.year}</td><td>${esc(y.start)}</td><td>${esc(y.end)}</td><td class="r">${y.n}</td><td class="r">${fmt(y.dist)}</td><td>${esc(y.winner)}</td></tr>`).join("") + "</tbody>";
+  document.querySelectorAll("#womenTable tr[data-i]").forEach(tr => tr.onclick = () => { if (!map) return; stopPlay(); document.getElementById("atlas").scrollIntoView({ behavior: "smooth" }); setYear(+tr.dataset.i, 1); });
+}
+function charts() { loopChart(); distChart(); abroadChart(); winChart(); townTable(); gdTable(); womenTable(); }
+document.getElementById("theme").onclick = () => { const r = document.documentElement; r.dataset.theme = isDark() ? "light" : "dark"; redraws.forEach(f => f()); if (ready) { applyLayers(); } };
+charts(); legend(); side();
+if (typeof maplibregl === "undefined") failMap("The map library did not load."); else startMap();
+</script>
+/*FULLSCREEN*/
+</body>
+</html>

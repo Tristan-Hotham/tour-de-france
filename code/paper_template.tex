@@ -1,0 +1,147 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\newfontfamily\headfont{Inter}[UprightFont=*-ExtraBold,BoldFont=*-ExtraBold,Extension=.otf,Path=/usr/share/fonts/opentype/inter/]
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx,booktabs,float,caption,array,xcolor,longtable}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage[round]{natbib}
+\usepackage{setspace}
+\setstretch{1.05}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\titleformat{\section}{\headfont\Large}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\headfont\large}{\thesubsection}{0.8em}{}
+\captionsetup{font=small,labelfont=bf}
+\urlstyle{same}
+\hypersetup{pdftitle={The Shape of the Tour},pdfauthor={Tristan Hotham}}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries The Shape of the Tour\par}
+\vspace{0.4em}
+{\large Every stage of the Tour de France, {{source.first_year|raw}} to {{source.last_year|raw}}, mapped from start to finish\par}
+\vspace{1.2em}
+{\large Tristan Hotham\par}
+\vspace{0.3em}
+{\small Independent researcher\\
+ORCID: 0000-0003-4931-9349\\
+DOI: \href{https://doi.org/{{meta.doi}}}{https://doi.org/{{meta.doi}}}\par}
+\vspace{0.8em}
+2026
+\end{center}
+
+\begin{quote}
+\small
+\begin{center}\textbf{Abstract}\end{center}
+I geocode the start and finish towns of all {{source.men_stages|int}} stages of the men's Tour de France from {{source.first_year|raw}} to {{source.last_year|raw}}, and the {{source.women_stages|int}} stages of the Tour de France Femmes since {{source.women_first|raw}}, using Thomas Camminady's LeTourDataSet and the GeoNames cities1000 gazetteer. {{geo.rate|f1}}\% of the {{geo.ends|int}} starts and finishes are located, at {{towns.n|int}} places; most of the rest are summit finishes and ski stations. Drawn as straight lines, the stages show how the race changed shape. In the 1920s, {{shape.edge50_1920s|int}}\% of French stage towns lay within 50 km of the coast or a land border, against {{shape.area_edge50_pct|int}}\% of the country's area; in the 2020s the share is {{shape.edge50_2020s|int}}\%. Until the 1930s every stage began where the previous one ended; in the 2020s {{shape.transfer_pct_2020s|int}}\% do not, and the gaps sum to about {{shape.transfer_km_2020s|int}} km a Tour in straight lines. Paris ({{towns.paris.visits|int}} starts and finishes), Bordeaux ({{towns.top_visits.1.n|int}}) and Pau ({{towns.top_visits.2.n|int}}) are the most used stage towns, and every one of the {{deps.n|int}} départements of metropolitan France has hosted at least one start or finish. {{abroad.gd_abroad|int}} Tours started abroad, the first in {{abroad.gd_first_abroad|raw}}, and {{abroad.gd_since2000|int}} of the {{abroad.tours_since2000|int}} since 2000; {{abroad.stages_abroad_pct|f1}}\% of stages touched another country. The race shrank from {{dist.longest_km|int}} km in {{dist.longest_year|raw}} to {{dist.y2026|int}} km in {{source.last_year|raw}} while the winner's average speed rose from {{dist.speed_1903|f1}} km/h in 1903 to {{dist.speed_max|f2}} km/h. French riders won {{winners.france|int}} of the {{winners.n_editions_with_winner|int}} editions with a winner in the official record, which has none for {{winners.no_winner.0|raw}} to {{winners.no_winner.6|raw}}.
+
+\textbf{Keywords:} Tour de France; cycling; sport geography; historical GIS; geocoding; GeoNames; route maps; open data
+\end{quote}
+
+\section{Introduction}
+The Tour de France is a race and a map. Since 1903 its organisers have drawn a new route each year, and the route has always carried meaning: the early Tours were a lap of the national territory, a circuit of the frontiers and coasts that was part sporting contest and part celebration of France itself. Later Tours started abroad, hopped by train and plane between regions, and finished at summit stations built for skiers. This paper puts every stage of every Tour on one map, using open data, to describe how the route has changed and what has stayed the same.
+
+The source is LeTourDataSet \citep{ltd}, Thomas Camminady's compilation of the official historical pages of the Tour \citep{letour}. It lists each stage's start and finish towns, the stage winner and the jersey holders, each Tour's total distance, and each rider's final result. It does not say where the towns are, and it has no route or length for single stages. I match the town names to GeoNames \citep{geonames} and treat each stage as a straight line from start to finish. The accompanying interactive map is at \url{{{meta.page}}}.
+
+\section{Data}
+\textbf{Stages.} LeTourDataSet (commit {{source.commit|raw}}) has {{source.men_rows|int}} stage rows for the men's Tour, {{source.first_year|raw}} to {{source.last_year|raw}}, and {{source.women_rows|int}} for the Tour de France Femmes, {{source.women_first|raw}} to {{source.women_last|raw}}. Four stages appear twice with different winners because the win was shared; I merge each into one stage with both winners. In 2022 the opening time trial in Copenhagen is repeated and followed by two rows whose start and finish are both ``Transfert''; I drop those {{source.dropped_2022|int}} rows. That leaves {{source.men_stages|int}} men's stages in {{source.men_years|int}} Tours, with no race in {{source.war_gaps|raw}}, including {{source.prologues|int}} prologues and {{source.half_stages|int}} half stages, and {{source.women_stages|int}} women's stages.
+
+\textbf{Riders.} The rider file gives each edition's final classification. The overall winner is the rider ranked first; the winner's average speed is the Tour's total distance divided by the winner's time, for editions decided on time (1905 to 1912 were decided on points). The file has no nationality, so I added the nationality of each of the {{winners.n_riders|int}} overall winners by hand and checked it against the team column for the {{winners.checked_by_team|int}} winners from years raced by national teams, where the team is a nation.
+
+\textbf{Places.} GeoNames cities1000 lists {{source.gazetteer_rows|int}} places with at least 1,000 inhabitants, with coordinates, country and administrative codes; I use the packaging by lutangar/cities.json (commit {{source.gn_commit|raw}}). For France the second administrative code is the département. Country and département outlines are from Natural Earth \citep{naturalearth}.
+
+\section{Methods}
+\subsection{Geocoding}
+I search only the {{source.gazetteer_searched|int}} places in the thirteen countries the Tour has visited. Names are compared after removing accents, case, hyphens and apostrophes, with St and Ste spelt out; a stage name without an article may match a gazetteer name with one (Bourg-d'Oisans to Le Bourg-d'Oisans), but not the reverse. A hand-made table of {{geo.alias_n|int}} names covers four kinds of case: French names of foreign towns (Londres, Gand, Bâle, Saint-Sébastien); variants and short forms (Luchon for Bagnères-de-Luchon, Les Sables for Les Sables-d'Olonne); districts and venues inside one commune (Paris Champs-Élysées, Futuroscope at Chasseneuil-du-Poitou, Malo-les-Bains in Dunkirk); and ski stations named after their village (Alpe d'Huez to Huez, Saint-Lary-Soulan Col du Portet to Saint-Lary-Soulan). Summits and passes with no village in their name, such as the Puy de Dôme and Mont Ventoux, are deliberately left unmatched, as are lakes and venues spread over several communes and two regions.
+
+When a name fits several places I keep an exact spelling match if there is one, and otherwise the candidate nearest the stage's other end; if that end is itself ambiguous, the candidate with the smallest mean distance to up to two unambiguous towns before and after it in race order. A French candidate within 400 km of that context is preferred, so that Belfort is the French town and not a district of Maastricht. The source uses ``Fribourg'' both for Fribourg in Switzerland and for Freiburg im Breisgau in Germany; both are offered and the nearer is kept. {{geo.ambiguous_ends|int}} starts and finishes were settled this way. Two checks found and corrected wrong namesakes: stages whose straight line was implausibly long, and jumps between one finish and the next start of more than 350 km. Every French place's département comes from its GeoNames code; in {{geo.dep_mismatch|int}} cases on coasts and borders the code and the 1:10m polygon disagree, and the code is used.
+
+\subsection{Measures}
+A stage's line runs from its start town to its finish town. It is a lower bound on the distance ridden and says nothing about the road. A transfer is a stage that starts in a different place from the previous finish, measured the same way. A stage is abroad if either end lies outside France (Monaco and Andorra included) and crosses a border if its two ends are in different countries. A French stage town is near the edge if it lies within 50 km of the outline of metropolitan France, coast or land border, measured in the Lambert 93 projection; for comparison, {{shape.area_edge50_pct|f1}}\% of the area of metropolitan France lies that close to its edge. Each start and each finish counts once, so a town that hosts a finish and the next day's start counts twice.
+
+\section{Results}
+\subsection{Coverage}
+{{geo.matched|int}} of the {{geo.ends|int}} starts and finishes ({{geo.rate|f1}}\%) and {{geo.names_matched|int}} of {{geo.names|int}} distinct names are located, at {{towns.n|int}} places. Both ends are located for {{geo.both_located|int}} stages ({{geo.both_pct|f1}}\%). Of the {{geo.unmatched_ends|int}} unlocated starts and finishes, {{geo.unmatched_reasons.summit|int}} are summits and passes, {{geo.unmatched_reasons.ski station|int}} ski stations, {{geo.unmatched_reasons.not in gazetteer|int}} villages missing from the gazetteer and {{geo.unmatched_reasons.venue|int}} venues; {{geo.mtn_since1970_pct|int}}\% of the unlocated summits and ski stations date from 1970 or later. The most frequent are the Puy de Dôme ({{geo.unmatched_top.0.2|int}}) and Mont Ventoux ({{geo.unmatched_top.1.2|int}}). Mountain finishes are therefore under-represented on the map, especially in recent decades.
+
+\begin{figure}[tbp]\centering\includegraphics[width=.92\textwidth]{f_map.png}
+\caption{Every located stage of the men's Tour, {{source.first_year|raw}} to {{source.last_year|raw}}, as a straight line from start to finish, coloured by decade. Circles: stage towns, sized by starts and finishes.}\label{fig:map}\end{figure}
+
+\subsection{From a loop to a network}
+Figure~\ref{fig:map} shows all located stages. The early decades stand out as thick dark lines round the edge of the country. The 1926 Tour (Figure~\ref{fig:loop}) is the clearest case: {{dist.n1926|int}} stages in a single unbroken loop from Évian, along the eastern frontier to Dunkirk, round Normandy and Brittany, down the Atlantic coast, across the Pyrenees and the Mediterranean, up the Alps and back to Évian and Paris. Measured by stage towns, {{shape.edge50_1920s|int}}\% of French stage towns in the 1920s lay within 50 km of the edge (median distance {{shape.edge_med_1920s|f1}} km), against {{shape.area_edge50_pct|int}}\% of the area. The share fell through the middle of the century and has stayed near half since the 1980s ({{shape.edge50_2020s|int}}\% in the 2020s; median {{shape.edge_med_2020s|f1}} km), still above the area share (Figure~\ref{fig:edge}, Table~\ref{tab:decades}).
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_loop.png}
+\caption{The 1926 Tour and the {{source.last_year|raw}} Tour. Yellow: stages; dashed: transfers between a finish and the next start.}\label{fig:loop}\end{figure}
+
+The loop was also continuous. In the 1910s, 1920s and 1930s no stage began anywhere but the previous finish. Transfers stayed rare until the 1950s and then grew steadily: {{shape.transfer_pct_1960s|f1}}\% of stages in the 1960s, {{decades.8.transfer_pct|f1}}\% in the 1980s, {{decades.10.transfer_pct|f1}}\% in the 2000s and {{shape.transfer_pct_2020s|f1}}\% in the 2020s. The last Tour without any transfer between located towns was {{shape.last_no_transfer|raw}}. Summed as straight lines, transfers averaged {{shape.transfer_km_1950s|int}} km a Tour in the 1950s and {{shape.transfer_km_2020s|int}} km in the 2020s, with a maximum of {{shape.transfer_km_max|int}} km in {{shape.transfer_km_max_year|raw}}. The longest single transfer is {{shape.transfer_top.0.km|int}} km, from {{shape.transfer_top.0.from|raw}} to {{shape.transfer_top.0.to|raw}} in {{shape.transfer_top.0.year|raw}}.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_edge.png}
+\caption{By decade: share of French stage towns within 50 km of the coast or a land border (bars), share of stages starting away from the previous finish (line), and the share of France's area within 50 km of its edge (dashed).}\label{fig:edge}\end{figure}
+
+{{TABLE_DECADES}}
+
+\subsection{Distance and speed}
+The total distance rose quickly, and every Tour from 1911 to 1929 covered more than 5,000 km; the longest Tour was {{dist.longest_year|raw}}, at {{dist.longest_km|int}} km, and the shortest the first two, at {{dist.shortest_km|int}} km (Figure~\ref{fig:distance}). The decade mean fell from {{dist.dist_1920s|int}} km in the 1920s to {{dist.dist_2020s|int}} km in the 2020s, and the mean stage from {{dist.avg_stage_1920s|f1}} km to {{dist.avg_stage_2020s|f1}} km. The six stages of 1903 averaged {{dist.avg_stage_max|int}} km; the {{dist.most_stages|int}} stages of {{dist.most_stages_year|raw}} were the most in any Tour. The winner's average speed rose from {{dist.speed_1903|f1}} km/h in 1903 and {{dist.speed_1926|f1}} km/h in 1926 to {{dist.speed_1950s|f1}} km/h on average in the 1950s and {{dist.speed_2020s|f1}} km/h in the 2020s; the fastest was {{dist.speed_max|f2}} km/h in {{dist.speed_max_year|raw}}. In 1926 the winner rode for {{dist.time_1926_h|f1}} hours, in {{source.last_year|raw}} for {{dist.time_2026_h|f1}}. Since the source gives no single stage lengths, the longest stage can be measured only as a straight line: Paris to Lyon in 1903 and 1904, {{dist.crow_top.0.km|int}} km. The mean straight line across all stages with two located ends is {{dist.crow_mean|f1}} km, and {{dist.loops|int}} stages, mostly time trials and circuits, start and finish in the same place.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_distance.png}
+\caption{Total distance of each Tour (bars, coloured by decade) and the overall winner's average speed (dots).}\label{fig:distance}\end{figure}
+
+\subsection{Stage towns}
+The men's Tour has used {{towns.men_n|int}} places, {{towns.once|int}} of them ({{towns.once_pct|f1}}\%) only once (Table~\ref{tab:towns}, Figure~\ref{fig:towns}). Paris has {{towns.paris.starts|int}} starts and {{towns.paris.finishes|int}} finishes in {{towns.paris.tours|int}} Tours; every Tour has finished there except {{towns.final_elsewhere.0.0|raw}} (in {{towns.final_elsewhere.0.1|raw}}), and every Tour started there until the first Grand Départ elsewhere, at Évian in {{towns.gd_not_paris_first|raw}}. Bordeaux ({{towns.top_visits.1.n|int}}), Pau ({{towns.top_visits.2.n|int}}, the most common start, {{towns.top_starts.0.n|int}}) and Luchon ({{towns.top_visits.3.n|int}}) follow, all gateways to the Pyrenees, which the loop crossed every year in its early decades. The most visited towns abroad are Brussels ({{towns.top_abroad.0.n|int}}) and Liège ({{towns.top_abroad.1.n|int}}).
+
+{{TABLE_TOWNS}}
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_towns.png}
+\caption{The fifteen most visited stage towns: starts and finishes, and the number of Tours.}\label{fig:towns}\end{figure}
+
+\subsection{Départements}
+Every one of the {{deps.n|int}} départements of metropolitan France hosted at least one located start or finish (Figure~\ref{fig:deps}). The busiest is Pyrénées-Atlantiques ({{deps.top.0.2|int}} starts and finishes in {{deps.top.0.3|int}} Tours), followed by Haute-Garonne ({{deps.top.1.2|int}}). The least visited are Deux-Sèvres, where only Niort in 1950 appears among the located towns, and the two Corsican départements, visited once, by the 100th Tour in 2013. Because the data record only starts and finishes, a département that a stage crossed without stopping is not counted.
+
+\begin{figure}[tbp]\centering\includegraphics[width=.75\textwidth]{f_deps.png}
+\caption{Starts and finishes per département of metropolitan France, men's and women's Tours.}\label{fig:deps}\end{figure}
+
+\subsection{Abroad}
+The first stage abroad ran from {{abroad.first_abroad.start|raw}} to {{abroad.first_abroad.end|raw}} in {{abroad.first_abroad.year|raw}}. {{abroad.stages_abroad|int}} stages ({{abroad.stages_abroad_pct|f1}}\%) started or finished in one of {{abroad.n_countries|int}} other countries, {{abroad.both_abroad|int}} of them with both ends abroad, and {{abroad.cross|int}} ({{abroad.cross_pct|f1}}\% of stages with both ends located) crossed a border. Belgium ({{abroad.stages_by_country.Belgium|int}} stages), Switzerland ({{abroad.stages_by_country.Switzerland|int}}), Spain ({{abroad.stages_by_country.Spain|int}}) and Italy ({{abroad.stages_by_country.Italy|int}}) lead (Figure~\ref{fig:abroad}). {{abroad.tours_all_france|int}} Tours never left France at their located starts and finishes. The {{abroad.gd_abroad|int}} Grand Départs abroad (Table~\ref{tab:gd}) began in Amsterdam in {{abroad.gd_first_abroad|raw}}; the Netherlands has had {{abroad.gd_by_country.Netherlands|int}}, Belgium {{abroad.gd_by_country.Belgium|int}} and Germany {{abroad.gd_by_country.Germany|int}}. Since 2000, {{abroad.gd_since2000|int}} of {{abroad.tours_since2000|int}} Tours ({{abroad.gd_since2000_pct|int}}\%) started abroad.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_abroad.png}
+\caption{Stages starting or finishing outside France, by country, per Tour. Triangles mark Grand Départs abroad.}\label{fig:abroad}\end{figure}
+
+{{TABLE_GD}}
+
+\subsection{Winners}
+Of the {{winners.n_editions_with_winner|int}} men's editions with a winner in the official record, French riders won {{winners.france|int}}, the last in {{winners.france_last|raw}}; Belgians {{winners.belgium|int}}, the last in {{winners.belgium_last|raw}}; Spaniards {{winners.spain|int}}; Italians {{winners.italy|int}}; British riders {{winners.uk|int}}; and riders from Luxembourg and Slovenia {{winners.lux|int}} each (Figure~\ref{fig:winners}). The first winner from outside France came in {{winners.first_non_fr|raw}} and the first from outside Europe in {{winners.first_outside_europe|raw}}. Jacques Anquetil, Eddy Merckx, Bernard Hinault, Miguel Indurain and Tadej Pogačar won five times each. The record has no winner for {{winners.no_winner.0|raw}} to {{winners.no_winner.6|raw}}: Lance Armstrong's seven titles were stripped in 2012 and not reawarded. For 2006 and 2010 it lists Óscar Pereiro and Andy Schleck, who received the titles after the original winners were disqualified. I report the record as the source gives it.
+
+\begin{figure}[tbp]\centering\includegraphics[width=\textwidth]{f_winners.png}
+\caption{The winner's nation, year by year (blank: no Tour; hatched: no winner in the official record), and titles by nation.}\label{fig:winners}\end{figure}
+
+\subsection{The Tour de France Femmes}
+The women's race, relaunched in {{source.women_first|raw}}, has run {{source.women_years|int}} times with {{women.stages|int}} stages and {{women.dist_total|int}} km in all (Figure~\ref{fig:women}). It has used {{women.towns|int}} places in {{women.deps|int}} départements, {{women.shared_towns|int}} of them shared with the men's race, and started abroad twice, in {{women.years.2.start|raw}} ({{women.years.2.year|raw}}) and {{women.years.4.start|raw}} ({{women.years.4.year|raw}}). The winners were Annemiek van Vleuten ({{women.years.0.year|raw}}), Demi Vollering ({{women.years.1.year|raw}}, {{women.years.4.year|raw}}), Katarzyna Niewiadoma ({{women.years.2.year|raw}}) and Pauline Ferrand-Prévot ({{women.years.3.year|raw}}).
+
+\begin{figure}[tbp]\centering\includegraphics[width=.75\textwidth]{f_women.png}
+\caption{The located stages of the Tour de France Femmes, by edition.}\label{fig:women}\end{figure}
+
+\section{Limitations}
+First, the lines are straight: they show which towns a stage joined, not the road, the climbs or the distance. Second, {{geo.unmatched_ends|int}} starts and finishes are not located, mostly mountain finishes, so the map under-represents the high mountains, especially since the 1970s. Third, a few matches rest on judgement: ski stations named after a village, venues placed in their commune, and ambiguous names settled by distance. All are listed in the data files. Fourth, the stage file is a compilation of official web pages and may carry their errors; I corrected none beyond the duplicated and transfer rows. Fifth, the winners' nationalities are a hand-made addition, checked against the data only for the national team years. Sixth, ``visited'' means a start or finish: the many towns and départements that stages passed through are not in the data.
+
+\section{Conclusion}
+Mapped stage by stage, the Tour de France changes from a ring to a web. For its first three decades it was a continuous lap of France's edges; after the Second World War it moved inland, began to cross borders and, from the 1970s, to leap between regions by transfer, until most stages now start somewhere other than the last finish. It has shrunk by about two fifths in length, and its fastest winner rode almost twice as fast as the winner of 1926. Through all of this the same few towns recur, Paris first, then Bordeaux, Pau and Luchon on the road to the Pyrenees, and the race has, at one time or another, stopped in every département of the mainland.
+
+\section*{Data and code availability}
+The interactive map is at \url{{{meta.page}}}. Data and code are at \url{{{meta.repo}}} and archived with this paper at \url{https://doi.org/{{meta.doi}}}. Derived data and text are released under CC BY 4.0 and code under the MIT licence. Stage and rider data: LeTourDataSet by Thomas Camminady (MIT licence). Places: GeoNames (CC BY 4.0).
+
+\section*{AI statement}
+I wrote the text, with drafting and editing assistance from Claude (Anthropic), which also helped prepare the analysis code. I reviewed and checked all text and results.
+
+\begin{thebibliography}{9}
+\bibitem[Camminady(2026)]{ltd} Camminady, T. (2026) LeTourDataSet: every cyclist and stage of the Tour de France in four CSV files (commit {{source.commit|raw}}). MIT licence. \url{https://github.com/thomascamminady/LeTourDataSet}
+\bibitem[A.S.O.(2026)]{letour} Amaury Sport Organisation (2026) Tour de France and Tour de France Femmes historical results. \url{https://www.letour.fr}
+\bibitem[GeoNames(2026)]{geonames} GeoNames (2026) cities1000, packaged by lutangar/cities.json (commit {{source.gn_commit|raw}}). CC BY 4.0. \url{https://www.geonames.org/}
+\bibitem[Natural Earth(2026)]{naturalearth} Natural Earth (2026) Admin 0 countries (1:50m, 1:10m) and admin 1 states and provinces (1:10m). Public domain. \url{https://www.naturalearthdata.com/}
+\end{thebibliography}
+\end{document}

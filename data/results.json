@@ -1,0 +1,4680 @@
+{
+ "source": {
+  "men_rows": 2434,
+  "women_rows": 42,
+  "men_stages": 2427,
+  "women_stages": 42,
+  "stages": 2469,
+  "men_years": 113,
+  "first_year": 1903,
+  "last_year": 2026,
+  "women_years": 5,
+  "women_first": 2022,
+  "women_last": 2026,
+  "joint": 4,
+  "dropped_2022": 3,
+  "commit": "c377920",
+  "gn_commit": "e5e759c",
+  "gazetteer_rows": 171737,
+  "gazetteer_searched": 44258,
+  "war_gaps": "1915 to 1918 and 1940 to 1946",
+  "half_stages": 217,
+  "prologues": 41
+ },
+ "geo": {
+  "ends": 4938,
+  "matched": 4731,
+  "names": 863,
+  "names_matched": 766,
+  "places": 701,
+  "unmatched_ends": 207,
+  "unmatched_names": 97,
+  "by_kind": {
+   "name": 4060,
+   "variant": 292,
+   "exonym": 199,
+   "part": 97,
+   "station": 83
+  },
+  "unmatched_reasons": {
+   "summit": 75,
+   "ski station": 66,
+   "not in gazetteer": 50,
+   "venue": 14,
+   "region": 2
+  },
+  "ambiguous_ends": 343,
+  "dep_mismatch": 8,
+  "rate": 95.81,
+  "names_rate": 88.76,
+  "both_located": 2274,
+  "both_pct": 92.1,
+  "unmatched_top": [
+   [
+    "Puy de Dôme",
+    "summit",
+    15
+   ],
+   [
+    "Mont Ventoux",
+    "summit",
+    13
+   ],
+   [
+    "Orcières-Merlette",
+    "ski station",
+    9
+   ],
+   [
+    "Hautacam",
+    "summit",
+    8
+   ],
+   [
+    "Serre-Chevalier",
+    "ski station",
+    7
+   ],
+   [
+    "Avoriaz",
+    "ski station",
+    6
+   ],
+   [
+    "plateau_de_beille",
+    "summit",
+    6
+   ],
+   [
+    "La Planche des Belles Filles",
+    "summit",
+    5
+   ],
+   [
+    "Lac de Vassivière",
+    "venue",
+    5
+   ],
+   [
+    "Ballon d'Alsace",
+    "summit",
+    4
+   ],
+   [
+    "Lac de Madine",
+    "venue",
+    4
+   ],
+   [
+    "Loudenvielle",
+    "not in gazetteer",
+    4
+   ]
+  ],
+  "alias_n": 150,
+  "mtn_unmatched": 141,
+  "mtn_since1970": 128,
+  "mtn_since1970_pct": 90.78
+ },
+ "towns": {
+  "n": 701,
+  "men_n": 684,
+  "top_visits": [
+   {
+    "name": "Paris",
+    "cc": "FR",
+    "n": 161,
+    "tours": 112
+   },
+   {
+    "name": "Bordeaux",
+    "cc": "FR",
+    "n": 137,
+    "tours": 77
+   },
+   {
+    "name": "Pau",
+    "cc": "FR",
+    "n": 133,
+    "tours": 77
+   },
+   {
+    "name": "Luchon",
+    "cc": "FR",
+    "n": 113,
+    "tours": 57
+   },
+   {
+    "name": "Nice",
+    "cc": "FR",
+    "n": 78,
+    "tours": 36
+   },
+   {
+    "name": "Metz",
+    "cc": "FR",
+    "n": 77,
+    "tours": 41
+   },
+   {
+    "name": "Grenoble",
+    "cc": "FR",
+    "n": 76,
+    "tours": 41
+   },
+   {
+    "name": "Caen",
+    "cc": "FR",
+    "n": 71,
+    "tours": 35
+   },
+   {
+    "name": "Perpignan",
+    "cc": "FR",
+    "n": 68,
+    "tours": 36
+   },
+   {
+    "name": "Marseille",
+    "cc": "FR",
+    "n": 68,
+    "tours": 36
+   },
+   {
+    "name": "Briançon",
+    "cc": "FR",
+    "n": 66,
+    "tours": 35
+   },
+   {
+    "name": "Bayonne",
+    "cc": "FR",
+    "n": 62,
+    "tours": 33
+   },
+   {
+    "name": "Montpellier",
+    "cc": "FR",
+    "n": 60,
+    "tours": 33
+   },
+   {
+    "name": "Brest",
+    "cc": "FR",
+    "n": 57,
+    "tours": 31
+   },
+   {
+    "name": "Belfort",
+    "cc": "FR",
+    "n": 54,
+    "tours": 33
+   }
+  ],
+  "top_starts": [
+   {
+    "name": "Pau",
+    "cc": "FR",
+    "n": 69,
+    "tours": 77
+   },
+   {
+    "name": "Bordeaux",
+    "cc": "FR",
+    "n": 56,
+    "tours": 77
+   },
+   {
+    "name": "Luchon",
+    "cc": "FR",
+    "n": 56,
+    "tours": 57
+   },
+   {
+    "name": "Paris",
+    "cc": "FR",
+    "n": 43,
+    "tours": 112
+   },
+   {
+    "name": "Grenoble",
+    "cc": "FR",
+    "n": 41,
+    "tours": 41
+   },
+   {
+    "name": "Nice",
+    "cc": "FR",
+    "n": 41,
+    "tours": 36
+   },
+   {
+    "name": "Metz",
+    "cc": "FR",
+    "n": 39,
+    "tours": 41
+   },
+   {
+    "name": "Caen",
+    "cc": "FR",
+    "n": 36,
+    "tours": 35
+   },
+   {
+    "name": "Perpignan",
+    "cc": "FR",
+    "n": 34,
+    "tours": 36
+   },
+   {
+    "name": "Briançon",
+    "cc": "FR",
+    "n": 34,
+    "tours": 35
+   },
+   {
+    "name": "Marseille",
+    "cc": "FR",
+    "n": 33,
+    "tours": 36
+   },
+   {
+    "name": "Belfort",
+    "cc": "FR",
+    "n": 31,
+    "tours": 33
+   },
+   {
+    "name": "Bayonne",
+    "cc": "FR",
+    "n": 31,
+    "tours": 33
+   },
+   {
+    "name": "Montpellier",
+    "cc": "FR",
+    "n": 30,
+    "tours": 33
+   },
+   {
+    "name": "Brest",
+    "cc": "FR",
+    "n": 30,
+    "tours": 31
+   }
+  ],
+  "top_finishes": [
+   {
+    "name": "Paris",
+    "cc": "FR",
+    "n": 118,
+    "tours": 112
+   },
+   {
+    "name": "Bordeaux",
+    "cc": "FR",
+    "n": 81,
+    "tours": 77
+   },
+   {
+    "name": "Pau",
+    "cc": "FR",
+    "n": 64,
+    "tours": 77
+   },
+   {
+    "name": "Luchon",
+    "cc": "FR",
+    "n": 57,
+    "tours": 57
+   },
+   {
+    "name": "Metz",
+    "cc": "FR",
+    "n": 38,
+    "tours": 41
+   },
+   {
+    "name": "Nice",
+    "cc": "FR",
+    "n": 37,
+    "tours": 36
+   },
+   {
+    "name": "Grenoble",
+    "cc": "FR",
+    "n": 35,
+    "tours": 41
+   },
+   {
+    "name": "Marseille",
+    "cc": "FR",
+    "n": 35,
+    "tours": 36
+   },
+   {
+    "name": "Caen",
+    "cc": "FR",
+    "n": 35,
+    "tours": 35
+   },
+   {
+    "name": "Perpignan",
+    "cc": "FR",
+    "n": 34,
+    "tours": 36
+   },
+   {
+    "name": "L'Alpe-d'Huez",
+    "cc": "FR",
+    "n": 33,
+    "tours": 31
+   },
+   {
+    "name": "Briançon",
+    "cc": "FR",
+    "n": 32,
+    "tours": 35
+   },
+   {
+    "name": "Bayonne",
+    "cc": "FR",
+    "n": 31,
+    "tours": 33
+   },
+   {
+    "name": "Montpellier",
+    "cc": "FR",
+    "n": 30,
+    "tours": 33
+   },
+   {
+    "name": "Nantes",
+    "cc": "FR",
+    "n": 29,
+    "tours": 31
+   }
+  ],
+  "top_abroad": [
+   {
+    "name": "Brussels",
+    "cc": "Belgium",
+    "n": 25,
+    "tours": 11
+   },
+   {
+    "name": "Liège",
+    "cc": "Belgium",
+    "n": 24,
+    "tours": 11
+   },
+   {
+    "name": "Geneva",
+    "cc": "Switzerland",
+    "n": 20,
+    "tours": 10
+   },
+   {
+    "name": "Luxembourg",
+    "cc": "Luxembourg",
+    "n": 17,
+    "tours": 4
+   },
+   {
+    "name": "Monaco",
+    "cc": "Monaco",
+    "n": 16,
+    "tours": 7
+   },
+   {
+    "name": "Charleroi",
+    "cc": "Belgium",
+    "n": 13,
+    "tours": 6
+   },
+   {
+    "name": "Lausanne",
+    "cc": "Switzerland",
+    "n": 11,
+    "tours": 6
+   },
+   {
+    "name": "Barcelona",
+    "cc": "Spain",
+    "n": 11,
+    "tours": 4
+   },
+   {
+    "name": "Forest",
+    "cc": "Belgium",
+    "n": 11,
+    "tours": 3
+   },
+   {
+    "name": "Andorra la Vella",
+    "cc": "Andorra",
+    "n": 10,
+    "tours": 6
+   }
+  ],
+  "top_tours": [
+   {
+    "name": "Paris",
+    "cc": "FR",
+    "n": 112,
+    "tours": 112
+   },
+   {
+    "name": "Pau",
+    "cc": "FR",
+    "n": 77,
+    "tours": 77
+   },
+   {
+    "name": "Bordeaux",
+    "cc": "FR",
+    "n": 77,
+    "tours": 77
+   },
+   {
+    "name": "Luchon",
+    "cc": "FR",
+    "n": 57,
+    "tours": 57
+   },
+   {
+    "name": "Metz",
+    "cc": "FR",
+    "n": 41,
+    "tours": 41
+   },
+   {
+    "name": "Grenoble",
+    "cc": "FR",
+    "n": 41,
+    "tours": 41
+   },
+   {
+    "name": "Perpignan",
+    "cc": "FR",
+    "n": 36,
+    "tours": 36
+   },
+   {
+    "name": "Nice",
+    "cc": "FR",
+    "n": 36,
+    "tours": 36
+   },
+   {
+    "name": "Marseille",
+    "cc": "FR",
+    "n": 36,
+    "tours": 36
+   },
+   {
+    "name": "Caen",
+    "cc": "FR",
+    "n": 35,
+    "tours": 35
+   },
+   {
+    "name": "Briançon",
+    "cc": "FR",
+    "n": 35,
+    "tours": 35
+   },
+   {
+    "name": "Montpellier",
+    "cc": "FR",
+    "n": 33,
+    "tours": 33
+   },
+   {
+    "name": "Belfort",
+    "cc": "FR",
+    "n": 33,
+    "tours": 33
+   },
+   {
+    "name": "Bayonne",
+    "cc": "FR",
+    "n": 33,
+    "tours": 33
+   },
+   {
+    "name": "Nantes",
+    "cc": "FR",
+    "n": 31,
+    "tours": 31
+   }
+  ],
+  "once": 287,
+  "fr": 575,
+  "abroad": 126,
+  "once_pct": 41.96,
+  "paris": {
+   "starts": 43,
+   "finishes": 118,
+   "visits": 161,
+   "tours": 112
+  },
+  "paris_final": 112,
+  "final_elsewhere": [
+   [
+    2024,
+    "Nice"
+   ]
+  ],
+  "paris_gd": 38,
+  "gd_not_paris_first": 1926,
+  "gd_paris_until_first_other": true,
+  "edition_2013": 100
+ },
+ "decades": [
+  {
+   "dec": 1900,
+   "tours": 7,
+   "stages": 80,
+   "dist": 3709,
+   "avg_stage": 324.5,
+   "speed": 25.5,
+   "abroad_pct": 0.0,
+   "cross_pct": 0.0,
+   "transfer_pct": 5.48,
+   "transfer_km": 109,
+   "stages_per_tour": 11.4
+  },
+  {
+   "dec": 1910,
+   "tours": 6,
+   "stages": 90,
+   "dist": 5266,
+   "avg_stage": 351.0,
+   "speed": 25.9,
+   "abroad_pct": 6.67,
+   "cross_pct": 6.67,
+   "transfer_pct": 0.0,
+   "transfer_km": 0,
+   "stages_per_tour": 15.0
+  },
+  {
+   "dec": 1920,
+   "tours": 10,
+   "stages": 178,
+   "dist": 5452,
+   "avg_stage": 306.3,
+   "speed": 25.4,
+   "abroad_pct": 3.37,
+   "cross_pct": 3.37,
+   "transfer_pct": 0.0,
+   "transfer_km": 0,
+   "stages_per_tour": 17.8
+  },
+  {
+   "dec": 1930,
+   "tours": 10,
+   "stages": 255,
+   "dist": 4537,
+   "avg_stage": 177.9,
+   "speed": 30.3,
+   "abroad_pct": 2.75,
+   "cross_pct": 2.35,
+   "transfer_pct": 0.0,
+   "transfer_km": 0,
+   "stages_per_tour": 25.5
+  },
+  {
+   "dec": 1940,
+   "tours": 3,
+   "stages": 63,
+   "dist": 4791,
+   "avg_stage": 228.1,
+   "speed": 32.3,
+   "abroad_pct": 25.4,
+   "cross_pct": 25.4,
+   "transfer_pct": 1.67,
+   "transfer_km": 34,
+   "stages_per_tour": 21.0
+  },
+  {
+   "dec": 1950,
+   "tours": 10,
+   "stages": 232,
+   "dist": 4583,
+   "avg_stage": 197.6,
+   "speed": 34.3,
+   "abroad_pct": 17.24,
+   "cross_pct": 16.38,
+   "transfer_pct": 4.13,
+   "transfer_km": 92,
+   "stages_per_tour": 23.2
+  },
+  {
+   "dec": 1960,
+   "tours": 10,
+   "stages": 242,
+   "dist": 4339,
+   "avg_stage": 179.3,
+   "speed": 35.9,
+   "abroad_pct": 18.18,
+   "cross_pct": 13.64,
+   "transfer_pct": 11.26,
+   "transfer_km": 134,
+   "stages_per_tour": 24.2
+  },
+  {
+   "dec": 1970,
+   "tours": 10,
+   "stages": 263,
+   "dist": 3968,
+   "avg_stage": 150.9,
+   "speed": 35.4,
+   "abroad_pct": 15.21,
+   "cross_pct": 9.89,
+   "transfer_pct": 28.44,
+   "transfer_km": 548,
+   "stages_per_tour": 26.3
+  },
+  {
+   "dec": 1980,
+   "tours": 10,
+   "stages": 239,
+   "dist": 3794,
+   "avg_stage": 158.7,
+   "speed": 37.3,
+   "abroad_pct": 11.72,
+   "cross_pct": 4.6,
+   "transfer_pct": 40.78,
+   "transfer_km": 812,
+   "stages_per_tour": 23.9
+  },
+  {
+   "dec": 1990,
+   "tours": 10,
+   "stages": 218,
+   "dist": 3819,
+   "avg_stage": 175.2,
+   "speed": 39.3,
+   "abroad_pct": 17.89,
+   "cross_pct": 11.93,
+   "transfer_pct": 47.03,
+   "transfer_km": 777,
+   "stages_per_tour": 21.8
+  },
+  {
+   "dec": 2000,
+   "tours": 10,
+   "stages": 210,
+   "dist": 3506,
+   "avg_stage": 166.9,
+   "speed": 40.2,
+   "abroad_pct": 14.29,
+   "cross_pct": 9.52,
+   "transfer_pct": 68.36,
+   "transfer_km": 939,
+   "stages_per_tour": 21.0
+  },
+  {
+   "dec": 2010,
+   "tours": 10,
+   "stages": 210,
+   "dist": 3497,
+   "avg_stage": 166.5,
+   "speed": 40.4,
+   "abroad_pct": 13.81,
+   "cross_pct": 6.19,
+   "transfer_pct": 75.74,
+   "transfer_km": 1305,
+   "stages_per_tour": 21.0
+  },
+  {
+   "dec": 2020,
+   "tours": 7,
+   "stages": 147,
+   "dist": 3392,
+   "avg_stage": 161.5,
+   "speed": 42.1,
+   "abroad_pct": 12.93,
+   "cross_pct": 5.44,
+   "transfer_pct": 87.85,
+   "transfer_km": 1152,
+   "stages_per_tour": 21.0
+  }
+ ],
+ "dist": {
+  "longest_year": 1926,
+  "longest_km": 5745,
+  "shortest_year": 1903,
+  "shortest_km": 2428,
+  "shortest_years": [
+   1903,
+   1904
+  ],
+  "y1903": 2428,
+  "y2026": 3333,
+  "y2026_n": 21,
+  "most_stages_year": 1937,
+  "most_stages": 31,
+  "total_km": 470611,
+  "avg_stage_all": 193.9,
+  "n1903": 6,
+  "n1926": 17,
+  "avg_stage_1920s": 306.3,
+  "avg_stage_2020s": 161.5,
+  "dist_1920s": 5452,
+  "dist_2020s": 3392,
+  "avg_stage_max_year": 1903,
+  "avg_stage_max": 405,
+  "avg_stage_2026": 158.7,
+  "dist_drop_pct": 42,
+  "speed_1903": 25.7,
+  "speed_max_year": 2026,
+  "speed_max": 45.08,
+  "speed_2026": 45.08,
+  "speed_1926": 24.1,
+  "speed_years": 98,
+  "speed_min_year": 1924,
+  "speed_min": 24.0,
+  "speed_1950s": 34.3,
+  "speed_2020s": 42.1,
+  "speed_over40": [
+   1981,
+   1998,
+   2006,
+   2008,
+   2009,
+   2011,
+   2013,
+   2014,
+   2017,
+   2018,
+   2019,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025,
+   2026
+  ],
+  "time_2026_h": 73.9,
+  "time_1926_h": 238.7,
+  "crow_top": [
+   {
+    "year": 1904,
+    "stage": "1",
+    "start": "Paris",
+    "end": "Lyon",
+    "km": 393
+   },
+   {
+    "year": 1903,
+    "stage": "1",
+    "start": "Paris",
+    "end": "Lyon",
+    "km": 393
+   },
+   {
+    "year": 1981,
+    "stage": "14",
+    "start": "Hasselt",
+    "end": "Mulhouse",
+    "km": 382
+   },
+   {
+    "year": 1977,
+    "stage": "13.1",
+    "start": "Charleroi",
+    "end": "Freiburg im Breisgau",
+    "km": 365
+   },
+   {
+    "year": 1914,
+    "stage": "4",
+    "start": "Brest",
+    "end": "La Rochelle",
+    "km": 353
+   },
+   {
+    "year": 1911,
+    "stage": "12",
+    "start": "La Rochelle",
+    "end": "Brest",
+    "km": 353
+   },
+   {
+    "year": 1913,
+    "stage": "4",
+    "start": "Brest",
+    "end": "La Rochelle",
+    "km": 353
+   },
+   {
+    "year": 1912,
+    "stage": "12",
+    "start": "La Rochelle",
+    "end": "Brest",
+    "km": 353
+   }
+  ],
+  "crow_mean": 122.0,
+  "loops": 148,
+  "loops_pct": 6.62
+ },
+ "abroad": {
+  "gd_abroad": 27,
+  "gd_first_abroad": 1954,
+  "gd_first_abroad_town": "Amsterdam",
+  "gd_list": [
+   {
+    "year": 1954,
+    "town": "Amsterdam",
+    "cc": "Netherlands"
+   },
+   {
+    "year": 1958,
+    "town": "Brussels",
+    "cc": "Belgium"
+   },
+   {
+    "year": 1965,
+    "town": "Cologne",
+    "cc": "Germany"
+   },
+   {
+    "year": 1973,
+    "town": "Scheveningen",
+    "cc": "Netherlands"
+   },
+   {
+    "year": 1975,
+    "town": "Charleroi",
+    "cc": "Belgium"
+   },
+   {
+    "year": 1978,
+    "town": "Leiden",
+    "cc": "Netherlands"
+   },
+   {
+    "year": 1980,
+    "town": "Frankfurt am Main",
+    "cc": "Germany"
+   },
+   {
+    "year": 1982,
+    "town": "Basel",
+    "cc": "Switzerland"
+   },
+   {
+    "year": 1987,
+    "town": "Berlin",
+    "cc": "Germany"
+   },
+   {
+    "year": 1989,
+    "town": "Luxembourg",
+    "cc": "Luxembourg"
+   },
+   {
+    "year": 1992,
+    "town": "San Sebastián",
+    "cc": "Spain"
+   },
+   {
+    "year": 1996,
+    "town": "'s-Hertogenbosch",
+    "cc": "Netherlands"
+   },
+   {
+    "year": 1998,
+    "town": "Dublin",
+    "cc": "Ireland"
+   },
+   {
+    "year": 2002,
+    "town": "Luxembourg",
+    "cc": "Luxembourg"
+   },
+   {
+    "year": 2004,
+    "town": "Liège",
+    "cc": "Belgium"
+   },
+   {
+    "year": 2007,
+    "town": "London",
+    "cc": "United Kingdom"
+   },
+   {
+    "year": 2009,
+    "town": "Monaco",
+    "cc": "Monaco"
+   },
+   {
+    "year": 2010,
+    "town": "Rotterdam",
+    "cc": "Netherlands"
+   },
+   {
+    "year": 2012,
+    "town": "Liège",
+    "cc": "Belgium"
+   },
+   {
+    "year": 2014,
+    "town": "Leeds",
+    "cc": "United Kingdom"
+   },
+   {
+    "year": 2015,
+    "town": "Utrecht",
+    "cc": "Netherlands"
+   },
+   {
+    "year": 2017,
+    "town": "Düsseldorf",
+    "cc": "Germany"
+   },
+   {
+    "year": 2019,
+    "town": "Brussels",
+    "cc": "Belgium"
+   },
+   {
+    "year": 2022,
+    "town": "Copenhagen",
+    "cc": "Denmark"
+   },
+   {
+    "year": 2023,
+    "town": "Bilbao",
+    "cc": "Spain"
+   },
+   {
+    "year": 2024,
+    "town": "Florence",
+    "cc": "Italy"
+   },
+   {
+    "year": 2026,
+    "town": "Barcelona",
+    "cc": "Spain"
+   }
+  ],
+  "gd_by_country": {
+   "Netherlands": 6,
+   "Belgium": 5,
+   "Germany": 4,
+   "Spain": 3,
+   "Luxembourg": 2,
+   "United Kingdom": 2,
+   "Switzerland": 1,
+   "Ireland": 1,
+   "Monaco": 1,
+   "Denmark": 1,
+   "Italy": 1
+  },
+  "gd_since2000": 14,
+  "tours_since2000": 27,
+  "gd_since2000_pct": 51.85,
+  "stages_abroad": 304,
+  "stages_abroad_pct": 12.53,
+  "cross": 209,
+  "cross_pct": 9.34,
+  "both_abroad": 107,
+  "ends_by_country": {
+   "Belgium": 154,
+   "Switzerland": 53,
+   "Spain": 37,
+   "Germany": 33,
+   "Italy": 30,
+   "Netherlands": 27,
+   "Luxembourg": 21,
+   "Monaco": 16,
+   "United Kingdom": 16,
+   "Andorra": 12,
+   "Ireland": 6,
+   "Denmark": 6
+  },
+  "stages_by_country": {
+   "Belgium": 118,
+   "Switzerland": 51,
+   "Spain": 29,
+   "Italy": 27,
+   "Germany": 24,
+   "Netherlands": 19,
+   "Luxembourg": 15,
+   "Monaco": 14,
+   "Andorra": 12,
+   "United Kingdom": 8,
+   "Ireland": 3,
+   "Denmark": 3
+  },
+  "n_countries": 12,
+  "tours_abroad": 79,
+  "tours_all_france": 34,
+  "first_abroad_year": 1913,
+  "first_abroad": {
+   "year": 1913,
+   "start": "Grenoble",
+   "end": "Geneva",
+   "stage": "11"
+  },
+  "most_abroad_year": 1992,
+  "most_abroad_n": 10,
+  "years_list": [
+   [
+    1903,
+    0
+   ],
+   [
+    1904,
+    0
+   ],
+   [
+    1905,
+    0
+   ],
+   [
+    1906,
+    0
+   ],
+   [
+    1907,
+    0
+   ],
+   [
+    1908,
+    0
+   ],
+   [
+    1909,
+    0
+   ],
+   [
+    1910,
+    0
+   ],
+   [
+    1911,
+    0
+   ],
+   [
+    1912,
+    0
+   ],
+   [
+    1913,
+    2
+   ],
+   [
+    1914,
+    2
+   ],
+   [
+    1919,
+    2
+   ],
+   [
+    1920,
+    0
+   ],
+   [
+    1921,
+    2
+   ],
+   [
+    1922,
+    2
+   ],
+   [
+    1923,
+    2
+   ],
+   [
+    1924,
+    0
+   ],
+   [
+    1925,
+    0
+   ],
+   [
+    1926,
+    0
+   ],
+   [
+    1927,
+    0
+   ],
+   [
+    1928,
+    0
+   ],
+   [
+    1929,
+    0
+   ],
+   [
+    1930,
+    0
+   ],
+   [
+    1931,
+    0
+   ],
+   [
+    1932,
+    0
+   ],
+   [
+    1933,
+    0
+   ],
+   [
+    1934,
+    0
+   ],
+   [
+    1935,
+    2
+   ],
+   [
+    1936,
+    0
+   ],
+   [
+    1937,
+    2
+   ],
+   [
+    1938,
+    0
+   ],
+   [
+    1939,
+    3
+   ],
+   [
+    1947,
+    3
+   ],
+   [
+    1948,
+    6
+   ],
+   [
+    1949,
+    7
+   ],
+   [
+    1950,
+    2
+   ],
+   [
+    1951,
+    4
+   ],
+   [
+    1952,
+    7
+   ],
+   [
+    1953,
+    4
+   ],
+   [
+    1954,
+    2
+   ],
+   [
+    1955,
+    6
+   ],
+   [
+    1956,
+    4
+   ],
+   [
+    1957,
+    5
+   ],
+   [
+    1958,
+    2
+   ],
+   [
+    1959,
+    4
+   ],
+   [
+    1960,
+    3
+   ],
+   [
+    1961,
+    4
+   ],
+   [
+    1962,
+    4
+   ],
+   [
+    1963,
+    3
+   ],
+   [
+    1964,
+    9
+   ],
+   [
+    1965,
+    5
+   ],
+   [
+    1966,
+    5
+   ],
+   [
+    1967,
+    3
+   ],
+   [
+    1968,
+    6
+   ],
+   [
+    1969,
+    2
+   ],
+   [
+    1970,
+    4
+   ],
+   [
+    1971,
+    5
+   ],
+   [
+    1972,
+    0
+   ],
+   [
+    1973,
+    5
+   ],
+   [
+    1974,
+    6
+   ],
+   [
+    1975,
+    3
+   ],
+   [
+    1976,
+    4
+   ],
+   [
+    1977,
+    4
+   ],
+   [
+    1978,
+    6
+   ],
+   [
+    1979,
+    3
+   ],
+   [
+    1980,
+    7
+   ],
+   [
+    1981,
+    4
+   ],
+   [
+    1982,
+    4
+   ],
+   [
+    1983,
+    0
+   ],
+   [
+    1984,
+    2
+   ],
+   [
+    1985,
+    0
+   ],
+   [
+    1986,
+    0
+   ],
+   [
+    1987,
+    6
+   ],
+   [
+    1988,
+    0
+   ],
+   [
+    1989,
+    5
+   ],
+   [
+    1990,
+    2
+   ],
+   [
+    1991,
+    2
+   ],
+   [
+    1992,
+    10
+   ],
+   [
+    1993,
+    2
+   ],
+   [
+    1994,
+    2
+   ],
+   [
+    1995,
+    3
+   ],
+   [
+    1996,
+    7
+   ],
+   [
+    1997,
+    4
+   ],
+   [
+    1998,
+    5
+   ],
+   [
+    1999,
+    2
+   ],
+   [
+    2000,
+    3
+   ],
+   [
+    2001,
+    3
+   ],
+   [
+    2002,
+    3
+   ],
+   [
+    2003,
+    0
+   ],
+   [
+    2004,
+    4
+   ],
+   [
+    2005,
+    2
+   ],
+   [
+    2006,
+    3
+   ],
+   [
+    2007,
+    4
+   ],
+   [
+    2008,
+    1
+   ],
+   [
+    2009,
+    7
+   ],
+   [
+    2010,
+    4
+   ],
+   [
+    2011,
+    2
+   ],
+   [
+    2012,
+    4
+   ],
+   [
+    2013,
+    0
+   ],
+   [
+    2014,
+    4
+   ],
+   [
+    2015,
+    4
+   ],
+   [
+    2016,
+    4
+   ],
+   [
+    2017,
+    4
+   ],
+   [
+    2018,
+    0
+   ],
+   [
+    2019,
+    3
+   ],
+   [
+    2020,
+    0
+   ],
+   [
+    2021,
+    2
+   ],
+   [
+    2022,
+    6
+   ],
+   [
+    2023,
+    3
+   ],
+   [
+    2024,
+    5
+   ],
+   [
+    2025,
+    0
+   ],
+   [
+    2026,
+    3
+   ]
+  ],
+  "by_year_country": [
+   [
+    1913,
+    "Switzerland",
+    2
+   ],
+   [
+    1914,
+    "Switzerland",
+    2
+   ],
+   [
+    1919,
+    "Switzerland",
+    2
+   ],
+   [
+    1921,
+    "Switzerland",
+    2
+   ],
+   [
+    1922,
+    "Switzerland",
+    2
+   ],
+   [
+    1923,
+    "Switzerland",
+    2
+   ],
+   [
+    1935,
+    "Switzerland",
+    2
+   ],
+   [
+    1937,
+    "Switzerland",
+    2
+   ],
+   [
+    1939,
+    "Monaco",
+    3
+   ],
+   [
+    1947,
+    "Belgium",
+    2
+   ],
+   [
+    1947,
+    "Luxembourg",
+    1
+   ],
+   [
+    1948,
+    "Belgium",
+    2
+   ],
+   [
+    1948,
+    "Switzerland",
+    2
+   ],
+   [
+    1948,
+    "Italy",
+    2
+   ],
+   [
+    1949,
+    "Belgium",
+    2
+   ],
+   [
+    1949,
+    "Switzerland",
+    1
+   ],
+   [
+    1949,
+    "Spain",
+    2
+   ],
+   [
+    1949,
+    "Italy",
+    2
+   ],
+   [
+    1950,
+    "Belgium",
+    2
+   ],
+   [
+    1951,
+    "Belgium",
+    2
+   ],
+   [
+    1951,
+    "Switzerland",
+    2
+   ],
+   [
+    1952,
+    "Belgium",
+    2
+   ],
+   [
+    1952,
+    "Switzerland",
+    2
+   ],
+   [
+    1952,
+    "Italy",
+    2
+   ],
+   [
+    1952,
+    "Monaco",
+    1
+   ],
+   [
+    1953,
+    "Belgium",
+    2
+   ],
+   [
+    1953,
+    "Monaco",
+    2
+   ],
+   [
+    1954,
+    "Belgium",
+    1
+   ],
+   [
+    1954,
+    "Netherlands",
+    1
+   ],
+   [
+    1955,
+    "Belgium",
+    2
+   ],
+   [
+    1955,
+    "Switzerland",
+    2
+   ],
+   [
+    1955,
+    "Monaco",
+    2
+   ],
+   [
+    1956,
+    "Belgium",
+    2
+   ],
+   [
+    1956,
+    "Italy",
+    2
+   ],
+   [
+    1957,
+    "Belgium",
+    2
+   ],
+   [
+    1957,
+    "Spain",
+    3
+   ],
+   [
+    1958,
+    "Belgium",
+    2
+   ],
+   [
+    1959,
+    "Belgium",
+    2
+   ],
+   [
+    1959,
+    "Italy",
+    2
+   ],
+   [
+    1960,
+    "Belgium",
+    3
+   ],
+   [
+    1961,
+    "Belgium",
+    2
+   ],
+   [
+    1961,
+    "Italy",
+    2
+   ],
+   [
+    1962,
+    "Belgium",
+    4
+   ],
+   [
+    1963,
+    "Belgium",
+    3
+   ],
+   [
+    1964,
+    "Andorra",
+    2
+   ],
+   [
+    1964,
+    "Belgium",
+    3
+   ],
+   [
+    1964,
+    "Switzerland",
+    1
+   ],
+   [
+    1964,
+    "Germany",
+    1
+   ],
+   [
+    1964,
+    "Monaco",
+    2
+   ],
+   [
+    1965,
+    "Belgium",
+    2
+   ],
+   [
+    1965,
+    "Germany",
+    1
+   ],
+   [
+    1965,
+    "Spain",
+    2
+   ],
+   [
+    1966,
+    "Belgium",
+    3
+   ],
+   [
+    1966,
+    "Italy",
+    2
+   ],
+   [
+    1967,
+    "Belgium",
+    3
+   ],
+   [
+    1968,
+    "Belgium",
+    3
+   ],
+   [
+    1968,
+    "Spain",
+    2
+   ],
+   [
+    1968,
+    "Luxembourg",
+    1
+   ],
+   [
+    1969,
+    "Netherlands",
+    2
+   ],
+   [
+    1970,
+    "Belgium",
+    3
+   ],
+   [
+    1970,
+    "Germany",
+    1
+   ],
+   [
+    1971,
+    "Belgium",
+    2
+   ],
+   [
+    1971,
+    "Switzerland",
+    2
+   ],
+   [
+    1971,
+    "Germany",
+    1
+   ],
+   [
+    1973,
+    "Belgium",
+    2
+   ],
+   [
+    1973,
+    "Netherlands",
+    3
+   ],
+   [
+    1974,
+    "Belgium",
+    3
+   ],
+   [
+    1974,
+    "Spain",
+    2
+   ],
+   [
+    1974,
+    "United Kingdom",
+    1
+   ],
+   [
+    1975,
+    "Belgium",
+    3
+   ],
+   [
+    1976,
+    "Belgium",
+    4
+   ],
+   [
+    1977,
+    "Belgium",
+    2
+   ],
+   [
+    1977,
+    "Spain",
+    2
+   ],
+   [
+    1978,
+    "Belgium",
+    1
+   ],
+   [
+    1978,
+    "Switzerland",
+    2
+   ],
+   [
+    1978,
+    "Netherlands",
+    3
+   ],
+   [
+    1979,
+    "Belgium",
+    3
+   ],
+   [
+    1980,
+    "Belgium",
+    3
+   ],
+   [
+    1980,
+    "Germany",
+    4
+   ],
+   [
+    1981,
+    "Belgium",
+    4
+   ],
+   [
+    1982,
+    "Belgium",
+    1
+   ],
+   [
+    1982,
+    "Switzerland",
+    3
+   ],
+   [
+    1984,
+    "Switzerland",
+    2
+   ],
+   [
+    1987,
+    "Germany",
+    6
+   ],
+   [
+    1989,
+    "Belgium",
+    1
+   ],
+   [
+    1989,
+    "Luxembourg",
+    4
+   ],
+   [
+    1990,
+    "Switzerland",
+    2
+   ],
+   [
+    1991,
+    "Spain",
+    2
+   ],
+   [
+    1992,
+    "Belgium",
+    2
+   ],
+   [
+    1992,
+    "Spain",
+    3
+   ],
+   [
+    1992,
+    "Italy",
+    2
+   ],
+   [
+    1992,
+    "Luxembourg",
+    2
+   ],
+   [
+    1992,
+    "Netherlands",
+    1
+   ],
+   [
+    1993,
+    "Andorra",
+    2
+   ],
+   [
+    1994,
+    "United Kingdom",
+    2
+   ],
+   [
+    1995,
+    "Belgium",
+    3
+   ],
+   [
+    1996,
+    "Spain",
+    2
+   ],
+   [
+    1996,
+    "Italy",
+    2
+   ],
+   [
+    1996,
+    "Netherlands",
+    3
+   ],
+   [
+    1997,
+    "Andorra",
+    2
+   ],
+   [
+    1997,
+    "Switzerland",
+    2
+   ],
+   [
+    1998,
+    "Switzerland",
+    2
+   ],
+   [
+    1998,
+    "Ireland",
+    3
+   ],
+   [
+    1999,
+    "Italy",
+    2
+   ],
+   [
+    2000,
+    "Switzerland",
+    2
+   ],
+   [
+    2000,
+    "Germany",
+    1
+   ],
+   [
+    2001,
+    "Belgium",
+    3
+   ],
+   [
+    2002,
+    "Luxembourg",
+    3
+   ],
+   [
+    2004,
+    "Belgium",
+    4
+   ],
+   [
+    2005,
+    "Germany",
+    2
+   ],
+   [
+    2006,
+    "Belgium",
+    1
+   ],
+   [
+    2006,
+    "Luxembourg",
+    2
+   ],
+   [
+    2007,
+    "Belgium",
+    2
+   ],
+   [
+    2007,
+    "United Kingdom",
+    2
+   ],
+   [
+    2008,
+    "Italy",
+    1
+   ],
+   [
+    2009,
+    "Andorra",
+    1
+   ],
+   [
+    2009,
+    "Switzerland",
+    2
+   ],
+   [
+    2009,
+    "Spain",
+    2
+   ],
+   [
+    2009,
+    "Monaco",
+    2
+   ],
+   [
+    2010,
+    "Belgium",
+    2
+   ],
+   [
+    2010,
+    "Netherlands",
+    2
+   ],
+   [
+    2011,
+    "Italy",
+    2
+   ],
+   [
+    2012,
+    "Belgium",
+    3
+   ],
+   [
+    2012,
+    "Switzerland",
+    1
+   ],
+   [
+    2014,
+    "Belgium",
+    1
+   ],
+   [
+    2014,
+    "United Kingdom",
+    3
+   ],
+   [
+    2015,
+    "Belgium",
+    2
+   ],
+   [
+    2015,
+    "Netherlands",
+    2
+   ],
+   [
+    2016,
+    "Andorra",
+    1
+   ],
+   [
+    2016,
+    "Switzerland",
+    2
+   ],
+   [
+    2016,
+    "Spain",
+    1
+   ],
+   [
+    2017,
+    "Belgium",
+    1
+   ],
+   [
+    2017,
+    "Germany",
+    2
+   ],
+   [
+    2017,
+    "Luxembourg",
+    1
+   ],
+   [
+    2019,
+    "Belgium",
+    3
+   ],
+   [
+    2021,
+    "Andorra",
+    2
+   ],
+   [
+    2022,
+    "Belgium",
+    1
+   ],
+   [
+    2022,
+    "Switzerland",
+    2
+   ],
+   [
+    2022,
+    "Denmark",
+    3
+   ],
+   [
+    2023,
+    "Spain",
+    3
+   ],
+   [
+    2024,
+    "Italy",
+    4
+   ],
+   [
+    2024,
+    "Monaco",
+    1
+   ],
+   [
+    2026,
+    "Spain",
+    3
+   ]
+  ]
+ },
+ "centre": [
+  {
+   "dec": 1900,
+   "lat": 46.42,
+   "lon": 2.313,
+   "n": 160,
+   "lat_min": 43.12,
+   "lat_max": 50.69,
+   "lon_min": -4.49,
+   "lon_max": 7.27,
+   "edge50_pct": 63.12,
+   "edge_median": 19.2,
+   "fr_towns": 24
+  },
+  {
+   "dec": 1910,
+   "lat": 46.494,
+   "lon": 2.462,
+   "n": 180,
+   "lat_min": 42.7,
+   "lat_max": 51.03,
+   "lon_min": -4.49,
+   "lon_max": 7.75,
+   "edge50_pct": 85.06,
+   "edge_median": 4.2,
+   "fr_towns": 25
+  },
+  {
+   "dec": 1920,
+   "lat": 46.674,
+   "lon": 2.457,
+   "n": 356,
+   "lat_min": 42.7,
+   "lat_max": 51.03,
+   "lon_min": -4.49,
+   "lon_max": 7.75,
+   "edge50_pct": 91.71,
+   "edge_median": 4.2,
+   "fr_towns": 32
+  },
+  {
+   "dec": 1930,
+   "lat": 45.893,
+   "lon": 2.978,
+   "n": 506,
+   "lat_min": 42.7,
+   "lat_max": 51.03,
+   "lon_min": -4.49,
+   "lon_max": 7.75,
+   "edge50_pct": 77.91,
+   "edge_median": 12.6,
+   "fr_towns": 63
+  },
+  {
+   "dec": 1940,
+   "lat": 46.324,
+   "lon": 3.066,
+   "n": 126,
+   "lat_min": 42.79,
+   "lat_max": 50.85,
+   "lon_min": -2.77,
+   "lon_max": 7.78,
+   "edge50_pct": 75.93,
+   "edge_median": 7.5,
+   "fr_towns": 38
+  },
+  {
+   "dec": 1950,
+   "lat": 46.284,
+   "lon": 2.627,
+   "n": 459,
+   "lat_min": 41.39,
+   "lat_max": 52.37,
+   "lon_min": -4.49,
+   "lon_max": 8.55,
+   "edge50_pct": 62.17,
+   "edge_median": 36.2,
+   "fr_towns": 92
+  },
+  {
+   "dec": 1960,
+   "lat": 46.493,
+   "lon": 2.792,
+   "n": 471,
+   "lat_min": 41.39,
+   "lat_max": 51.18,
+   "lon_min": -4.49,
+   "lon_max": 7.88,
+   "edge50_pct": 58.17,
+   "edge_median": 36.2,
+   "fr_towns": 110
+  },
+  {
+   "dec": 1970,
+   "lat": 46.762,
+   "lon": 2.459,
+   "n": 490,
+   "lat_min": 42.36,
+   "lat_max": 52.16,
+   "lon_min": -4.49,
+   "lon_max": 7.85,
+   "edge50_pct": 51.73,
+   "edge_median": 46.7,
+   "fr_towns": 144
+  },
+  {
+   "dec": 1980,
+   "lat": 46.812,
+   "lon": 3.094,
+   "n": 452,
+   "lat_min": 42.79,
+   "lat_max": 52.52,
+   "lon_min": -4.09,
+   "lon_max": 13.41,
+   "edge50_pct": 48.28,
+   "edge_median": 52.2,
+   "fr_towns": 157
+  },
+  {
+   "dec": 1990,
+   "lat": 46.632,
+   "lon": 2.367,
+   "n": 409,
+   "lat_min": 42.51,
+   "lat_max": 53.33,
+   "lon_min": -8.47,
+   "lon_max": 7.75,
+   "edge50_pct": 46.35,
+   "edge_median": 52.2,
+   "fr_towns": 175
+  },
+  {
+   "dec": 2000,
+   "lat": 46.373,
+   "lon": 3.134,
+   "n": 397,
+   "lat_min": 41.39,
+   "lat_max": 51.51,
+   "lon_min": -4.49,
+   "lon_max": 8.7,
+   "edge50_pct": 49.86,
+   "edge_median": 50.2,
+   "fr_towns": 202
+  },
+  {
+   "dec": 2010,
+   "lat": 46.329,
+   "lon": 3.141,
+   "n": 387,
+   "lat_min": 41.59,
+   "lat_max": 53.99,
+   "lon_min": -4.49,
+   "lon_max": 9.45,
+   "edge50_pct": 47.37,
+   "edge_median": 52.2,
+   "fr_towns": 197
+  },
+  {
+   "dec": 2020,
+   "lat": 45.89,
+   "lon": 3.402,
+   "n": 259,
+   "lat_min": 41.12,
+   "lat_max": 55.71,
+   "lon_min": -4.49,
+   "lon_max": 12.57,
+   "edge50_pct": 49.13,
+   "edge_median": 52.2,
+   "fr_towns": 164
+  }
+ ],
+ "shape": {
+  "edge50_1900s": 63.12,
+  "edge50_1920s": 91.71,
+  "edge50_2020s": 49.13,
+  "edge_med_1900s": 19.2,
+  "edge_med_1920s": 4.2,
+  "edge_med_2020s": 52.2,
+  "edge50_min_dec": 1990,
+  "edge50_min": 46.35,
+  "edge50_max_dec": 1920,
+  "edge50_max": 91.71,
+  "edge50_all": 60.74,
+  "transfer_pct_1920s": 0.0,
+  "transfer_pct_2020s": 87.85,
+  "transfer_pct_1960s": 11.26,
+  "transfer_km_1920s": 0,
+  "transfer_km_2020s": 1152,
+  "transfer_km_1950s": 92,
+  "area_edge50_pct": 37.3,
+  "no_transfer_tours": 37,
+  "last_no_transfer": 1967,
+  "first_transfer_year": 1904,
+  "transfer_top": [
+   {
+    "year": 2018,
+    "from": "Espelette",
+    "to": "Houilles",
+    "km": 681
+   },
+   {
+    "year": 2022,
+    "from": "Sønderborg",
+    "to": "Dunkirk",
+    "km": 657
+   },
+   {
+    "year": 2017,
+    "from": "Marseille",
+    "to": "Montgeron",
+    "km": 642
+   },
+   {
+    "year": 2018,
+    "from": "Roubaix",
+    "to": "Annecy",
+    "km": 575
+   },
+   {
+    "year": 2015,
+    "from": "Plumelec",
+    "to": "Tarbes",
+    "km": 554
+   },
+   {
+    "year": 2026,
+    "from": "L'Alpe-d'Huez",
+    "to": "Thoiry",
+    "km": 531
+   }
+  ],
+  "transfer_km_max_year": 2018,
+  "transfer_km_max": 2128
+ },
+ "deps": {
+  "n": 96,
+  "visited": 96,
+  "never": [],
+  "n_never": 0,
+  "top": [
+   [
+    "64",
+    "Pyrénées-Atlantiques",
+    228,
+    102
+   ],
+   [
+    "31",
+    "Haute-Garonne",
+    224,
+    98
+   ],
+   [
+    "38",
+    "Isère",
+    167,
+    75
+   ],
+   [
+    "59",
+    "Nord",
+    167,
+    79
+   ],
+   [
+    "33",
+    "Gironde",
+    163,
+    79
+   ],
+   [
+    "75",
+    "Paris",
+    163,
+    112
+   ],
+   [
+    "74",
+    "Haute-Savoie",
+    148,
+    64
+   ],
+   [
+    "05",
+    "Hautes-Alpes",
+    127,
+    57
+   ],
+   [
+    "06",
+    "Alpes-Maritimes",
+    113,
+    43
+   ],
+   [
+    "73",
+    "Savoie",
+    111,
+    52
+   ],
+   [
+    "14",
+    "Calvados",
+    97,
+    44
+   ],
+   [
+    "76",
+    "Seine-Maritime",
+    96,
+    49
+   ]
+  ],
+  "one_tour": [
+   [
+    "2A",
+    "Corse-du-Sud",
+    1
+   ],
+   [
+    "2B",
+    "Haute-Corse",
+    1
+   ],
+   [
+    "79",
+    "Deux-Sèvres",
+    1
+   ],
+   [
+    "52",
+    "Haute-Marne",
+    2
+   ],
+   [
+    "95",
+    "Val-d'Oise",
+    2
+   ]
+  ]
+ },
+ "winners": {
+  "n_editions_with_winner": 106,
+  "no_winner": [
+   1999,
+   2000,
+   2001,
+   2002,
+   2003,
+   2004,
+   2005
+  ],
+  "n_no_winner": 7,
+  "by_nation": [
+   [
+    "France",
+    36
+   ],
+   [
+    "Belgium",
+    18
+   ],
+   [
+    "Spain",
+    12
+   ],
+   [
+    "Italy",
+    10
+   ],
+   [
+    "United Kingdom",
+    6
+   ],
+   [
+    "Luxembourg",
+    5
+   ],
+   [
+    "Slovenia",
+    5
+   ],
+   [
+    "United States",
+    3
+   ],
+   [
+    "Denmark",
+    3
+   ],
+   [
+    "Switzerland",
+    2
+   ],
+   [
+    "Netherlands",
+    2
+   ],
+   [
+    "Ireland",
+    1
+   ],
+   [
+    "Germany",
+    1
+   ],
+   [
+    "Australia",
+    1
+   ],
+   [
+    "Colombia",
+    1
+   ]
+  ],
+  "n_nations": 15,
+  "france": 36,
+  "belgium": 18,
+  "spain": 12,
+  "italy": 10,
+  "uk": 6,
+  "slovenia": 5,
+  "denmark": 3,
+  "lux": 5,
+  "france_last": 1985,
+  "belgium_last": 1976,
+  "first_non_fr": 1909,
+  "first_non_fr_name": "François Faber",
+  "first_outside_europe": 1986,
+  "since1986_fr": 0,
+  "checked_by_team": 25,
+  "years": [
+   [
+    1903,
+    "Maurice Garin",
+    "France"
+   ],
+   [
+    1904,
+    "Henri Cornet (Geboren Jardy)",
+    "France"
+   ],
+   [
+    1905,
+    "Louis Trousselier",
+    "France"
+   ],
+   [
+    1906,
+    "René Pottier",
+    "France"
+   ],
+   [
+    1907,
+    "Lucien Mazan Dit Petit-Breton",
+    "France"
+   ],
+   [
+    1908,
+    "Lucien Mazan Dit Petit-Breton",
+    "France"
+   ],
+   [
+    1909,
+    "François Faber",
+    "Luxembourg"
+   ],
+   [
+    1910,
+    "Octave Lapize",
+    "France"
+   ],
+   [
+    1911,
+    "Gustave Garrigou",
+    "France"
+   ],
+   [
+    1912,
+    "Odiel Defraeye",
+    "Belgium"
+   ],
+   [
+    1913,
+    "Philippe Thys",
+    "Belgium"
+   ],
+   [
+    1914,
+    "Philippe Thys",
+    "Belgium"
+   ],
+   [
+    1919,
+    "Firmin Lambot",
+    "Belgium"
+   ],
+   [
+    1920,
+    "Philippe Thys",
+    "Belgium"
+   ],
+   [
+    1921,
+    "Léon Scieur",
+    "Belgium"
+   ],
+   [
+    1922,
+    "Firmin Lambot",
+    "Belgium"
+   ],
+   [
+    1923,
+    "Henri Pelissier",
+    "France"
+   ],
+   [
+    1924,
+    "Ottavio Bottecchia",
+    "Italy"
+   ],
+   [
+    1925,
+    "Ottavio Bottecchia",
+    "Italy"
+   ],
+   [
+    1926,
+    "Lucien Buysse",
+    "Belgium"
+   ],
+   [
+    1927,
+    "Nicolas Frantz",
+    "Luxembourg"
+   ],
+   [
+    1928,
+    "Nicolas Frantz",
+    "Luxembourg"
+   ],
+   [
+    1929,
+    "Maurice De Waele",
+    "Belgium"
+   ],
+   [
+    1930,
+    "André Leducq",
+    "France"
+   ],
+   [
+    1931,
+    "Antonin Magne",
+    "France"
+   ],
+   [
+    1932,
+    "André Leducq",
+    "France"
+   ],
+   [
+    1933,
+    "Georges Speicher",
+    "France"
+   ],
+   [
+    1934,
+    "Antonin Magne",
+    "France"
+   ],
+   [
+    1935,
+    "Romain Maes",
+    "Belgium"
+   ],
+   [
+    1936,
+    "Sylvère Maes",
+    "Belgium"
+   ],
+   [
+    1937,
+    "Roger Lapebie",
+    "France"
+   ],
+   [
+    1938,
+    "Gino Bartali",
+    "Italy"
+   ],
+   [
+    1939,
+    "Sylvère Maes",
+    "Belgium"
+   ],
+   [
+    1947,
+    "Jean Robic",
+    "France"
+   ],
+   [
+    1948,
+    "Gino Bartali",
+    "Italy"
+   ],
+   [
+    1949,
+    "Fausto Coppi",
+    "Italy"
+   ],
+   [
+    1950,
+    "Ferdi Kubler",
+    "Switzerland"
+   ],
+   [
+    1951,
+    "Hugo Koblet",
+    "Switzerland"
+   ],
+   [
+    1952,
+    "Fausto Coppi",
+    "Italy"
+   ],
+   [
+    1953,
+    "Louison Bobet",
+    "France"
+   ],
+   [
+    1954,
+    "Louison Bobet",
+    "France"
+   ],
+   [
+    1955,
+    "Louison Bobet",
+    "France"
+   ],
+   [
+    1956,
+    "Roger Walkowiak",
+    "France"
+   ],
+   [
+    1957,
+    "Jacques Anquetil",
+    "France"
+   ],
+   [
+    1958,
+    "Charly Gaul",
+    "Luxembourg"
+   ],
+   [
+    1959,
+    "Federico Bahamontes",
+    "Spain"
+   ],
+   [
+    1960,
+    "Gastone Nencini",
+    "Italy"
+   ],
+   [
+    1961,
+    "Jacques Anquetil",
+    "France"
+   ],
+   [
+    1962,
+    "Jacques Anquetil",
+    "France"
+   ],
+   [
+    1963,
+    "Jacques Anquetil",
+    "France"
+   ],
+   [
+    1964,
+    "Jacques Anquetil",
+    "France"
+   ],
+   [
+    1965,
+    "Felice Gimondi",
+    "Italy"
+   ],
+   [
+    1966,
+    "Lucien Aimar",
+    "France"
+   ],
+   [
+    1967,
+    "Roger Pingeon",
+    "France"
+   ],
+   [
+    1968,
+    "Jan Janssen",
+    "Netherlands"
+   ],
+   [
+    1969,
+    "Eddy Merckx",
+    "Belgium"
+   ],
+   [
+    1970,
+    "Eddy Merckx",
+    "Belgium"
+   ],
+   [
+    1971,
+    "Eddy Merckx",
+    "Belgium"
+   ],
+   [
+    1972,
+    "Eddy Merckx",
+    "Belgium"
+   ],
+   [
+    1973,
+    "Luis Ocana",
+    "Spain"
+   ],
+   [
+    1974,
+    "Eddy Merckx",
+    "Belgium"
+   ],
+   [
+    1975,
+    "Bernard Thevenet",
+    "France"
+   ],
+   [
+    1976,
+    "Lucien Van Impe",
+    "Belgium"
+   ],
+   [
+    1977,
+    "Bernard Thevenet",
+    "France"
+   ],
+   [
+    1978,
+    "Bernard Hinault",
+    "France"
+   ],
+   [
+    1979,
+    "Bernard Hinault",
+    "France"
+   ],
+   [
+    1980,
+    "Joop Zoetemelk",
+    "Netherlands"
+   ],
+   [
+    1981,
+    "Bernard Hinault",
+    "France"
+   ],
+   [
+    1982,
+    "Bernard Hinault",
+    "France"
+   ],
+   [
+    1983,
+    "Laurent Fignon",
+    "France"
+   ],
+   [
+    1984,
+    "Laurent Fignon",
+    "France"
+   ],
+   [
+    1985,
+    "Bernard Hinault",
+    "France"
+   ],
+   [
+    1986,
+    "Greg Lemond",
+    "United States"
+   ],
+   [
+    1987,
+    "Stephen Roche",
+    "Ireland"
+   ],
+   [
+    1988,
+    "Pedro Delgado",
+    "Spain"
+   ],
+   [
+    1989,
+    "Greg Lemond",
+    "United States"
+   ],
+   [
+    1990,
+    "Greg Lemond",
+    "United States"
+   ],
+   [
+    1991,
+    "Miguel Indurain",
+    "Spain"
+   ],
+   [
+    1992,
+    "Miguel Indurain",
+    "Spain"
+   ],
+   [
+    1993,
+    "Miguel Indurain",
+    "Spain"
+   ],
+   [
+    1994,
+    "Miguel Indurain",
+    "Spain"
+   ],
+   [
+    1995,
+    "Miguel Indurain",
+    "Spain"
+   ],
+   [
+    1996,
+    "Bjarne Riis",
+    "Denmark"
+   ],
+   [
+    1997,
+    "Jan Ullrich",
+    "Germany"
+   ],
+   [
+    1998,
+    "Marco Pantani",
+    "Italy"
+   ],
+   [
+    2006,
+    "Oscar Pereiro Sio",
+    "Spain"
+   ],
+   [
+    2007,
+    "Alberto Contador",
+    "Spain"
+   ],
+   [
+    2008,
+    "Carlos Sastre",
+    "Spain"
+   ],
+   [
+    2009,
+    "Alberto Contador",
+    "Spain"
+   ],
+   [
+    2010,
+    "Andy Schleck",
+    "Luxembourg"
+   ],
+   [
+    2011,
+    "Cadel Evans",
+    "Australia"
+   ],
+   [
+    2012,
+    "Bradley Wiggins",
+    "United Kingdom"
+   ],
+   [
+    2013,
+    "Chris Froome",
+    "United Kingdom"
+   ],
+   [
+    2014,
+    "Vincenzo Nibali",
+    "Italy"
+   ],
+   [
+    2015,
+    "Chris Froome",
+    "United Kingdom"
+   ],
+   [
+    2016,
+    "Chris Froome",
+    "United Kingdom"
+   ],
+   [
+    2017,
+    "Chris Froome",
+    "United Kingdom"
+   ],
+   [
+    2018,
+    "Geraint Thomas",
+    "United Kingdom"
+   ],
+   [
+    2019,
+    "Egan Bernal Gomez",
+    "Colombia"
+   ],
+   [
+    2020,
+    "Tadej Pogacar",
+    "Slovenia"
+   ],
+   [
+    2021,
+    "Tadej Pogacar",
+    "Slovenia"
+   ],
+   [
+    2022,
+    "Jonas Vingegaard Hansen",
+    "Denmark"
+   ],
+   [
+    2023,
+    "Jonas Vingegaard Hansen",
+    "Denmark"
+   ],
+   [
+    2024,
+    "Tadej Pogacar",
+    "Slovenia"
+   ],
+   [
+    2025,
+    "Tadej Pogacar",
+    "Slovenia"
+   ],
+   [
+    2026,
+    "Tadej Pogacar",
+    "Slovenia"
+   ]
+  ],
+  "most": [
+   [
+    "Jacques Anquetil",
+    5
+   ],
+   [
+    "Eddy Merckx",
+    5
+   ],
+   [
+    "Bernard Hinault",
+    5
+   ],
+   [
+    "Miguel Indurain",
+    5
+   ],
+   [
+    "Tadej Pogacar",
+    5
+   ],
+   [
+    "Chris Froome",
+    4
+   ],
+   [
+    "Philippe Thys",
+    3
+   ],
+   [
+    "Louison Bobet",
+    3
+   ]
+  ],
+  "n_riders": 64,
+  "by_decade": [
+   {
+    "dec": 1900,
+    "France": 6,
+    "Luxembourg": 1
+   },
+   {
+    "dec": 1910,
+    "Belgium": 4,
+    "France": 2
+   },
+   {
+    "dec": 1920,
+    "Belgium": 5,
+    "Italy": 2,
+    "Luxembourg": 2,
+    "France": 1
+   },
+   {
+    "dec": 1930,
+    "France": 6,
+    "Belgium": 3,
+    "Italy": 1
+   },
+   {
+    "dec": 1940,
+    "Italy": 2,
+    "France": 1
+   },
+   {
+    "dec": 1950,
+    "France": 5,
+    "Switzerland": 2,
+    "Italy": 1,
+    "Luxembourg": 1,
+    "Spain": 1
+   },
+   {
+    "dec": 1960,
+    "France": 6,
+    "Italy": 2,
+    "Netherlands": 1,
+    "Belgium": 1
+   },
+   {
+    "dec": 1970,
+    "Belgium": 5,
+    "France": 4,
+    "Spain": 1
+   },
+   {
+    "dec": 1980,
+    "France": 5,
+    "United States": 2,
+    "Netherlands": 1,
+    "Ireland": 1,
+    "Spain": 1
+   },
+   {
+    "dec": 1990,
+    "Spain": 5,
+    "United States": 1,
+    "Denmark": 1,
+    "Germany": 1,
+    "Italy": 1
+   },
+   {
+    "dec": 2000,
+    "Spain": 4
+   },
+   {
+    "dec": 2010,
+    "United Kingdom": 6,
+    "Luxembourg": 1,
+    "Australia": 1,
+    "Italy": 1,
+    "Colombia": 1
+   },
+   {
+    "dec": 2020,
+    "Slovenia": 5,
+    "Denmark": 2
+   }
+  ],
+  "women": [
+   [
+    2022,
+    "Annemiek Van Vleuten",
+    "Netherlands",
+    38.21
+   ],
+   [
+    2023,
+    "Demi Vollering",
+    "Netherlands",
+    37.8
+   ],
+   [
+    2024,
+    "Katarzyna Niewiadoma-Phinney",
+    "Poland",
+    38.45
+   ],
+   [
+    2025,
+    "Pauline Ferrand Prevot",
+    "France",
+    39.09
+   ],
+   [
+    2026,
+    "Demi Vollering",
+    "Netherlands",
+    38.01
+   ]
+  ]
+ },
+ "women": {
+  "years": [
+   {
+    "year": 2022,
+    "n": 8,
+    "dist": 1029,
+    "start": "Paris",
+    "start_cc": "France",
+    "end": "La Super Planche des Belles Filles",
+    "abroad": 0,
+    "winner": "Annemiek Van Vleuten",
+    "nation": "Netherlands",
+    "speed": 38.21
+   },
+   {
+    "year": 2023,
+    "n": 8,
+    "dist": 956,
+    "start": "Clermont-Ferrand",
+    "start_cc": "France",
+    "end": "Pau",
+    "abroad": 0,
+    "winner": "Demi Vollering",
+    "nation": "Netherlands",
+    "speed": 37.8
+   },
+   {
+    "year": 2024,
+    "n": 8,
+    "dist": 946,
+    "start": "Rotterdam",
+    "start_cc": "Netherlands",
+    "end": "L'Alpe-d'Huez",
+    "abroad": 5,
+    "winner": "Katarzyna Niewiadoma-Phinney",
+    "nation": "Poland",
+    "speed": 38.45
+   },
+   {
+    "year": 2025,
+    "n": 9,
+    "dist": 1169,
+    "start": "Vannes",
+    "start_cc": "France",
+    "end": "Châtel",
+    "abroad": 0,
+    "winner": "Pauline Ferrand Prevot",
+    "nation": "France",
+    "speed": 39.09
+   },
+   {
+    "year": 2026,
+    "n": 9,
+    "dist": 1175,
+    "start": "Lausanne",
+    "start_cc": "Switzerland",
+    "end": "Nice",
+    "abroad": 3,
+    "winner": "Demi Vollering",
+    "nation": "Netherlands",
+    "speed": 38.01
+   }
+  ],
+  "stages": 42,
+  "dist_total": 5275,
+  "towns": 63,
+  "abroad": 8,
+  "gd_abroad": [
+   2024,
+   2026
+  ],
+  "shared_towns": 46,
+  "deps": 37
+ },
+ "years": [
+  {
+   "y": 1903,
+   "n": 6,
+   "dist": 2428,
+   "avg": 404.7,
+   "speed": 25.68,
+   "abroad": 0,
+   "winner": "Maurice Garin",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1904,
+   "n": 6,
+   "dist": 2428,
+   "avg": 404.7,
+   "speed": 25.27,
+   "abroad": 0,
+   "winner": "Henri Cornet (Geboren Jardy)",
+   "nation": "France",
+   "tkm": 331
+  },
+  {
+   "y": 1905,
+   "n": 11,
+   "dist": 2994,
+   "avg": 272.2,
+   "speed": null,
+   "abroad": 0,
+   "winner": "Louis Trousselier",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1906,
+   "n": 14,
+   "dist": 4637,
+   "avg": 331.2,
+   "speed": null,
+   "abroad": 0,
+   "winner": "René Pottier",
+   "nation": "France",
+   "tkm": 230
+  },
+  {
+   "y": 1907,
+   "n": 14,
+   "dist": 4488,
+   "avg": 320.6,
+   "speed": null,
+   "abroad": 0,
+   "winner": "Lucien Mazan Dit Petit-Breton",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1908,
+   "n": 15,
+   "dist": 4488,
+   "avg": 299.2,
+   "speed": null,
+   "abroad": 0,
+   "winner": "Lucien Mazan Dit Petit-Breton",
+   "nation": "France",
+   "tkm": 201
+  },
+  {
+   "y": 1909,
+   "n": 14,
+   "dist": 4497,
+   "avg": 321.2,
+   "speed": null,
+   "abroad": 0,
+   "winner": "François Faber",
+   "nation": "Luxembourg",
+   "tkm": 0
+  },
+  {
+   "y": 1910,
+   "n": 15,
+   "dist": 4734,
+   "avg": 315.6,
+   "speed": null,
+   "abroad": 0,
+   "winner": "Octave Lapize",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1911,
+   "n": 15,
+   "dist": 5343,
+   "avg": 356.2,
+   "speed": null,
+   "abroad": 0,
+   "winner": "Gustave Garrigou",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1912,
+   "n": 15,
+   "dist": 5289,
+   "avg": 352.6,
+   "speed": null,
+   "abroad": 0,
+   "winner": "Odiel Defraeye",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1913,
+   "n": 15,
+   "dist": 5287,
+   "avg": 352.5,
+   "speed": 26.72,
+   "abroad": 2,
+   "winner": "Philippe Thys",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1914,
+   "n": 15,
+   "dist": 5380,
+   "avg": 358.7,
+   "speed": 26.84,
+   "abroad": 2,
+   "winner": "Philippe Thys",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1919,
+   "n": 15,
+   "dist": 5560,
+   "avg": 370.7,
+   "speed": 24.06,
+   "abroad": 2,
+   "winner": "Firmin Lambot",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1920,
+   "n": 15,
+   "dist": 5503,
+   "avg": 366.9,
+   "speed": 24.07,
+   "abroad": 0,
+   "winner": "Philippe Thys",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1921,
+   "n": 15,
+   "dist": 5485,
+   "avg": 365.7,
+   "speed": 24.72,
+   "abroad": 2,
+   "winner": "Léon Scieur",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1922,
+   "n": 15,
+   "dist": 5375,
+   "avg": 358.3,
+   "speed": 24.2,
+   "abroad": 2,
+   "winner": "Firmin Lambot",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1923,
+   "n": 15,
+   "dist": 5386,
+   "avg": 359.1,
+   "speed": 24.23,
+   "abroad": 2,
+   "winner": "Henri Pelissier",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1924,
+   "n": 15,
+   "dist": 5425,
+   "avg": 361.7,
+   "speed": 23.97,
+   "abroad": 0,
+   "winner": "Ottavio Bottecchia",
+   "nation": "Italy",
+   "tkm": 0
+  },
+  {
+   "y": 1925,
+   "n": 18,
+   "dist": 5440,
+   "avg": 302.2,
+   "speed": 24.82,
+   "abroad": 0,
+   "winner": "Ottavio Bottecchia",
+   "nation": "Italy",
+   "tkm": 0
+  },
+  {
+   "y": 1926,
+   "n": 17,
+   "dist": 5745,
+   "avg": 337.9,
+   "speed": 24.06,
+   "abroad": 0,
+   "winner": "Lucien Buysse",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1927,
+   "n": 24,
+   "dist": 5398,
+   "avg": 224.9,
+   "speed": 27.22,
+   "abroad": 0,
+   "winner": "Nicolas Frantz",
+   "nation": "Luxembourg",
+   "tkm": 0
+  },
+  {
+   "y": 1928,
+   "n": 22,
+   "dist": 5476,
+   "avg": 248.9,
+   "speed": 28.4,
+   "abroad": 0,
+   "winner": "Nicolas Frantz",
+   "nation": "Luxembourg",
+   "tkm": 0
+  },
+  {
+   "y": 1929,
+   "n": 22,
+   "dist": 5286,
+   "avg": 240.3,
+   "speed": 28.32,
+   "abroad": 0,
+   "winner": "Maurice De Waele",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1930,
+   "n": 21,
+   "dist": 4822,
+   "avg": 229.6,
+   "speed": 28.0,
+   "abroad": 0,
+   "winner": "André Leducq",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1931,
+   "n": 24,
+   "dist": 5091,
+   "avg": 212.1,
+   "speed": 28.74,
+   "abroad": 0,
+   "winner": "Antonin Magne",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1932,
+   "n": 21,
+   "dist": 4479,
+   "avg": 213.3,
+   "speed": 29.05,
+   "abroad": 0,
+   "winner": "André Leducq",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1933,
+   "n": 23,
+   "dist": 4395,
+   "avg": 191.1,
+   "speed": 29.72,
+   "abroad": 0,
+   "winner": "Georges Speicher",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1934,
+   "n": 24,
+   "dist": 4470,
+   "avg": 186.2,
+   "speed": 30.36,
+   "abroad": 0,
+   "winner": "Antonin Magne",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1935,
+   "n": 27,
+   "dist": 4338,
+   "avg": 160.7,
+   "speed": 30.65,
+   "abroad": 2,
+   "winner": "Romain Maes",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1936,
+   "n": 27,
+   "dist": 4442,
+   "avg": 164.5,
+   "speed": 31.11,
+   "abroad": 0,
+   "winner": "Sylvère Maes",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1937,
+   "n": 31,
+   "dist": 4415,
+   "avg": 142.4,
+   "speed": 31.77,
+   "abroad": 2,
+   "winner": "Roger Lapebie",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1938,
+   "n": 29,
+   "dist": 4694,
+   "avg": 161.9,
+   "speed": 31.61,
+   "abroad": 0,
+   "winner": "Gino Bartali",
+   "nation": "Italy",
+   "tkm": 0
+  },
+  {
+   "y": 1939,
+   "n": 28,
+   "dist": 4224,
+   "avg": 150.9,
+   "speed": 31.99,
+   "abroad": 3,
+   "winner": "Sylvère Maes",
+   "nation": "Belgium",
+   "tkm": 0
+  },
+  {
+   "y": 1947,
+   "n": 21,
+   "dist": 4642,
+   "avg": 221.0,
+   "speed": 31.32,
+   "abroad": 3,
+   "winner": "Jean Robic",
+   "nation": "France",
+   "tkm": 103
+  },
+  {
+   "y": 1948,
+   "n": 21,
+   "dist": 4922,
+   "avg": 234.4,
+   "speed": 33.44,
+   "abroad": 6,
+   "winner": "Gino Bartali",
+   "nation": "Italy",
+   "tkm": 0
+  },
+  {
+   "y": 1949,
+   "n": 21,
+   "dist": 4808,
+   "avg": 229.0,
+   "speed": 32.12,
+   "abroad": 7,
+   "winner": "Fausto Coppi",
+   "nation": "Italy",
+   "tkm": 0
+  },
+  {
+   "y": 1950,
+   "n": 22,
+   "dist": 4773,
+   "avg": 217.0,
+   "speed": 32.78,
+   "abroad": 2,
+   "winner": "Ferdi Kubler",
+   "nation": "Switzerland",
+   "tkm": 0
+  },
+  {
+   "y": 1951,
+   "n": 24,
+   "dist": 4690,
+   "avg": 195.4,
+   "speed": 32.95,
+   "abroad": 4,
+   "winner": "Hugo Koblet",
+   "nation": "Switzerland",
+   "tkm": 38
+  },
+  {
+   "y": 1952,
+   "n": 23,
+   "dist": 4898,
+   "avg": 213.0,
+   "speed": 32.23,
+   "abroad": 7,
+   "winner": "Fausto Coppi",
+   "nation": "Italy",
+   "tkm": 4
+  },
+  {
+   "y": 1953,
+   "n": 22,
+   "dist": 4476,
+   "avg": 203.5,
+   "speed": 34.59,
+   "abroad": 4,
+   "winner": "Louison Bobet",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1954,
+   "n": 25,
+   "dist": 4656,
+   "avg": 186.2,
+   "speed": 33.23,
+   "abroad": 2,
+   "winner": "Louison Bobet",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1955,
+   "n": 23,
+   "dist": 4495,
+   "avg": 195.4,
+   "speed": 34.45,
+   "abroad": 6,
+   "winner": "Louison Bobet",
+   "nation": "France",
+   "tkm": 30
+  },
+  {
+   "y": 1956,
+   "n": 23,
+   "dist": 4498,
+   "avg": 195.6,
+   "speed": 36.27,
+   "abroad": 4,
+   "winner": "Roger Walkowiak",
+   "nation": "France",
+   "tkm": 687
+  },
+  {
+   "y": 1957,
+   "n": 24,
+   "dist": 4669,
+   "avg": 194.5,
+   "speed": 34.4,
+   "abroad": 5,
+   "winner": "Jacques Anquetil",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1958,
+   "n": 24,
+   "dist": 4319,
+   "avg": 180.0,
+   "speed": 36.92,
+   "abroad": 2,
+   "winner": "Charly Gaul",
+   "nation": "Luxembourg",
+   "tkm": 58
+  },
+  {
+   "y": 1959,
+   "n": 22,
+   "dist": 4358,
+   "avg": 198.1,
+   "speed": 35.21,
+   "abroad": 4,
+   "winner": "Federico Bahamontes",
+   "nation": "Spain",
+   "tkm": 104
+  },
+  {
+   "y": 1960,
+   "n": 22,
+   "dist": 4173,
+   "avg": 189.7,
+   "speed": 37.21,
+   "abroad": 3,
+   "winner": "Gastone Nencini",
+   "nation": "Italy",
+   "tkm": 166
+  },
+  {
+   "y": 1961,
+   "n": 22,
+   "dist": 4397,
+   "avg": 199.9,
+   "speed": 36.03,
+   "abroad": 4,
+   "winner": "Jacques Anquetil",
+   "nation": "France",
+   "tkm": 111
+  },
+  {
+   "y": 1962,
+   "n": 24,
+   "dist": 4274,
+   "avg": 178.1,
+   "speed": 37.32,
+   "abroad": 4,
+   "winner": "Jacques Anquetil",
+   "nation": "France",
+   "tkm": 167
+  },
+  {
+   "y": 1963,
+   "n": 23,
+   "dist": 4138,
+   "avg": 179.9,
+   "speed": 36.46,
+   "abroad": 3,
+   "winner": "Jacques Anquetil",
+   "nation": "France",
+   "tkm": 56
+  },
+  {
+   "y": 1964,
+   "n": 25,
+   "dist": 4504,
+   "avg": 180.2,
+   "speed": 35.42,
+   "abroad": 9,
+   "winner": "Jacques Anquetil",
+   "nation": "France",
+   "tkm": 328
+  },
+  {
+   "y": 1965,
+   "n": 24,
+   "dist": 4188,
+   "avg": 174.5,
+   "speed": 35.89,
+   "abroad": 5,
+   "winner": "Felice Gimondi",
+   "nation": "Italy",
+   "tkm": 263
+  },
+  {
+   "y": 1966,
+   "n": 25,
+   "dist": 4329,
+   "avg": 173.2,
+   "speed": 36.82,
+   "abroad": 5,
+   "winner": "Lucien Aimar",
+   "nation": "France",
+   "tkm": 94
+  },
+  {
+   "y": 1967,
+   "n": 25,
+   "dist": 4779,
+   "avg": 191.2,
+   "speed": 34.91,
+   "abroad": 3,
+   "winner": "Roger Pingeon",
+   "nation": "France",
+   "tkm": 0
+  },
+  {
+   "y": 1968,
+   "n": 26,
+   "dist": 4492,
+   "avg": 172.8,
+   "speed": 33.57,
+   "abroad": 6,
+   "winner": "Jan Janssen",
+   "nation": "Netherlands",
+   "tkm": 107
+  },
+  {
+   "y": 1969,
+   "n": 26,
+   "dist": 4117,
+   "avg": 158.3,
+   "speed": 35.41,
+   "abroad": 2,
+   "winner": "Eddy Merckx",
+   "nation": "Belgium",
+   "tkm": 44
+  },
+  {
+   "y": 1970,
+   "n": 29,
+   "dist": 4254,
+   "avg": 146.7,
+   "speed": 35.59,
+   "abroad": 4,
+   "winner": "Eddy Merckx",
+   "nation": "Belgium",
+   "tkm": 263
+  },
+  {
+   "y": 1971,
+   "n": 25,
+   "dist": 3608,
+   "avg": 144.3,
+   "speed": 37.29,
+   "abroad": 5,
+   "winner": "Eddy Merckx",
+   "nation": "Belgium",
+   "tkm": 760
+  },
+  {
+   "y": 1972,
+   "n": 25,
+   "dist": 3846,
+   "avg": 153.8,
+   "speed": 35.52,
+   "abroad": 0,
+   "winner": "Eddy Merckx",
+   "nation": "Belgium",
+   "tkm": 97
+  },
+  {
+   "y": 1973,
+   "n": 27,
+   "dist": 4090,
+   "avg": 151.5,
+   "speed": 33.41,
+   "abroad": 5,
+   "winner": "Luis Ocana",
+   "nation": "Spain",
+   "tkm": 270
+  },
+  {
+   "y": 1974,
+   "n": 27,
+   "dist": 4098,
+   "avg": 151.8,
+   "speed": 35.24,
+   "abroad": 6,
+   "winner": "Eddy Merckx",
+   "nation": "Belgium",
+   "tkm": 931
+  },
+  {
+   "y": 1975,
+   "n": 25,
+   "dist": 4000,
+   "avg": 160.0,
+   "speed": 34.91,
+   "abroad": 3,
+   "winner": "Bernard Thevenet",
+   "nation": "France",
+   "tkm": 269
+  },
+  {
+   "y": 1976,
+   "n": 27,
+   "dist": 4017,
+   "avg": 148.8,
+   "speed": 34.52,
+   "abroad": 4,
+   "winner": "Lucien Van Impe",
+   "nation": "Belgium",
+   "tkm": 688
+  },
+  {
+   "y": 1977,
+   "n": 28,
+   "dist": 4096,
+   "avg": 146.3,
+   "speed": 35.42,
+   "abroad": 4,
+   "winner": "Bernard Thevenet",
+   "nation": "France",
+   "tkm": 730
+  },
+  {
+   "y": 1978,
+   "n": 25,
+   "dist": 3908,
+   "avg": 156.3,
+   "speed": 36.08,
+   "abroad": 6,
+   "winner": "Bernard Hinault",
+   "nation": "France",
+   "tkm": 757
+  },
+  {
+   "y": 1979,
+   "n": 25,
+   "dist": 3765,
+   "avg": 150.6,
+   "speed": 36.51,
+   "abroad": 3,
+   "winner": "Bernard Hinault",
+   "nation": "France",
+   "tkm": 716
+  },
+  {
+   "y": 1980,
+   "n": 25,
+   "dist": 3842,
+   "avg": 153.7,
+   "speed": 35.14,
+   "abroad": 7,
+   "winner": "Joop Zoetemelk",
+   "nation": "Netherlands",
+   "tkm": 927
+  },
+  {
+   "y": 1981,
+   "n": 25,
+   "dist": 3753,
+   "avg": 150.1,
+   "speed": 40.98,
+   "abroad": 4,
+   "winner": "Bernard Hinault",
+   "nation": "France",
+   "tkm": 773
+  },
+  {
+   "y": 1982,
+   "n": 23,
+   "dist": 3507,
+   "avg": 152.5,
+   "speed": 38.06,
+   "abroad": 4,
+   "winner": "Bernard Hinault",
+   "nation": "France",
+   "tkm": 1702
+  },
+  {
+   "y": 1983,
+   "n": 23,
+   "dist": 3809,
+   "avg": 165.6,
+   "speed": 36.23,
+   "abroad": 0,
+   "winner": "Laurent Fignon",
+   "nation": "France",
+   "tkm": 612
+  },
+  {
+   "y": 1984,
+   "n": 24,
+   "dist": 4021,
+   "avg": 167.5,
+   "speed": 35.88,
+   "abroad": 2,
+   "winner": "Laurent Fignon",
+   "nation": "France",
+   "tkm": 472
+  },
+  {
+   "y": 1985,
+   "n": 24,
+   "dist": 4109,
+   "avg": 171.2,
+   "speed": 36.23,
+   "abroad": 0,
+   "winner": "Bernard Hinault",
+   "nation": "France",
+   "tkm": 241
+  },
+  {
+   "y": 1986,
+   "n": 24,
+   "dist": 4094,
+   "avg": 170.6,
+   "speed": 37.02,
+   "abroad": 0,
+   "winner": "Greg Lemond",
+   "nation": "United States",
+   "tkm": 382
+  },
+  {
+   "y": 1987,
+   "n": 26,
+   "dist": 4231,
+   "avg": 162.7,
+   "speed": 36.64,
+   "abroad": 6,
+   "winner": "Stephen Roche",
+   "nation": "Ireland",
+   "tkm": 1260
+  },
+  {
+   "y": 1988,
+   "n": 23,
+   "dist": 3286,
+   "avg": 142.9,
+   "speed": 38.9,
+   "abroad": 0,
+   "winner": "Pedro Delgado",
+   "nation": "Spain",
+   "tkm": 852
+  },
+  {
+   "y": 1989,
+   "n": 22,
+   "dist": 3285,
+   "avg": 149.3,
+   "speed": 37.48,
+   "abroad": 5,
+   "winner": "Greg Lemond",
+   "nation": "United States",
+   "tkm": 897
+  },
+  {
+   "y": 1990,
+   "n": 22,
+   "dist": 3504,
+   "avg": 159.3,
+   "speed": 38.62,
+   "abroad": 2,
+   "winner": "Greg Lemond",
+   "nation": "United States",
+   "tkm": 660
+  },
+  {
+   "y": 1991,
+   "n": 23,
+   "dist": 3914,
+   "avg": 170.2,
+   "speed": 38.74,
+   "abroad": 2,
+   "winner": "Miguel Indurain",
+   "nation": "Spain",
+   "tkm": 849
+  },
+  {
+   "y": 1992,
+   "n": 22,
+   "dist": 3983,
+   "avg": 181.0,
+   "speed": 39.5,
+   "abroad": 10,
+   "winner": "Miguel Indurain",
+   "nation": "Spain",
+   "tkm": 853
+  },
+  {
+   "y": 1993,
+   "n": 21,
+   "dist": 3714,
+   "avg": 176.9,
+   "speed": 38.71,
+   "abroad": 2,
+   "winner": "Miguel Indurain",
+   "nation": "Spain",
+   "tkm": 670
+  },
+  {
+   "y": 1994,
+   "n": 22,
+   "dist": 3978,
+   "avg": 180.8,
+   "speed": 38.38,
+   "abroad": 2,
+   "winner": "Miguel Indurain",
+   "nation": "Spain",
+   "tkm": 429
+  },
+  {
+   "y": 1995,
+   "n": 21,
+   "dist": 3635,
+   "avg": 173.1,
+   "speed": 39.19,
+   "abroad": 3,
+   "winner": "Miguel Indurain",
+   "nation": "Spain",
+   "tkm": 840
+  },
+  {
+   "y": 1996,
+   "n": 22,
+   "dist": 3765,
+   "avg": 171.1,
+   "speed": 39.24,
+   "abroad": 7,
+   "winner": "Bjarne Riis",
+   "nation": "Denmark",
+   "tkm": 746
+  },
+  {
+   "y": 1997,
+   "n": 22,
+   "dist": 3950,
+   "avg": 179.5,
+   "speed": 39.3,
+   "abroad": 4,
+   "winner": "Jan Ullrich",
+   "nation": "Germany",
+   "tkm": 732
+  },
+  {
+   "y": 1998,
+   "n": 22,
+   "dist": 3875,
+   "avg": 176.1,
+   "speed": 41.74,
+   "abroad": 5,
+   "winner": "Marco Pantani",
+   "nation": "Italy",
+   "tkm": 1032
+  },
+  {
+   "y": 1999,
+   "n": 21,
+   "dist": 3870,
+   "avg": 184.3,
+   "speed": null,
+   "abroad": 2,
+   "winner": null,
+   "nation": null,
+   "tkm": 955
+  },
+  {
+   "y": 2000,
+   "n": 21,
+   "dist": 3662,
+   "avg": 174.4,
+   "speed": null,
+   "abroad": 3,
+   "winner": null,
+   "nation": null,
+   "tkm": 542
+  },
+  {
+   "y": 2001,
+   "n": 21,
+   "dist": 3458,
+   "avg": 164.7,
+   "speed": null,
+   "abroad": 3,
+   "winner": null,
+   "nation": null,
+   "tkm": 496
+  },
+  {
+   "y": 2002,
+   "n": 21,
+   "dist": 3278,
+   "avg": 156.1,
+   "speed": null,
+   "abroad": 3,
+   "winner": null,
+   "nation": null,
+   "tkm": 1025
+  },
+  {
+   "y": 2003,
+   "n": 21,
+   "dist": 3427,
+   "avg": 163.2,
+   "speed": null,
+   "abroad": 0,
+   "winner": null,
+   "nation": null,
+   "tkm": 919
+  },
+  {
+   "y": 2004,
+   "n": 21,
+   "dist": 3391,
+   "avg": 161.5,
+   "speed": null,
+   "abroad": 4,
+   "winner": null,
+   "nation": null,
+   "tkm": 1403
+  },
+  {
+   "y": 2005,
+   "n": 21,
+   "dist": 3593,
+   "avg": 171.1,
+   "speed": null,
+   "abroad": 2,
+   "winner": null,
+   "nation": null,
+   "tkm": 1482
+  },
+  {
+   "y": 2006,
+   "n": 21,
+   "dist": 3657,
+   "avg": 174.1,
+   "speed": 40.78,
+   "abroad": 3,
+   "winner": "Oscar Pereiro Sio",
+   "nation": "Spain",
+   "tkm": 1188
+  },
+  {
+   "y": 2007,
+   "n": 21,
+   "dist": 3570,
+   "avg": 170.0,
+   "speed": 39.23,
+   "abroad": 4,
+   "winner": "Alberto Contador",
+   "nation": "Spain",
+   "tkm": 863
+  },
+  {
+   "y": 2008,
+   "n": 21,
+   "dist": 3559,
+   "avg": 169.5,
+   "speed": 40.5,
+   "abroad": 1,
+   "winner": "Carlos Sastre",
+   "nation": "Spain",
+   "tkm": 730
+  },
+  {
+   "y": 2009,
+   "n": 21,
+   "dist": 3460,
+   "avg": 164.8,
+   "speed": 40.32,
+   "abroad": 7,
+   "winner": "Alberto Contador",
+   "nation": "Spain",
+   "tkm": 745
+  },
+  {
+   "y": 2010,
+   "n": 21,
+   "dist": 3642,
+   "avg": 173.4,
+   "speed": 39.59,
+   "abroad": 4,
+   "winner": "Andy Schleck",
+   "nation": "Luxembourg",
+   "tkm": 842
+  },
+  {
+   "y": 2011,
+   "n": 21,
+   "dist": 3630,
+   "avg": 172.9,
+   "speed": 42.11,
+   "abroad": 2,
+   "winner": "Cadel Evans",
+   "nation": "Australia",
+   "tkm": 1211
+  },
+  {
+   "y": 2012,
+   "n": 21,
+   "dist": 3497,
+   "avg": 166.5,
+   "speed": 39.93,
+   "abroad": 4,
+   "winner": "Bradley Wiggins",
+   "nation": "United Kingdom",
+   "tkm": 1230
+  },
+  {
+   "y": 2013,
+   "n": 21,
+   "dist": 3404,
+   "avg": 162.1,
+   "speed": 40.55,
+   "abroad": 0,
+   "winner": "Chris Froome",
+   "nation": "United Kingdom",
+   "tkm": 1495
+  },
+  {
+   "y": 2014,
+   "n": 21,
+   "dist": 3659,
+   "avg": 174.2,
+   "speed": 40.66,
+   "abroad": 4,
+   "winner": "Vincenzo Nibali",
+   "nation": "Italy",
+   "tkm": 1190
+  },
+  {
+   "y": 2015,
+   "n": 21,
+   "dist": 3354,
+   "avg": 159.7,
+   "speed": 39.57,
+   "abroad": 4,
+   "winner": "Chris Froome",
+   "nation": "United Kingdom",
+   "tkm": 1436
+  },
+  {
+   "y": 2016,
+   "n": 21,
+   "dist": 3525,
+   "avg": 167.9,
+   "speed": 39.57,
+   "abroad": 4,
+   "winner": "Chris Froome",
+   "nation": "United Kingdom",
+   "tkm": 863
+  },
+  {
+   "y": 2017,
+   "n": 21,
+   "dist": 3540,
+   "avg": 168.6,
+   "speed": 41.0,
+   "abroad": 4,
+   "winner": "Chris Froome",
+   "nation": "United Kingdom",
+   "tkm": 1424
+  },
+  {
+   "y": 2018,
+   "n": 21,
+   "dist": 3349,
+   "avg": 159.5,
+   "speed": 40.21,
+   "abroad": 0,
+   "winner": "Geraint Thomas",
+   "nation": "United Kingdom",
+   "tkm": 2128
+  },
+  {
+   "y": 2019,
+   "n": 21,
+   "dist": 3366,
+   "avg": 160.3,
+   "speed": 40.58,
+   "abroad": 3,
+   "winner": "Egan Bernal Gomez",
+   "nation": "Colombia",
+   "tkm": 1231
+  },
+  {
+   "y": 2020,
+   "n": 21,
+   "dist": 3483,
+   "avg": 165.9,
+   "speed": 39.88,
+   "abroad": 0,
+   "winner": "Tadej Pogacar",
+   "nation": "Slovenia",
+   "tkm": 340
+  },
+  {
+   "y": 2021,
+   "n": 21,
+   "dist": 3383,
+   "avg": 161.1,
+   "speed": 40.79,
+   "abroad": 2,
+   "winner": "Tadej Pogacar",
+   "nation": "Slovenia",
+   "tkm": 1527
+  },
+  {
+   "y": 2022,
+   "n": 21,
+   "dist": 3328,
+   "avg": 158.5,
+   "speed": 41.83,
+   "abroad": 6,
+   "winner": "Jonas Vingegaard Hansen",
+   "nation": "Denmark",
+   "tkm": 1300
+  },
+  {
+   "y": 2023,
+   "n": 21,
+   "dist": 3404,
+   "avg": 162.1,
+   "speed": 41.46,
+   "abroad": 3,
+   "winner": "Jonas Vingegaard Hansen",
+   "nation": "Denmark",
+   "tkm": 1123
+  },
+  {
+   "y": 2024,
+   "n": 21,
+   "dist": 3492,
+   "avg": 166.3,
+   "speed": 41.75,
+   "abroad": 5,
+   "winner": "Tadej Pogacar",
+   "nation": "Slovenia",
+   "tkm": 630
+  },
+  {
+   "y": 2025,
+   "n": 21,
+   "dist": 3323,
+   "avg": 158.2,
+   "speed": 43.72,
+   "abroad": 0,
+   "winner": "Tadej Pogacar",
+   "nation": "Slovenia",
+   "tkm": 1770
+  },
+  {
+   "y": 2026,
+   "n": 21,
+   "dist": 3333,
+   "avg": 158.7,
+   "speed": 45.08,
+   "abroad": 3,
+   "winner": "Tadej Pogacar",
+   "nation": "Slovenia",
+   "tkm": 1374
+  }
+ ],
+ "meta": {
+  "page": "https://maps.tristanhotham.com/tour-de-france/",
+  "repo": "https://github.com/Tristan-Hotham/tour-de-france",
+  "doi": "10.5281/zenodo.23873013",
+  "blog": "https://blog.tristanhotham.com/2026/10/31/tour-de-france/",
+  "slug": "tour-de-france",
+  "ltd": "https://github.com/thomascamminady/LeTourDataSet"
+ }
+}
