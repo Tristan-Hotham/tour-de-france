@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this data or code, please cite it as below."
+title: "The Shape of the Tour: Every Stage of the Tour de France, 1903 to 2026, Mapped from Start to Finish"
+type: dataset
+authors:
+  - family-names: Hotham
+    given-names: Tristan
+    orcid: "https://orcid.org/0000-0003-4931-9349"
+    affiliation: "Independent researcher"
+doi: "10.5281/zenodo.23873013"
+url: "https://maps.tristanhotham.com/tour-de-france/"
+repository-code: "https://github.com/Tristan-Hotham/tour-de-france"
+license: CC-BY-4.0
+keywords:
+  - "Tour de France"
+  - "cycling"
+  - "sport geography"
+  - "historical GIS"
+  - "geocoding"
+  - "GeoNames"
+  - "route maps"
+  - "open data"
+  - "maps"
